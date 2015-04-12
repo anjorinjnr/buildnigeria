@@ -1,0 +1,8 @@
+[
+  "bower_components/jquery/dist/jquery.min.js",
+  "bower_components/requirejs/require.js",
+  "bower_components/angular/angular.min.js",
+  "bower_components/angular/angular-resource.min.js",
+  "bower_components/angular-ui-router/release/angular-ui-router.min.js",
+  "bower_components/lodash/lodash.min.js"
+]
