@@ -1,4 +1,4 @@
-<?php namespace App\Commands;
+<?php namespace BuildNigeria\Commands;
 
 abstract class Command {
 

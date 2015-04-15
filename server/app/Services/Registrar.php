@@ -1,6 +1,6 @@
-<?php namespace App\Services;
+<?php namespace BuildNigeria\Services;
 
-use App\User;
+use BuildNigeria\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 

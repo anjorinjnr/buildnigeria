@@ -3,8 +3,14 @@
  */
 define(function () {
 
-    var MainCtrl = function () {
-        this.name = 'Main Controller';
+    var MainCtrl = function (authService) {
+        this.authService = authService;
     };
+    MainCtrl.prototype.signUpWithFacebook = function(){
+        this.authService.loginWithFacebook();
+
+    };
+
+    MainCtrl.inject = ['authService'];
     return MainCtrl;
 });

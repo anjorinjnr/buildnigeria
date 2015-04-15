@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace BuildNigeria;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -30,5 +30,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 * @var array
 	 */
 	protected $hidden = ['password', 'remember_token'];
+
+    public function ideas() {
+        return $this->hasMany('BuildNigeria\Idea');
+    }
+    public function comments() {
+        return $this->hasMany('BuildNigeria\Comment');
+    }
 
 }

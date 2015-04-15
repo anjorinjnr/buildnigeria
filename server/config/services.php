@@ -30,9 +30,15 @@ return [
 	],
 
 	'stripe' => [
-		'model'  => 'App\User',
+		'model'  => 'BuildNigeria\User',
 		'key' => '',
 		'secret' => '',
 	],
+
+    'facebook' => [
+        'client_id' => getenv('FACEBOOK_CLIENT_ID'),
+        'client_secret' => getenv('FACEBOOK_CLIENT_SECRET'),
+        'redirect' => getenv('FACEBOOK_CALLBACK_URL'),
+    ],
 
 ];

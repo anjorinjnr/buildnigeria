@@ -1,4 +1,4 @@
-<?php namespace App\Events;
+<?php namespace BuildNigeria\Events;
 
 abstract class Event {
 
