@@ -6,24 +6,25 @@ define(['components/auth/auth-service'], function (authService) {
     var StateConfig = function ($stateProvider, $urlRouterProvider) {
 
         $stateProvider
-
-            // setup an abstract state for the tabs directive
-            .state('index', {
-                url: '/',
-                templateUrl: 'main/main.html',
-                controller: 'MainCtrl as mainCtrl'
-            })
-
+		
+			.state ('home', {
+			
+			})
+			
             .state('facebookcallback', {
                 url: '/oauth/callback/fb',
                 controller: authService.facebookCallback
             })
+			
             .state('login', {
                 url: '/login',
-                templateUrl: 'login/login.html'
-                // controller: 'LoginCtrl as loginCtrl'
+                templateUrl: 'login/login.html',
+                controller: 'LoginCtrl as loginCtrl'
             });
-
+		
+		// redirect from base route to login
+		$urlRouterProvider.when('', '/login');
+		
         $urlRouterProvider.otherwise('/');
 
     };
