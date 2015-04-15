@@ -6,9 +6,16 @@ define(['components/auth/auth-service'], function (authService) {
     var StateConfig = function ($stateProvider, $urlRouterProvider) {
 
         $stateProvider
-		
-			.state ('home', {
+			.state('main', {
+				abstract: true,
+				templateUrl: 'main/main.html'
+			})
 			
+			.state ('home', {
+				url: '/home',
+				controller: 'HomeCtrl as homeCtrl',
+				parent: 'main',
+				templateUrl: 'home/home.html'
 			})
 			
             .state('facebookcallback', {
