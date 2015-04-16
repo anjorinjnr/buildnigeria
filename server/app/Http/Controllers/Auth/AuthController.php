@@ -45,7 +45,7 @@ class AuthController extends Controller {
     }
 
     public function getFacebookCallback() {
-        return Socialite::with('facebook')->user();
+        dd(Socialite::with('facebook')->user());
     }
 
 
