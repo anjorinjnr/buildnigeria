@@ -3,8 +3,13 @@
  */
 define(function () {
 
-    var LoginCtrl = function () {
-        this.name = 'Login Controller';
+    var LoginCtrl = function (authService) {
+        this.authService = authService;
     };
+	LoginCtrl.prototype.signUpWithFacebook = function() {
+		this.authService.loginWithFacebook();
+	};
+	
+	LoginCtrl.inject = ['authService'];
     return LoginCtrl;
 });
