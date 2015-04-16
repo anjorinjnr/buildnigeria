@@ -6,6 +6,6 @@ define(function () {
     var HomeCtrl = function () {
        
     };
-   
-    return MainCtrl;
+    
+    return HomeCtrl;
 });
