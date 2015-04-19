@@ -11,20 +11,21 @@
 
         <p>If you are passionate about Nigera and believe now is the time for CHANGE. Sign up today and post your BIG bold ideas for the new Nigeria.</p>
 
-        <form class="m-t" role="form" action="#" style="margin-bottom:30px">
-            <a ng-click="loginCtrl.signUpWithFacebook()" class="btn btn-block btn-social btn-facebook">
-                <i class="fa fa-facebook"></i> Sign Up with Facebook
-            </a>
-            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-            </fb:login-button>
-        </form>
-		<form class="m-t" role="form" action="#" style="margin-bottom:30px">
-            <a ng-click="loginCtrl.signUpWithFacebook()" class="btn btn-block btn-social btn-facebook">
-                <i class="fa fa-facebook"></i> Log in with Facebook
-            </a>
-            <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-            </fb:login-button>
-        </form>
+        <div style="margin-top: 30px">
+            <form class="m-t" role="form" action="#" style="margin-bottom:30px">
+                <a ng-click="loginCtrl.signUpWithFacebook()" class="btn btn-block btn-social btn-facebook">
+                    <i class="fa fa-facebook"></i> Sign Up with Facebook
+                </a>
+
+            </form>
+            <form class="m-t" role="form" action="#" style="margin-bottom:30px">
+                <a ng-click="loginCtrl.signUpWithFacebook()" class="btn btn-block btn-social btn-facebook">
+                    <i class="fa fa-facebook"></i> Log in with Facebook
+                </a>
+
+            </form>
+        </div>
+
 		<p class="text-muted text-center"><small><a href="#">About</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Privacy</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Terms</a></small></p>
         <p class="m-t">
             <small>BuildNigeria &copy; 2014</small>

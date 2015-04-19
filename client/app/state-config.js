@@ -17,11 +17,7 @@ define(['components/auth/auth-service'], function (authService) {
 				parent: 'main',
 				templateUrl: 'home/home.html'
 			})
-			
-            .state('facebookcallback', {
-                url: '/oauth/callback/fb',
-                controller: authService.facebookCallback
-            })
+
 			
             .state('login', {
                 url: '/login',
