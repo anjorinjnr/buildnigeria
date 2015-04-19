@@ -33,8 +33,7 @@ class AuthControllerTest extends DbTestCase {
             ->getMock();
         $this->app->bind('Laravel\Socialite\SocialiteManager', function () use ($socialite) {
             return $socialite;
-        });
-
+        });xw
 
         $this->action('GET', 'Auth\AuthController@getFacebookCallback');
 
