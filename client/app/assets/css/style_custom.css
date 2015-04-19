@@ -1,0 +1,32 @@
+.navbar-form-custom {
+   height: 20px;
+   width: 400px;
+}
+
+.form-group #top-search {
+    height: 50px;
+}
+
+.navbar-nav .label-info {
+    position: relative;
+    top: 2px;
+}
+
+.idea-element img.img-circle {
+    width: 38px;
+    height: 38px;
+}
+
+.idea-header {
+    overflow: auto;
+}
+
+.idea-body {
+    clear: both;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.idea-body .idea-problem {
+    color: #676a6c;
+}

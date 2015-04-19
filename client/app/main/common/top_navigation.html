@@ -7,48 +7,24 @@
             <a href="#" class="navbar-brand">BuildNigeria</a>
         </div>
         <div class="navbar-collapse collapse" id="navbar">
+			<form role="search" class="navbar-form-custom" method="post" action="">
+				<div class="form-group">
+					<input type="text" placeholder="Search" class="form-control" name="top-search" id="top-search" />
+				</div>
+			</form>
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a ui-sref="layouts" href="#" > Back to main Layout page </a>
-
+                    <a ui-sref="home" href="#" >Home</a>
                 </li>
-                <li class="dropdown" dropdown>
-                    <a class="dropdown-toggle" href dropdown-toggle> Menu item <span class="caret"></span></a>
-                    <ul role="menu" class="dropdown-menu">
-                        <li><a href="#">Menu item</a></li>
-                        <li><a href="#">Menu item</a></li>
-                        <li><a href="#">Menu item</a></li>
-                        <li><a href="#">Menu item</a></li>
-                    </ul>
+				<li>
+					<a ui-sref="profile" href="#">Profile</a>
+				</li>
+				<li>
+					<a ui-sref="share" href="#">Share an Idea</a>
+				</li>
+                <li>
+                    <a ui-sref="drafts" href="#"><span>Drafts</span>&nbsp;&nbsp;<span class="label label-info pull-right">3</a>
                 </li>
-                <li class="dropdown" dropdown>
-                    <a class="dropdown-toggle" href dropdown-toggle> Menu item <span class="caret"></span></a>
-                    <ul role="menu" class="dropdown-menu">
-                        <li><a href="#">Menu item</a></li>
-                        <li><a href="#">Menu item</a></li>
-                        <li><a href="#">Menu item</a></li>
-                        <li><a href="#">Menu item</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown" dropdown>
-                    <a class="dropdown-toggle" href dropdown-toggle> Menu item <span class="caret"></span></a>
-                    <ul role="menu" class="dropdown-menu">
-                        <li><a href="#">Menu item</a></li>
-                        <li><a href="#">Menu item</a></li>
-                        <li><a href="#">Menu item</a></li>
-                        <li><a href="#">Menu item</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown" dropdown>
-                    <a class="dropdown-toggle" href dropdown-toggle> Menu item <span class="caret"></span></a>
-                    <ul role="menu" class="dropdown-menu">
-                        <li><a href="#">Menu item</a></li>
-                        <li><a href="#">Menu item</a></li>
-                        <li><a href="#">Menu item</a></li>
-                        <li><a href="#">Menu item</a></li>
-                    </ul>
-                </li>
-
             </ul>
             <ul class="nav navbar-top-links navbar-right">
                 <li>

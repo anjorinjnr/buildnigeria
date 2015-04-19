@@ -2,6 +2,7 @@ define(['angular',
         './state-config',
         'main/main-ctrl',
         'login/login-ctrl',
+		'home/home-ctrl',
         'components/auth/auth-service',
         //'angularMaterial',
         'uiRouter', 'angularResource'],
@@ -9,6 +10,7 @@ define(['angular',
               StateConfig,
               MainCtrl,
               LoginCtrl,
+			  HomeCtrl,
               AuthService) {
 
         var app = angular.module(
@@ -21,6 +23,7 @@ define(['angular',
         app.config(StateConfig)
             .controller('MainCtrl', MainCtrl)
             .controller('LoginCtrl', LoginCtrl)
+			.controller('HomeCtrl', HomeCtrl)
             .service('authService', AuthService)
 
 

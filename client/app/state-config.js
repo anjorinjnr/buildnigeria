@@ -11,13 +11,24 @@ define(['components/auth/auth-service'], function (authService) {
 				templateUrl: 'main/main.html'
 			})
 			
-			.state ('home', {
+			.state('home', {
 				url: '/home',
 				controller: 'HomeCtrl as homeCtrl',
 				parent: 'main',
 				templateUrl: 'home/home.html'
 			})
-
+            
+            .state('idea-detail', {
+                url: "/ideas/:ideaId",
+                templateUrl: 'ideas/idea.html',
+                parent: 'main',
+                controller: 'IdeaCtrl as ideaCtrl'
+            })
+			
+            .state('facebookcallback', {
+                url: '/oauth/callback/fb',
+                controller: authService.facebookCallback
+            })
 			
             .state('login', {
                 url: '/login',
