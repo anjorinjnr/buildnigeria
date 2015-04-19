@@ -31,7 +31,12 @@ class UserTest extends DbTestCase {
     public function test_signup_creates_account() {
         $userData = Factory::build('BuildNigeria\User');
         $user = $this->app->make('BuildNigeria\User');
-        $newUser = $user->signUpOrLogin($userData->toArray());
+        $data = $userData->toArray();
+        $newUser = $user->signUpOrLogin($data);
+        foreach ($data as $key => $val) {
+            //echo PHP_EOL. $key . ': ' . $val . ' == ' . $newUser->{$key};
+            $this->assertEquals($val, $newUser->{$key});
+        }
         $this->assertNotNull($newUser);
     }
 

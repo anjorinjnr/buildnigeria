@@ -4,21 +4,24 @@ use BuildNigeria\Http\Controllers\Controller;
 use BuildNigeria\Services\UserService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Redirect;
-use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Routing\Redirector;
+use Laravel\Socialite\SocialiteManager;
 
 class AuthController extends Controller implements SocialLoginHandler {
 
 
     protected $userService;
+    protected $socialite;
+    protected $redirector;
 
-    public function __construct(UserService $userService) {
+    public function __construct(UserService $userService, SocialiteManager $socialite, Redirector $redirector) {
         $this->userService = $userService;
+        $this->socialite = $socialite;
+        $this->redirector = $redirector;
     }
 
     public function getLoginWithFacebook() {
-        $redirect = Socialite::with('facebook')->redirect();
+        $redirect = $this->socialite->with('facebook')->redirect();
         //all this madness of reaching into the ResponseBag object to get the headers
         //is to add &display=popup to the redirect url.
         $headers = $redirect->headers->all();
@@ -27,16 +30,16 @@ class AuthController extends Controller implements SocialLoginHandler {
     }
 
     public function socialSuccessLoginRedirect($userToken) {
-        return Redirect::away(getenv('APP_LOGIN_REDIRECT'))->with(['ut' => $userToken]);
+        return $this->redirector->away(getenv('APP_LOGIN_REDIRECT') . "?ut=$userToken");
     }
 
     public function socialFailureLoginRedirect() {
-        return Redirect::away(getenv('APP_LOGIN_REDIRECT'));
+        return $this->redirector->away(getenv('APP_LOGIN_REDIRECT'));
     }
 
     public function getFacebookCallback() {
         try {
-            $fbUser = Socialite::with('facebook')->user();
+            $fbUser = $this->socialite->with('facebook')->user();
             $data = [
                 'email' => $fbUser->email,
                 'name' => $fbUser->name,
@@ -44,7 +47,6 @@ class AuthController extends Controller implements SocialLoginHandler {
                 'fb_token' => $fbUser->token,
                 'fb_id' => $fbUser->id
             ];
-            Log::info($data);
             return $this->userService->signUpWithFacebook($data, $this);
 
         } catch (Exception $ex) {
