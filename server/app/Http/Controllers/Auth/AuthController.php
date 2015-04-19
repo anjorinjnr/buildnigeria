@@ -4,6 +4,7 @@ use BuildNigeria\Http\Controllers\Controller;
 use BuildNigeria\Services\UserService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -43,6 +44,7 @@ class AuthController extends Controller implements SocialLoginHandler {
                 'fb_token' => $fbUser->token,
                 'fb_id' => $fbUser->id
             ];
+            Log::info($data);
             return $this->userService->signUpWithFacebook($data, $this);
 
         } catch (Exception $ex) {
