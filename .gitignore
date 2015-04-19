@@ -2,3 +2,5 @@
 .env.*.php
 .env.php
 .env
+client/app/bower_components
+server/vendor
