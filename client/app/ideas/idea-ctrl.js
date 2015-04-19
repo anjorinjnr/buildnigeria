@@ -6,7 +6,7 @@ define(function () {
     var IdeaCtrl = function ($stateParams) {
        
     };
-    
-    ideaCtrl.$inject = ['$stateParams'];
+
+    IdeaCtrl.$inject = ['$stateParams'];
     return IdeaCtrl;
 });

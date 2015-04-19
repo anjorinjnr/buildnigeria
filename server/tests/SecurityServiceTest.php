@@ -14,6 +14,7 @@ class SecurityServiceTest extends DbTestCase {
         $securityService = $this->app->make('BuildNigeria\Services\SecurityService');
         $this->assertNull($user->user_token);
         $securityService->issueUserToken($user);
+        //echo $user->user_token;
         $this->assertNotNull($user->user_token);
     }
 }

@@ -2,29 +2,33 @@ define(['angular',
         './state-config',
         'main/main-ctrl',
         'login/login-ctrl',
-		'home/home-ctrl',
+        'home/home-ctrl',
+        'ideas/idea-ctrl',
         'components/auth/auth-service',
         //'angularMaterial',
-        'uiRouter', 'angularResource'],
+        'uiRouter', 'angularResource', 'angularCookies'],
     function (angular,
               StateConfig,
               MainCtrl,
               LoginCtrl,
-			  HomeCtrl,
+              HomeCtrl,
+              IdeaCtrl,
               AuthService) {
 
         var app = angular.module(
             'buildnigeria.web',
             [
                 //  'ngMaterial',
+                'ngCookies',
                 'ui.router',
                 'ngResource'
             ]);
         app.config(StateConfig)
             .controller('MainCtrl', MainCtrl)
             .controller('LoginCtrl', LoginCtrl)
-			.controller('HomeCtrl', HomeCtrl)
-            .service('authService', AuthService)
+            .controller('HomeCtrl', HomeCtrl)
+            .controller('IdeaCtrl', IdeaCtrl)
+            .service('authService', AuthService);
 
 
         app.run(['$state', '$stateParams', '$location', '$rootScope', function () {

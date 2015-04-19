@@ -2,6 +2,7 @@ requirejs.config({
     paths: {
         angular: 'bower_components/angular/angular.min',
         angularResource: 'bower_components/angular-resource/angular-resource.min',
+        angularCookies: 'bower_components/angular-cookies/angular-cookies.min',
         angularAria: 'bower_components/angular-aria/angular-aria.min',
         angularAnimate: 'bower_components/angular-animate/angular-animate',
         angularMaterial: 'bower_components/angular-material/angular-material.min',
@@ -12,6 +13,7 @@ requirejs.config({
     shim: {
         angular: {exports: 'angular'},
         angularResource: {deps: ['angular']},
+        angularCookies: {deps: ['angular']},
         angularMaterial: {deps: ['angularAria', 'angularAnimate']},
         angularAria: {deps: ['angular']},
         angularAnimate: {deps: ['angular']},
