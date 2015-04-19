@@ -45,5 +45,6 @@ define(function () {
     };
 
     AuthService.$inject = ['API_PATH', '$cookieStore', '$rootScope'];
+    
     return AuthService;
 });

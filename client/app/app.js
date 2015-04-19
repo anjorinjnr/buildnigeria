@@ -1,3 +1,4 @@
+var APP_VER =  0.5;
 define(['angular',
         './state-config',
         'main/main-ctrl',

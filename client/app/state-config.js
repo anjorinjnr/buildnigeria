@@ -1,7 +1,7 @@
 /**
  * Created by eanjorin on 4/7/15.
  */
-define(['components/auth/auth-service'], function (authService) {
+define(function () {
     var StateConfig = function ($stateProvider, $urlRouterProvider) {
 
         $stateProvider
@@ -26,7 +26,7 @@ define(['components/auth/auth-service'], function (authService) {
 
             .state('oauth-callback', {
                 url: '/oauth',
-                controller: ['$location', function ($location) {
+                controller: ['$location', 'authService', function ($location, authService) {
                     var token = $location.search().ut;
                     if (token) {
                         if (window.opener != null) {
