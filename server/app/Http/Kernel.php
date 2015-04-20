@@ -27,6 +27,7 @@ class Kernel extends HttpKernel {
 		'auth' => 'BuildNigeria\Http\Middleware\Authenticate',
 		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
 		'guest' => 'BuildNigeria\Http\Middleware\RedirectIfAuthenticated',
+        'cors'=> 'BuildNigeria\Http\Middleware\CorsMiddleware'
 	];
 
 }

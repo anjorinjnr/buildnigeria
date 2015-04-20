@@ -4,17 +4,61 @@
 define(function () {
     var StateConfig = function ($stateProvider, $urlRouterProvider) {
 
+        var resolves = {
+            //return user data, if user is logged in
+            loggedInUser: ['userService', '$cookieStore', 'authService', '$q', '$state',
+                function (userService, $cookieStore, authService, $q, $state) {
+                    var userPromise = $q.defer();
+                    //check if session information exist, and query user information
+                    var session = authService.getSession();
+                    if (session) {
+                        userService.get({'user_token': session.user_token}, function (user) {
+                            if (user) {
+                                userPromise.resolve(user);
+                                authService.setCurrentUser(user);
+                            } else {
+                                userPromise.resolve(null);
+                            }
+                        });
+                    } else {
+                        userPromise.resolve(null);
+                    }
+                    return userPromise.promise;
+                }],
+            ideas: function () {
+                //@todo
+
+            },
+            categories: function () {
+                //@todo
+
+            }
+
+        };
+
+
         $stateProvider
             .state('main', {
                 abstract: true,
                 templateUrl: 'main/main.html'
             })
 
+            .state('logout', {
+                url: '/logout'
+            })
+
             .state('home', {
                 url: '/home',
                 controller: 'HomeCtrl as homeCtrl',
                 parent: 'main',
-                templateUrl: 'home/home.html'
+                templateUrl: 'home/home.html',
+                resolve: {
+                    user: resolves.loggedInUser
+                },
+                data: {
+                    public: false
+                }
+
             })
 
             .state('idea-detail', {
@@ -50,15 +94,16 @@ define(function () {
             })
 
             .state('login', {
-                url: '/login',
+                url: '/',
                 templateUrl: 'login/login.html',
-                controller: 'LoginCtrl as loginCtrl'
+                controller: 'LoginCtrl as loginCtrl',
+                data: {
+                    public: true
+                }
             });
 
-        // redirect from base route to login
-        $urlRouterProvider.when('', '/login');
-
         $urlRouterProvider.otherwise('/');
+
 
     };
     StateConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
