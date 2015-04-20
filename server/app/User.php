@@ -32,7 +32,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = ['password', 'remember_token', 'user_token_expires_at',
+        'fb_id', 'fb_token'];
 
     public function ideas() {
         return $this->hasMany('BuildNigeria\Idea');

@@ -20,6 +20,12 @@ class UserService {
         $this->securityService = $securityService;
     }
 
+    public function getUser($userToken) {
+        return $this->user->where('user_token', $userToken)
+            ->whereRaw('user_token_expires_at >= now()')
+            ->first();
+    }
+
     public function signUpWithFacebook($data, SocialLoginHandler $loginHandler) {
 
         $user = $this->user->signUpOrLogin($data);

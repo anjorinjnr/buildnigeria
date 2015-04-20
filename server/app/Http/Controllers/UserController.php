@@ -1,84 +1,38 @@
 <?php namespace BuildNigeria\Http\Controllers;
 
 use BuildNigeria\Http\Requests;
-use BuildNigeria\Http\Controllers\Controller;
-
+use BuildNigeria\Services\UserService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		return [123];
-	}
+    private $userService;
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
+    public function __construct(UserService $userService) {
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
+        $this->userService = $userService;
+    }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
+    public function getUserByToken(Request $request) {
+        $userToken = $request->get('user_token');
+        $user = $this->userService->getUser($userToken);
+        if ($user) {
+            return $user->toJson();
+        }
+        return [];
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
+    public function all() {
 
+    }
+
+    public function create() {
+
+    }
+
+    public function update() {
+
+    }
 }

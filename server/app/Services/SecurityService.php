@@ -64,4 +64,5 @@ class SecurityService {
             throw new UnauthorizedAccessException("Unauthorized request, invalid user token.", self::INVALID_USER_TOKEN_CODE);
         }
     }
+
 }
