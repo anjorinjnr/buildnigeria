@@ -30,3 +30,18 @@
 .idea-body .idea-problem {
     color: #676a6c;
 }
+
+.login-form {
+    margin-top:0px;
+    margin-bottom:50px;
+    overflow:auto;
+}
+
+.remember-forgot {
+    overflow: auto;
+    margin-bottom: 10px;
+}
+
+.remember-forgot label {
+    font-weight: normal;
+}
