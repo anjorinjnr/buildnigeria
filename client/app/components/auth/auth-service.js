@@ -51,9 +51,11 @@ define(function () {
 
 
     AuthService.prototype.loginWithFacebook = function () {
+        var self = this;
         var url = this.API_PATH + 'auth/login-with-facebook';
-        window.authCallback = function () {
-            console.log('callback');
+        window.authCallback = function (token) {
+            console.log(token);
+            self.createSession(token);
             window.location.href = 'http://buildnigeria.com.ng/#/home';
         };
         window.open(url, '', 'width=400, height=300');

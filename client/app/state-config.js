@@ -56,7 +56,7 @@ define(function () {
                     user: resolves.loggedInUser
                 },
                 data: {
-                    public: true
+                    public: false
                 }
 
             })
@@ -70,16 +70,12 @@ define(function () {
 
             .state('oauth-callback', {
                 url: '/oauth',
-                controller: ['$location', 'authService', '$rootScope', function ($location, authService, $rootScope ) {
+                controller: ['$location', 'authService', '$rootScope', function ($location, authService, $rootScope) {
                     var token = $location.search().ut;
                     if (token) {
                         if (window.opener != null) {
-                            //authService.createSession(token.trim());
-                            //var url = window.location.origin + '/#/home';
+                            window.opener.authCallback(token.trim());
                             window.close();
-                            window.opener.authCallback();
-                            return;
-
                         } else {
                             window.location = window.location.origin + '/#/home';
                         }
