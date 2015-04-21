@@ -75,10 +75,9 @@ define(function () {
                     if (token) {
                         if (window.opener != null) {
                             authService.createSession(token.trim());
-                            var url = window.location.origin + '/#/home';
-                            window.opener.location = url;
-                            $rootScope.$broadcast('nt.loginsuccess');
-                           // window.close();
+                            //var url = window.location.origin + '/#/home';
+                            window.opener.location = 'http://buildnigeria.com.ng/#/home';
+                            window.close();
                         } else {
                             window.location = window.location.origin + '/#/home';
                         }
