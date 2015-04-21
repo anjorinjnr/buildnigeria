@@ -76,6 +76,7 @@ define(function () {
                         if (window.opener != null) {
                             authService.createSession(token.trim());
                             //var url = window.location.origin + '/#/home';
+                            window.opener.authCallback();
                             window.opener.location = 'http://buildnigeria.com.ng/#/home';
                             window.close();
                         } else {
