@@ -74,7 +74,7 @@ define(function () {
                     var token = $location.search().ut;
                     if (token) {
                         if (window.opener != null) {
-                            authService.createSession(token.trim());
+                            //authService.createSession(token.trim());
                             //var url = window.location.origin + '/#/home';
                             window.close();
                             window.opener.authCallback();
