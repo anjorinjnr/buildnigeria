@@ -75,8 +75,10 @@ define(function () {
                     if (token) {
                         if (window.opener != null) {
                             authService.createSession(token.trim());
-                            window.opener.location = window.location.origin + '/#/home';
-                            window.close();
+                            var url = window.location.origin + '/#/home';
+                            console.log(url);
+                            window.opener.location = url;
+                           // window.close();
                         } else {
                             window.location = window.location.origin + '/#/home';
                         }
