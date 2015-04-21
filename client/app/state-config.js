@@ -56,7 +56,7 @@ define(function () {
                     user: resolves.loggedInUser
                 },
                 data: {
-                    public: false
+                    public: true
                 }
 
             })
