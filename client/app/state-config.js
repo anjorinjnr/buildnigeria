@@ -70,15 +70,14 @@ define(function () {
 
             .state('oauth-callback', {
                 url: '/oauth',
-                controller: ['$location', 'authService', function ($location, authService) {
+                controller: ['$location', 'authService', '$rootScope', function ($location, authService, $rootScope ) {
                     var token = $location.search().ut;
                     if (token) {
                         if (window.opener != null) {
                             authService.createSession(token.trim());
                             var url = window.location.origin + '/#/home';
-                            op = window.opener;
-                            console.log(window.opener);
                             window.opener.location = url;
+                            $rootScope.$broadcast('nt.loginsuccess');
                            // window.close();
                         } else {
                             window.location = window.location.origin + '/#/home';
