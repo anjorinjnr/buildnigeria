@@ -76,7 +76,8 @@ define(function () {
                         if (window.opener != null) {
                             authService.createSession(token.trim());
                             var url = window.location.origin + '/#/home';
-                            console.log(url);
+                            op = window.opener;
+                            console.log(window.opener);
                             window.opener.location = url;
                            // window.close();
                         } else {
