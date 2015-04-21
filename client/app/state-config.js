@@ -78,6 +78,7 @@ define(function () {
                             //var url = window.location.origin + '/#/home';
                             window.close();
                             window.opener.authCallback();
+                            return;
 
                         } else {
                             window.location = window.location.origin + '/#/home';
