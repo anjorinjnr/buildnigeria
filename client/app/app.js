@@ -39,9 +39,6 @@ define(['angular',
             function ($state, $stateParams, $location, $rootScope, authService) {
                 $rootScope.authService = authService;
                 //authService.createSession('261b350e166beed992af9fa0c2f58296');
-                $rootScope.$on('nt.loginsuccess', function(){
-                    console.log('go home');
-                });
 
                 $rootScope.$on('$stateChangeStart', function (event, toState) {
 
