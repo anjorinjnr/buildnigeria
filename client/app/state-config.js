@@ -75,18 +75,18 @@ define(function () {
                     if (token) {
                         if (window.opener != null) {
                             authService.createSession(token.trim());
-                            window.opener.location = window.location.origin + '#/home';
+                            window.opener.location = window.location.origin + '/#/home';
                             window.close();
                         } else {
-                            window.location = window.location.origin + '#/home';
+                            window.location = window.location.origin + '/#/home';
                         }
                     } else {
                         if (window.opener != null) {
                             //@todo append param for login error
-                            window.opener.location = window.location.origin + '#/login';
+                            window.opener.location = window.location.origin + '/#/login';
                             window.close();
                         } else {
-                            window.location = window.location.origin + '#/login';
+                            window.location = window.location.origin + '/#/login';
                         }
                     }
 
