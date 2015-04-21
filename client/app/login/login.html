@@ -7,25 +7,40 @@
         </div>
         <h3>Welcome to BuildNigeria</h3>
 
-        <p>We created this platform for the best minds in Nigeria to contribute great ideas toward rebuilding our great country.</p>
+        <p>We created this platform for the best minds in Nigeria to contribute ideas toward rebuilding our great country.</p>
 
-        <p>If you are passionate about Nigera and believe now is the time for CHANGE. Sign up today and post your BIG bold ideas for the new Nigeria.</p>
+        <!--<p>If you are passionate about Nigeria and believe now is the time for CHANGE. Sign up today and post your BIG bold ideas for the new Nigeria.</p>-->
 
-        <div style="margin-top: 30px">
-            <form class="m-t" role="form" action="#" style="margin-bottom:30px">
-                <a ng-click="loginCtrl.signUpWithFacebook()" class="btn btn-block btn-social btn-facebook">
-                    <i class="fa fa-facebook"></i> Sign Up with Facebook
-                </a>
-
-            </form>
-            <form class="m-t" role="form" action="#" style="margin-bottom:30px">
+        <div style="margin-top: 20px">
+            <form class="m-t" role="form" action="#" style="">
                 <a ng-click="loginCtrl.signUpWithFacebook()" class="btn btn-block btn-social btn-facebook">
                     <i class="fa fa-facebook"></i> Log in with Facebook
-                </a>
-
+                </a><br/>
+                <p><small>Not a fan of social media? Fair enough, use your email.</small></p>
             </form>
         </div>
-
+        <div class="login-form" style="">
+            <form class="m-t" role="form" action="#" style="text-align:left;overflow:auto;margin-bottom:15px;">
+                <div class="form-group">
+                    <!--<label for="username">Username</label>-->
+                    <input type="text" class="form-control" id="username" placeholder="Username" required=""/>
+                </div>
+                <div class="form-group">
+                    <!--<label for="password">Password</label>-->
+                    <input type="password" class="form-control" id="password" placeholder="Password" required="" />
+                </div>
+                <div class="remember-forgot">
+                    <label>
+                        <input class="pull-left" type="checkbox"> &nbsp; <small>Remember me</small>
+                    </label>
+                    <small><a class="pull-right" href="#">Forgot my password</a></small>
+                </div>
+                <a href="#" class="btn btn-primary col-md-12">Login</a>
+            </form>
+            <small><p>Don't have an account yet? </p></small>
+            <a class="btn btn-sm btn-white btn-block" ui-sref="register">Create an account</a>
+        </div>
+        
 		<p class="text-muted text-center"><small><a href="#">About</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Privacy</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Terms</a></small></p>
         <p class="m-t">
             <small>BuildNigeria &copy; 2014</small>

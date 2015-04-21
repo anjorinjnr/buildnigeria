@@ -62,7 +62,7 @@ define(function () {
             })
 
             .state('idea-detail', {
-                url: "/ideas/:ideaId",
+                url: '/ideas/:ideaId',
                 templateUrl: 'ideas/idea.html',
                 parent: 'main',
                 controller: 'IdeaCtrl as ideaCtrl'
@@ -92,10 +92,30 @@ define(function () {
                 }]
             })
 
+            
+            .state('share', {
+                url: '/share',
+                controller: 'ShareCtrl as shareCtrl',
+                templateUrl: 'share/share.html',
+                parent: 'main',
+                data: {
+                    public: true
+                }
+            })
+
             .state('login', {
                 url: '/',
                 templateUrl: 'login/login.html',
                 controller: 'LoginCtrl as loginCtrl',
+                data: {
+                    public: true
+                }
+            })
+            
+            .state('register', {
+                url: '/register',
+                templateUrl: 'register/register.html',
+                controller: 'RegisterCtrl as registerCtrl',
                 data: {
                     public: true
                 }

@@ -5,6 +5,7 @@ define(['angular',
         'login/login-ctrl',
         'home/home-ctrl',
         'ideas/idea-ctrl',
+        'register/register-ctrl',
         'components/auth/auth-service',
         'components/user/user-service',
         //'angularMaterial',
@@ -15,6 +16,7 @@ define(['angular',
               LoginCtrl,
               HomeCtrl,
               IdeaCtrl,
+              RegisterCtrl,
               AuthService, UserService) {
 
         var app = angular.module(
@@ -31,6 +33,7 @@ define(['angular',
             .controller('LoginCtrl', LoginCtrl)
             .controller('HomeCtrl', HomeCtrl)
             .controller('IdeaCtrl', IdeaCtrl)
+            .controller('RegisterCtrl', RegisterCtrl)
             .service('authService', AuthService)
             .service('userService', UserService);
 
