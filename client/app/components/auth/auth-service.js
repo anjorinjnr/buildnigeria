@@ -54,7 +54,7 @@ define(function () {
         var url = this.API_PATH + 'auth/login-with-facebook';
         window.authCallback = function () {
             console.log('callback');
-            window.location = 'http://buildnigeria.com.ng/#/home';
+            window.location.href = 'http://buildnigeria.com.ng/#/home';
         };
         window.open(url, '', 'width=400, height=300');
     };
