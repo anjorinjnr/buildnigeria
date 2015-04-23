@@ -105,7 +105,7 @@ define(function () {
 
             .state('login', {
                 url: '/',
-                templateUrl: 'login/login.html',
+                templateUrl: 'login/login_two_col.html',
                 controller: 'LoginCtrl as loginCtrl',
                 data: {
                     public: true

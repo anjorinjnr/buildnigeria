@@ -1,0 +1,58 @@
+<div class="loginColumns animated fadeInDown">
+    <div class="row">
+        <div class="col-md-6">
+            <div style="">
+
+            <img src="assets/images/bn-logo-360px.png" />
+
+        </div>
+            <h2 class="font-bold">Welcome</h2>
+            <p>We created this platform for the best minds in Nigeria to contribute well-thought-out ideas toward rebuilding our great country, Nigeria.</p>
+            
+            <p>If you are passionate about Nigeria and believe now is the time for <strong>change</strong>, <a ui-sref="register">Sign Up</a> today and post some innovative ideas for the new Nigeria</a></p>
+            
+            <p><small>By signing up, you indicate that you have read and agree to the Terms of Service</small></p>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="login-form" style="">
+                <div class="ibox-content">
+                    <form class="m-t" role="form" action="#" style="">
+                    <a ng-click="loginCtrl.signUpWithFacebook()" class="btn btn-block btn-social btn-facebook">
+                        <i class="fa fa-facebook"></i> Log in with Facebook
+                    </a><br/>
+                    <p><small>Not a fan of social media? Fair enough, use your email.</small></p>
+                </form>
+                    <form class="m-t" role="form" action="#" style="text-align:left;overflow:auto;margin-bottom:15px;">
+                <div class="form-group">
+                    <!--<label for="username">Username</label>-->
+                    <input type="text" class="form-control" id="username" placeholder="Username" required=""/>
+                </div>
+                <div class="form-group">
+                    <!--<label for="password">Password</label>-->
+                    <input type="password" class="form-control" id="password" placeholder="Password" required="" />
+                </div>
+                <div class="remember-forgot">
+                    <label>
+                        <input class="pull-left" type="checkbox"> &nbsp; <small>Remember me</small>
+                    </label>
+                    <small><a class="pull-right" href="#">Forgot my password</a></small>
+                </div>
+                <a href="#" class="btn btn-primary col-md-12">Login</a>
+            </form>
+            <small><p>Don't have an account yet? </p></small>
+            <a class="btn btn-sm btn-white btn-block" ui-sref="register">Create an account</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+        <div class="row">
+            <div class="col-md-6">
+                <p class="text-muted"><small><a href="#">About</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Privacy</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Terms</a></small></p>
+            </div>
+            <div class="col-md-6 text-right">
+               <small>© 2014-2015</small>
+            </div>
+        </div>
+</div>
