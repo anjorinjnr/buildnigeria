@@ -8,7 +8,8 @@
                     </div>
                     <div class="ibox-content">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="category-text" placeholder="Search" />
+                            <!-- use ngTagsInput here -->
+                            <input type="text" class="form-control" id="category-text" placeholder="Add a category for this idea" />
                         </div>
                     </div>
                 </div>
@@ -17,18 +18,21 @@
                 <div class="row">
                     <div class="ibox float-e-margins">
                         <div class="ibox-content">
-                            <form action="">
+                            <h2 style="margin-bottom:20px;">Share an Idea</h2>
+                            <form action="" role="form" action="#">
                                 <div class="form-group">
                                     <label for="problem-desc">Problem Description</label>
-                                    <textarea name="problem-desc" id="problem-desc" placeholder="Problem Description"></textarea>
+                                    <!-- use a rich text editor here -->
+                                    <textarea rows="10" class="form-control" name="problem-desc" id="problem-desc" placeholder="Provide a detailed description of the problem you are proposing a solution for."></textarea>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label for="problem-solution">Proposed Solution</label>
-                                        <textarea name="problem-solution" id="problem-solution" placeholder="Proposed Solution"></textarea>
+                                        <!-- use a rich text editor here -->
+                                        <textarea rows="15" class="form-control" name="problem-solution" id="problem-solution" placeholder="Provided a detailed explanation of your solution."></textarea>
                                     </div>
                                 </div>
-                                <a href="#">Cancel</a>&nbsp;&nbsp;&nbsp;<a href="#">Save as Draft</a>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-primary">Post</a>
+                                <a ui-sref="home">Cancel</a>&nbsp;&nbsp;&nbsp;<a href="#">Save as Draft</a>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-primary">Post</a>
                             </form>
                         </div>
                     </div>

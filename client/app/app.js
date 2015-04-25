@@ -6,6 +6,8 @@ define(['angular',
         'home/home-ctrl',
         'ideas/idea-ctrl',
         'register/register-ctrl',
+        'share/share-ctrl',
+        'search/search-ctrl',
         'components/auth/auth-service',
         'components/user/user-service',
         //'angularMaterial',
@@ -17,6 +19,8 @@ define(['angular',
               HomeCtrl,
               IdeaCtrl,
               RegisterCtrl,
+              ShareCtrl,
+              SearchCtrl,
               AuthService, UserService) {
 
         var app = angular.module(
@@ -34,6 +38,8 @@ define(['angular',
             .controller('HomeCtrl', HomeCtrl)
             .controller('IdeaCtrl', IdeaCtrl)
             .controller('RegisterCtrl', RegisterCtrl)
+            .controller('ShareCtrl', ShareCtrl)
+            .controller('SearchCtrl', SearchCtrl)
             .service('authService', AuthService)
             .service('userService', UserService);
 

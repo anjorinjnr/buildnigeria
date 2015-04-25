@@ -1,6 +1,6 @@
 requirejs.config({
     paths: {
-        angular: 'bower_components/angular/angular.min',
+        angular: 'bower_components/angular/angular',
         angularResource: 'bower_components/angular-resource/angular-resource.min',
         angularCookies: 'bower_components/angular-cookies/angular-cookies.min',
         angularNotify: 'bower_components/angular-notify/dist/angular-notify.min',

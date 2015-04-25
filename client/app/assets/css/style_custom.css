@@ -49,3 +49,12 @@
 .logo {
     margin-bottom: 10px;
 }
+
+.page-title {
+    margin-top: 15px;
+    margin-bottom: -20px;
+}
+
+.padding-1x {
+    padding-left: 30px;
+}

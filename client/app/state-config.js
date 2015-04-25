@@ -99,6 +99,16 @@ define(function () {
                 templateUrl: 'share/share.html',
                 parent: 'main',
                 data: {
+                    public: false
+                }
+            })
+            
+            .state('search', {
+                url: '/search',
+                controller: 'SearchCtrl as searchCtrl',
+                templateUrl: 'search/search.html',
+                parent: 'main',
+                data: {
                     public: true
                 }
             })
