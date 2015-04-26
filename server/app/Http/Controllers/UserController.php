@@ -23,12 +23,36 @@ class UserController extends Controller {
 
     }
 
+    public function Login(Request $request) {
+        if ($request->has('email') && $request->has('password')) {
+            $data = $request->all();
+            $user = $this->userService->login($data['email'], $data['password']);
+            if ($user) {
+                return $user->toJson();
+            }
+            return [
+                'status' => 'error',
+                'errors' => ['Invalid email/password combination.']
+            ];
+        } else {
+            return [
+                'status' => 'error',
+                'errors' => ['Email and password are required.']
+            ];
+        }
+    }
 
     public function all() {
 
     }
 
-    public function create() {
+    public function create(Request $request) {
+        $data = $request->all();
+        $user = $this->userService->createUser($data);
+        if ($user) {
+            return $user;
+        }
+        return ['status' => 'error', 'errors' => $this->userService->errors()];
 
     }
 

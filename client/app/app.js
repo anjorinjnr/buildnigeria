@@ -10,8 +10,9 @@ define(['angular',
         'search/search-ctrl',
         'components/auth/auth-service',
         'components/user/user-service',
+        'components/tip/tip-module',
         //'angularMaterial',
-        'lodash', 'uiRouter', 'angularResource', 'angularCookies', 'angularNotify'],
+        'lodash', 'uiRouter', 'angularResource', 'angularCookies'],
     function (angular,
               StateConfig,
               MainCtrl,
@@ -30,7 +31,7 @@ define(['angular',
                 'ngCookies',
                 'ui.router',
                 'ngResource',
-                'cgNotify'
+                'ngTip'
             ]);
         app.config(StateConfig)
             .controller('MainCtrl', MainCtrl)
@@ -44,12 +45,17 @@ define(['angular',
             .service('userService', UserService);
 
 
-        app.run(['$state', '$stateParams', '$location', '$rootScope', 'authService',
-            function ($state, $stateParams, $location, $rootScope, authService) {
+        app.run(['$state', '$stateParams', '$location', '$rootScope', 'authService', 'tipService',
+            function ($state, $stateParams, $location, $rootScope, authService, tipService) {
                 $rootScope.authService = authService;
                 //authService.createSession('261b350e166beed992af9fa0c2f58296');
 
+                $rootScope.$on('$stateChangeSuccess', function () {
+                    tipService.hide();
+                 });
+
                 $rootScope.$on('$stateChangeStart', function (event, toState) {
+                    tipService.info('Loading...').show();
 
                     if (toState.url === '/logout') {
                         event.preventDefault();

@@ -1,0 +1,81 @@
+/* 
+    Created on : Nov 5, 2014, 10:44:22 PM
+    Author     : eanjorin
+*/
+
+.tip-bar {
+  width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 99999;
+}
+
+#tip-container {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  z-index: 999;
+}
+
+#tip-wrap {
+  display: inline-block;
+}
+
+.tip {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  -webkit-transition: all 0 linear 1s, opacity 1s;
+  -moz-transition: all 0 linear 1s, opacity 1s;
+  -ms-transition: all 0 linear 1s, opacity 1s;
+  -o-transition: all 0 linear 1s, opacity 1s;
+  transition: all 0 linear 1s, opacity 1s;
+  border-style: solid;
+  border-width: 0;
+  font-size: 100%;
+  font-weight: bold;
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+  padding: 0;
+  text-align: center;
+  position: relative;
+  line-height: 100%;
+}
+
+.tip-headsup {
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+.tip-error {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}
+
+.tip-info {
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
+}
+
+.tip-visible {
+  -webkit-transition: opacity 0.218s;
+  -moz-transition: opacity 0.218s;
+  -ms-transition: opacity 0.218s;
+  -o-transition: opacity 0.218s;
+  transition: opacity 0.218s;
+  border-width: 1px;
+  height: 100%;
+  opacity: 1;
+  visibility: visible;
+  padding: 6px 24px 6px 16px;
+}

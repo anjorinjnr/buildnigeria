@@ -3,13 +3,40 @@
  */
 define(function () {
 
-    var LoginCtrl = function (authService) {
+    var LoginCtrl = function (authService, userService, tipService, $state) {
         this.authService = authService;
+        this.userService = userService;
+        this.tipService = tipService;
+        this.$state = $state;
+        this.user = {};
+        this.errors = [];
     };
-	LoginCtrl.prototype.signUpWithFacebook = function() {
-		this.authService.loginWithFacebook();
-	};
-	
-	LoginCtrl.inject = ['authService'];
+    LoginCtrl.prototype.signUpWithFacebook = function () {
+        this.authService.loginWithFacebook();
+    };
+
+    LoginCtrl.prototype.loginWithEmail = function (form) {
+        var self = this;
+        form.submitted = true;
+        if (form.$valid) {
+            this.tipService
+                .loading()
+                .delay(function () {
+                    self.userService.login(self.user, function (resp) {
+                        if (resp.status === 'error') {
+                            self.errors = resp.errors;
+                        } else {
+                            self.authService.createSession(resp.user_token);
+                            self.$state.go('home');
+                        }
+                    });
+                })
+                .show();
+
+        }
+    };
+
+
+    LoginCtrl.inject = ['authService', 'userService', 'tipService', '$state'];
     return LoginCtrl;
 });

@@ -7,5 +7,6 @@ $factory('BuildNigeria\User', [
     'name' => $faker->name,
     'fb_id' => $faker->randomNumber(),
     'fb_token' => $faker->text(),
-    'avatar' => $faker->url
+    'avatar' => $faker->url,
+    'password' => ''
 ]);

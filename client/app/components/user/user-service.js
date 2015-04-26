@@ -6,7 +6,19 @@ define(function () {
     var UserService = function ($resource, API_PATH) {
         var User = $resource(API_PATH + 'user/:id',
             {id: '@id'},
-            {}
+            {
+                save: {
+                    method: 'POST',
+                    url: API_PATH + 'user/:id',
+                    isArray: false,
+                    cache: true
+                },
+                login: {
+                    method: 'POST',
+                    url: API_PATH + 'user/login',
+                    isArray: false
+                }
+            }
         );
         return User;
 

@@ -1,32 +1,48 @@
 <div class="middle-box text-center loginscreen animated fadeInDown">
+    <div>
         <div>
-            <div>
 
-                <h1 class="logo-name"><img src="assets/images/bn-logo.png" /></h1>
+            <h1 class="logo-name"><img src="assets/images/bn-logo.png"/></h1>
 
+        </div>
+        <p>Create an account and join the movement.</p>
+
+        <div class="alert alert-danger" ng-show="registerCtrl.errors.length > 0">
+            <ul class="unstyled" style="padding: 0px">
+                <li ng-repeat="error in registerCtrl.errors">{{error}}</li>
+            </ul>
+        </div>
+        <form name="registerForm" class="m-t" role="form" ng-submit="registerCtrl.register(registerForm)"
+              style="overflow:auto;margin-bottom:20px;">
+            <div class="form-group">
+                <input type="text" ng-model="registerCtrl.user.name" class="form-control" placeholder="Name"
+                       required="">
             </div>
-            <p>Create an account and join the movement.</p>
-            <form class="m-t" role="form" action="login.html" style="overflow:auto;margin-bottom:20px;">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Name" required="">
-                </div>
-                <div class="form-group">
-                    <input type="email" class="form-control" placeholder="Email" required="">
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" required="">
-                </div>
-                <div class="form-group">
-                        <div class="checkbox i-checks"><label> <input type="checkbox"><i></i> Agree the terms and policy </label></div>
-                </div>
-                <button type="submit" class="btn btn-primary block full-width m-b">Register</button>
+            <div class="form-group">
+                <input type="email" ng-model="registerCtrl.user.email" class="form-control" placeholder="Email"
+                       required="">
+            </div>
+            <div class="form-group">
+                <input type="password" ng-model="registerCtrl.user.password" class="form-control" placeholder="Password"
+                       required="">
+            </div>
+            <div class="form-group">
+                <div class="checkbox i-checks"><label> <input type="checkbox" required=""><i></i> Agree the terms and
+                    policy </label></div>
+            </div>
+            <button type="submit" class="btn btn-primary block full-width m-b">Register</button>
 
-                <p class="text-muted text-center"><small>Already have an account?</small></p>
-                <a class="btn btn-sm btn-white btn-block" ui-sref="login">Login</a>
-            </form>
-            <p class="text-muted text-center"><small><a href="#">About</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Privacy</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Terms</a></small></p>
+            <p class="text-muted text-center">
+                <small>Already have an account?</small>
+            </p>
+            <a class="btn btn-sm btn-white btn-block" ui-sref="login">Login</a>
+        </form>
+        <p class="text-muted text-center">
+            <small><a href="#">About</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Privacy</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
+                    href="#">Terms</a></small>
+        </p>
         <p class="m-t">
             <small>BuildNigeria &copy; 2014</small>
         </p>
-        </div>
     </div>
+</div>

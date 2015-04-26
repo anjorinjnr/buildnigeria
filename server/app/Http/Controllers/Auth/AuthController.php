@@ -4,6 +4,7 @@ use BuildNigeria\Http\Controllers\Controller;
 use BuildNigeria\Services\UserService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Laravel\Socialite\SocialiteManager;
 
@@ -19,6 +20,7 @@ class AuthController extends Controller implements SocialLoginHandler {
         $this->socialite = $socialite;
         $this->redirector = $redirector;
     }
+
 
     public function getLoginWithFacebook() {
         $redirect = $this->socialite->with('facebook')->redirect();

@@ -16,11 +16,10 @@ Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
 
 Route::controllers([
-    'auth' => 'Auth\AuthController',
-    'password' => 'Auth\PasswordController',
+    'auth' => 'Auth\AuthController'
 ]);
 
-Route::group(['middleware' => 'cors'], function () {
-    Route::get('/user', 'UserController@getUserByToken');
-});
+Route::get('/user', 'UserController@getUserByToken');
+Route::post('/user', 'UserController@create');
+Route::post('user/login', 'UserController@login');
 

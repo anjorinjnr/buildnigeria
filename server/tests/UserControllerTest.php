@@ -28,5 +28,31 @@ class UserControllerTest extends DbTestCase {
         $data = json_decode($response->getContent());
         $this->assertEquals($data->id, $user->id);
     }
+
+    public function test_user_email_signup() {
+        $data = [
+            'name' => $this->faker->name,
+            'email' => $this->faker->email,
+            'password' => 'password'
+        ];
+        $response = $this->action('POST', 'UserController@create', $data);
+        $user = json_decode($response->getContent());
+        $this->assertNotNull($user);
+        $this->assertEquals($data['name'], $user->name);
+        $this->assertEquals($data['email'], $user->email);
+    }
+
+    public function test_user_can_login_with_email() {
+        $password = md5('password1');
+        $user = Factory::create('BuildNigeria\User', ['password' => $password]);
+        $data = [
+            'email' => $user->email,
+            'password' => 'password1'
+        ];
+        $response = $this->action('POST', 'UserController@login', $data);
+        $resp = json_decode($response->getContent());
+        $this->assertAttributeEquals($user->email, 'email', $resp);
+        $this->assertNotNull($resp->user_token);
+    }
 }
 

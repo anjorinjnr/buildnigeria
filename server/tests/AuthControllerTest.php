@@ -39,8 +39,10 @@ class AuthControllerTest extends DbTestCase {
 
         $userToken = User::where('email', $user->email)->first()->user_token;
         $this->assertResponseStatus(302);
-        $this->assertRedirectedTo(getenv('APP_LOGIN_REDIRECT') .  "?ut=$userToken");
+        $this->assertRedirectedTo(getenv('APP_LOGIN_REDIRECT') . "?ut=$userToken");
 
     }
+
+
 }
 

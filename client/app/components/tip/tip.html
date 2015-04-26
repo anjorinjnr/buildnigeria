@@ -1,0 +1,20 @@
+<style>
+  .tip-stick{
+    position: fixed;
+  }
+  #tip-wrap a {
+      color: inherit;
+      text-decoration: underline;
+  }
+  
+</style>
+<span id="tip-container"  style="top: 0px;" >
+    <span id="tip-wrap">
+        <div ng-class="{'tip-visible' : tip.visible}" class="tip {{tip.style}}" aria-live="assertive" aria-atomic="true">
+            <span style="padding: 10px">
+                <span ng-bind-html="tip.message"></span>
+                <span><a  ng-click="tip.visible = false" href="javascript: return;"><i class="fa fa-times"></i></a></span>
+            </span>
+        </div>
+    </span>
+</span>

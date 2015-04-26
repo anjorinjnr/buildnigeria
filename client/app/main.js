@@ -12,7 +12,7 @@ requirejs.config({
         jquery: 'bower_components/jquery/dist/jquery.min'
     },
     shim: {
-        angular: {exports: 'angular'},
+        angular: {exports: 'angular', deps: ['jquery']},
         angularResource: {deps: ['angular']},
         angularNotify: {deps: ['angular']},
         angularCookies: {deps: ['angular']},
