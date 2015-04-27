@@ -4,7 +4,6 @@ use BuildNigeria\Http\Controllers\Controller;
 use BuildNigeria\Services\UserService;
 use Exception;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Laravel\Socialite\SocialiteManager;
 
