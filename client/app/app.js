@@ -12,7 +12,7 @@ define(['angular',
         'components/user/user-service',
         'components/tip/tip-module',
         //'angularMaterial',
-        'lodash', 'uiRouter', 'angularResource', 'angularCookies'],
+        'lodash', 'uiRouter', 'angularResource', 'angularCookies', 'ngTags', 'ngSummernote'],
     function (angular,
               StateConfig,
               MainCtrl,
@@ -31,7 +31,9 @@ define(['angular',
                 'ngCookies',
                 'ui.router',
                 'ngResource',
-                'ngTip'
+                'ngTip',
+                'ngTagsInput',
+                'summernote'
             ]);
         app.config(StateConfig)
             .controller('MainCtrl', MainCtrl)
@@ -47,6 +49,7 @@ define(['angular',
 
         app.run(['$state', '$stateParams', '$location', '$rootScope', 'authService', 'tipService',
             function ($state, $stateParams, $location, $rootScope, authService, tipService) {
+
                 $rootScope.authService = authService;
                 //authService.createSession('261b350e166beed992af9fa0c2f58296');
 

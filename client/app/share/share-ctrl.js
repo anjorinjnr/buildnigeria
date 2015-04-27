@@ -4,6 +4,7 @@
 define(function () {
 
     var ShareCtrl = function () {
+        this.idea = {};
        
     };
     

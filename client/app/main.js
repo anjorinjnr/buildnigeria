@@ -9,10 +9,16 @@ requirejs.config({
         angularMaterial: 'bower_components/angular-material/angular-material.min',
         uiRouter: 'bower_components/angular-ui-router/release/angular-ui-router.min',
         lodash: 'bower_components/lodash/lodash.min',
-        jquery: 'bower_components/jquery/dist/jquery.min'
+        jquery: 'bower_components/jquery/dist/jquery.min',
+        ngTags: 'bower_components/ng-tags-input/ng-tags-input.min',
+        ngSummernote: 'bower_components/angular-summernote/dist/angular-summernote.min',
+        summernote: 'bower_components/summernote/dist/summernote',
+        twBootstrap: 'bower_components/bootstrap/dist/js/bootstrap.min'
     },
     shim: {
-        angular: {exports: 'angular', deps: ['jquery']},
+        ngSummernote: {deps: ['summernote', 'angular']},
+        twBootstrap: {deps: ['jquery']},
+        angular: {exports: 'angular', deps: ['twBootstrap']},
         angularResource: {deps: ['angular']},
         angularNotify: {deps: ['angular']},
         angularCookies: {deps: ['angular']},
@@ -20,6 +26,7 @@ requirejs.config({
         angularAria: {deps: ['angular']},
         angularAnimate: {deps: ['angular']},
         uiRouter: {deps: ['angular']},
+        ngTags: {deps: ['angular']},
         lodash: {exports: '_'}
     },
     priority: [

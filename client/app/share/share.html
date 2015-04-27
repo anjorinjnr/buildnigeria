@@ -9,7 +9,8 @@
                     <div class="ibox-content">
                         <div class="form-group">
                             <!-- use ngTagsInput here -->
-                            <input type="text" class="form-control" id="category-text" placeholder="Add a category for this idea" />
+                            <tags-input placeholder="Add a subject" ng-model="requests"></tags-input>
+                            <!--<input type="text" class="form-control" id="category-text" placeholder="Add a category for this idea" />-->
                         </div>
                     </div>
                 </div>
@@ -29,10 +30,20 @@
                                     <div class="form-group">
                                         <label for="problem-solution">Proposed Solution</label>
                                         <!-- use a rich text editor here -->
-                                        <textarea rows="15" class="form-control" name="problem-solution" id="problem-solution" placeholder="Provided a detailed explanation of your solution."></textarea>
+                                        <div summernote class="summernote"  ng-model="shareCtrl.idea.solution"></div>
+                                        <!--<summernote></summernote>-->
+                                        <!--<textarea ui-tinymce ng-model="tinymceModel"></textarea>-->
+                                        <!--<textarea rows="15" class="form-control"-->
+                                                  <!--name="problem-solution"-->
+                                                  <!--id="problem-solution"-->
+                                                  <!--ng-model="shareCtrl.idea.solution"-->
+                                                  <!--ui-tinymce="tinymceOptions"-->
+                                                  <!--placeholder="Provided a detailed explanation of your solution."></textarea>-->
                                     </div>
                                 </div>
-                                <a ui-sref="home">Cancel</a>&nbsp;&nbsp;&nbsp;<a href="#">Save as Draft</a>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-primary">Post</a>
+                                <a ui-sref="home">Cancel</a>&nbsp;&nbsp;&nbsp;
+                                <a href="#">Save as Draft</a>&nbsp;&nbsp;&nbsp;
+                                <button type="submit" class="btn btn-primary">Post</button>
                             </form>
                         </div>
                     </div>

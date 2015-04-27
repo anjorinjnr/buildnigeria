@@ -4191,7 +4191,7 @@ ul.notes li div {
     border: 1px solid #e7eaec;
     margin-right: 5px;
     margin-top: 5px;
-    display: block;
+    /*display: block;*/
 }
 .file {
     border: 1px solid #e7eaec;
