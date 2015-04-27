@@ -1,84 +1,33 @@
 <?php namespace BuildNigeria\Http\Controllers;
 
 use BuildNigeria\Http\Requests;
-use BuildNigeria\Http\Controllers\Controller;
-
+use BuildNigeria\Services\IdeaService;
 use Illuminate\Http\Request;
 
 class IdeaController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
-	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
+    private $ideaService;
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
+    public function __construct(IdeaService $ideaService) {
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
+        $this->ideaService = $ideaService;
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
+    public function getCategories(){
+        return $this->ideaService->categories()->toJson();
+    }
+    public function createIssue(Request $request) {
+        if ($this->ideaService->createIssue($request->all())) {
+            return $this->successResponse();
+        } else {
+            return $this->errorResponse($this->ideaService->errors());
+        }
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
+    public function all() {
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
+    }
+
 
 }

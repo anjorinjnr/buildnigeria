@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateIdeasTable extends Migration {
+class CreateSolutionsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,19 +12,18 @@ class CreateIdeasTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('ideas', function(Blueprint $table)
+		Schema::create('solutions', function(Blueprint $table)
 		{
 			$table->increments('id');
-          	$table->integer('user_id');
-			$table->mediumText('problem');
-			$table->text('solution');
+			$table->integer('user_id')->unsigned()->index('fk_solution_user_idx');
+			$table->integer('issue_id')->unsigned();
+			$table->text('detail');
 			$table->integer('up_vote')->default(0);
 			$table->integer('down_vote')->default(0);
-			$table->integer('views')->default(0);
-            $table->timestamps();
-            $table->softDeletes();
-
-        });
+            $table->tinyInteger('status')->default(1);
+			$table->timestamps();
+			$table->softDeletes();
+		});
 	}
 
 
@@ -35,7 +34,7 @@ class CreateIdeasTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('ideas');
+		Schema::drop('solutions');
 	}
 
 }

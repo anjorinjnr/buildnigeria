@@ -98,6 +98,9 @@ define(function () {
                 controller: 'ShareCtrl as shareCtrl',
                 templateUrl: 'share/share.html',
                 parent: 'main',
+                resolve: {
+                    user: resolves.loggedInUser
+                },
                 data: {
                     public: false
                 }

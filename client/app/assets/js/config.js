@@ -439,7 +439,10 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                     return $ocLazyLoad.load([
                         {
                             name: 'summernote',
-                            files: ['css/plugins/summernote/summernote.css','css/plugins/summernote/summernote-bs3.css','js/plugins/summernote/summernote.min.js','js/plugins/summernote/angular-summernote.min.js']
+                            files: ['css/plugins/summernote/summernote.css',
+                                'css/plugins/summernote/summernote-bs3.css',
+                                'js/plugins/summernote/summernote.min.js',
+                                'js/plugins/summernote/angular-summernote.min.js']
                         }
                     ]);
                 }

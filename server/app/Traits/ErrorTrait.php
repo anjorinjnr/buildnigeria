@@ -49,5 +49,9 @@ trait ErrorTrait {
             $this->errors[] = $error;
         }
     }
+    public function clearErrors(){
+        $this->errors = [];
+        return $this;
+    }
 
 }

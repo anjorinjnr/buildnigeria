@@ -10,3 +10,14 @@ $factory('BuildNigeria\User', [
     'avatar' => $faker->url,
     'password' => ''
 ]);
+
+$factory('BuildNigeria\Issue', [
+    //'id' => $faker->randomDigit,
+    'user' => 'factory:BuildNigeria\User',
+    'detail' => $faker->paragraphs(),
+]);
+
+$factory('BuildNigeria\Category', [
+    //'id' => $faker->randomDigit,
+    'category' => $faker->word
+]);

@@ -10,6 +10,7 @@ define(['angular',
         'search/search-ctrl',
         'components/auth/auth-service',
         'components/user/user-service',
+        'components/idea/idea-service',
         'components/tip/tip-module',
         //'angularMaterial',
         'lodash', 'uiRouter', 'angularResource', 'angularCookies', 'ngTags', 'ngSummernote'],
@@ -22,7 +23,9 @@ define(['angular',
               RegisterCtrl,
               ShareCtrl,
               SearchCtrl,
-              AuthService, UserService) {
+              AuthService,
+              UserService,
+              IdeaService) {
 
         var app = angular.module(
             'buildnigeria.web',
@@ -44,7 +47,8 @@ define(['angular',
             .controller('ShareCtrl', ShareCtrl)
             .controller('SearchCtrl', SearchCtrl)
             .service('authService', AuthService)
-            .service('userService', UserService);
+            .service('userService', UserService)
+            .service('ideaService', IdeaService);
 
 
         app.run(['$state', '$stateParams', '$location', '$rootScope', 'authService', 'tipService',
@@ -55,7 +59,7 @@ define(['angular',
 
                 $rootScope.$on('$stateChangeSuccess', function () {
                     tipService.hide();
-                 });
+                });
 
                 $rootScope.$on('$stateChangeStart', function (event, toState) {
                     tipService.info('Loading...').show();

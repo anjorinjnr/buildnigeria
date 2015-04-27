@@ -1,5 +1,5 @@
 <div class="wrapper wrapper-content p-x1">
-	<div class="container animated fadeInRight">
+    <div class="container animated fadeInRight">
         <div class="row">
             <div class="col-lg-3">
                 <div class="ibox float-e-margins">
@@ -9,8 +9,12 @@
                     <div class="ibox-content">
                         <div class="form-group">
                             <!-- use ngTagsInput here -->
-                            <tags-input placeholder="Add a subject" ng-model="requests"></tags-input>
-                            <!--<input type="text" class="form-control" id="category-text" placeholder="Add a category for this idea" />-->
+                            <tags-input placeholder="Add a category for this idea"
+                                        ng-model="shareCtrl.issueCategories">
+                                <auto-complete source="shareCtrl.suggestTags($query)"></auto-complete>
+                            </tags-input>
+                            <span ng-show="shareCtrl.missingCategory" style="color:#a94442">
+                                <small>Please enter at least one category.</small></span>
                         </div>
                     </div>
                 </div>
@@ -19,36 +23,47 @@
                 <div class="row">
                     <div class="ibox float-e-margins">
                         <div class="ibox-content">
-                            <h2 style="margin-bottom:20px;">Share an Idea</h2>
-                            <form action="" role="form" action="#">
-                                <div class="form-group">
-                                    <label for="problem-desc">Problem Description</label>
+                            <h2 style="margin-bottom:20px;">Post an Issue</h2>
+
+                            <form  role="form" name="issueForm" ng-submit="shareCtrl.postIssue(issueForm)" novalidate>
+                                <div class="form-group"
+                                     ng-class="{'has-error':  issueForm.problem_desc.$invalid &&
+                                     ( !issueForm.problem_desc.$pristine || issueForm.submitted )}" >
+                                    <label for="problem_desc">Problem Description</label>
                                     <!-- use a rich text editor here -->
-                                    <textarea rows="10" class="form-control" name="problem-desc" id="problem-desc" placeholder="Provide a detailed description of the problem you are proposing a solution for."></textarea>
+                                    <span ng-show="issueForm.problem_desc.$viewValue.length > 1" style="float: right"
+                                            ><small>{{issueForm.problem_desc.$viewValue.length}} characters</small></span>
+                                    <textarea rows="10" class="form-control" name="problem_desc" id="problem_desc"
+                                              ng-model="shareCtrl.issue.detail"  pattern=".{150,}" required=""
+                                              title="150 characters minimum"
+                                              placeholder="Provide a detailed description of the problem you are proposing a solution for."></textarea>
+                                     <span ng-show="issueForm.problem_desc.$invalid && ( !issueForm.problem_desc.$pristine || issueForm.submitted )"
+                                           class="help-block" style="float: right"><small>Your problem  description must be at least 150 characters.</small></span>
+
+                                    <a style="margin-top:10px; margin-right: 10px" ng-click="shareCtrl.showSolution = true;">I have a solution to this problem</a>
                                 </div>
-                                <div class="form-group">
+
+
+                                <div class="form-group" ng-show="shareCtrl.showSolution">
                                     <div class="form-group">
-                                        <label for="problem-solution">Proposed Solution</label>
+                                        <label>Proposed Solution</label>
                                         <!-- use a rich text editor here -->
-                                        <div summernote class="summernote"  ng-model="shareCtrl.idea.solution"></div>
-                                        <!--<summernote></summernote>-->
-                                        <!--<textarea ui-tinymce ng-model="tinymceModel"></textarea>-->
-                                        <!--<textarea rows="15" class="form-control"-->
-                                                  <!--name="problem-solution"-->
-                                                  <!--id="problem-solution"-->
-                                                  <!--ng-model="shareCtrl.idea.solution"-->
-                                                  <!--ui-tinymce="tinymceOptions"-->
-                                                  <!--placeholder="Provided a detailed explanation of your solution."></textarea>-->
+                                        <div summernote
+                                             class="summernote"
+                                             ng-model="shareCtrl.issue.solution.detail"></div>
                                     </div>
                                 </div>
-                                <a ui-sref="home">Cancel</a>&nbsp;&nbsp;&nbsp;
-                                <a href="#">Save as Draft</a>&nbsp;&nbsp;&nbsp;
-                                <button type="submit" class="btn btn-primary">Post</button>
+                               <div>
+                                   <a style="margin-right: 10px" ui-sref="home">Cancel</a>
+                                   <a style="margin-right: 10px" href="#">Save as Draft</a>
+                                   <button type="submit" class="btn btn-primary">Post</button>
+                               </div>
+
                             </form>
                         </div>
                     </div>
-                </div>                
+                </div>
             </div>
         </div>
-	</div>
+    </div>
 </div>

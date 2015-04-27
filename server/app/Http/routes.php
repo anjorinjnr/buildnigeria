@@ -19,7 +19,9 @@ Route::controllers([
     'auth' => 'Auth\AuthController'
 ]);
 
-Route::get('/user', 'UserController@getUserByToken');
-Route::post('/user', 'UserController@create');
+Route::get('user', 'UserController@getUserByToken');
+Route::post('user', 'UserController@create');
 Route::post('user/login', 'UserController@login');
+Route::post('issue', 'IdeaController@createIssue');
+Route::get('categories', 'IdeaController@getCategories');
 
