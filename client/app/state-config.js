@@ -108,11 +108,65 @@ define(function () {
             
             .state('drafts', {
                 url: '/drafts',
-                controller: 'DraftsCtrl as draftsCtrl',
+                controller: ['$state', function($state) {
+                    $state.go('issues');
+                }],
                 templateUrl: 'drafts/drafts.html',
                 parent: 'main',
                 data: {
                     public: true
+                }
+            })
+            
+            .state('issues', {
+                url: '/issues',
+                controller: 'DraftsCtrl as draftsCtrl',
+                templateUrl: 'drafts/issue_drafts.html',
+                data: {
+                    public: true
+                },
+                parent: 'drafts', 
+                resolve: {
+                    user: resolves.loggedInUser
+                }
+            })
+            
+            .state('edit-issue-draft', {
+                url: '/drafts/issues/edit/:draftId',
+                controller: 'IssueDraftCtrl as issueDraftCtrl',
+                templateUrl: 'drafts/edit_issue_draft.html',
+                data: {
+                    public: true
+                },
+                parent: 'main',
+                resolve: {
+                    user: resolves.loggedInUser
+                }
+            })
+            
+            .state('solutions', {
+                url: '/solutions',
+                controller: 'DraftsCtrl as draftsCtrl',
+                templateUrl: 'drafts/solution_drafts.html',
+                data: {
+                    public: true
+                },
+                parent: 'drafts',
+                resolve: {
+                    user: resolves.loggedInUser
+                }
+            })
+            
+            .state('edit-solution-draft', {
+                url: '/drafts/solutions/edit/:draftId',
+                controller: 'SolutionDraftCtrl as solutionDraftCtrl',
+                templateUrl: 'drafts/edit_solution_draft.html',
+                data: {
+                    public: true
+                },
+                parent: 'main',
+                resolve: {
+                    user: resolves.loggedInUser
                 }
             })
             

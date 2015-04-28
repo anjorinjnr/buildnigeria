@@ -7,8 +7,8 @@
                         <div class="file-manager">
                             <h5>Folders</h5>
                             <ul class="folder-list m-b-md" style="padding: 0">
-                                <li><a ui-sref="drafts">Issues <span class="label label-info pull-right">3</span></a></li>
-                                <li><a ui-sref="drafts">Solutions <span class="label label-info pull-right">1</span></a></li>
+                                <li><a ui-sref="issues">Issues <span class="label label-info pull-right">3</span></a></li>
+                                <li><a ui-sref="solutions">Solutions <span class="label label-info pull-right">1</span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -16,47 +16,7 @@
             </div>
         
             <div class="col-lg-9 animated fadeInRight">
-                <div class="mail-box-header">
-                    <h2>
-                        Drafts (Issues)
-                    </h2>
-                    
-                    <div class="mail-tools tooltip-demo m-t-md">
-                        <div class="btn-group pull-right">
-                            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>
-                            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
-                        </div>
-                        
-                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash-o"></i>  &nbsp; Delete</button>
-                    </div>
-                </div>
-                <div class="mail-box">
-                    <table class="table table-hover table-mail">
-                        <tbody>
-                            <tr class="read">
-                                <td class="check-mail">
-                                    <input type="checkbox" >
-                                </td>
-                                <td class="mail-subject"><a ui-sref="#">Title of problem or solution here...</a></td>
-                                <td class="text-right mail-date">November 22</td>
-                            </tr>
-                             <tr class="read">
-                                <td class="check-mail">
-                                    <input icheck type="checkbox" >
-                                </td>
-                                <td class="mail-subject"><a ui-sref="#">Title of problem or solution here...</a></td>
-                                <td class="text-right mail-date">November 22</td>
-                            </tr>
-                             <tr class="read">
-                                <td class="check-mail">
-                                    <input icheck type="checkbox" >
-                                </td>
-                                <td class="mail-subject"><a ui-sref="#">Title of problem or solution here...</a></td>
-                                <td class="text-right mail-date">November 22</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <div ui-view></div>
             </div>
         </div>
     </div>
