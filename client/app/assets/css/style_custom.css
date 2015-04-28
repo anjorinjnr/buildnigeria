@@ -58,3 +58,7 @@
 .padding-1x {
     padding-left: 30px;
 }
+
+.scaled-image {
+    max-width: 100%;
+}

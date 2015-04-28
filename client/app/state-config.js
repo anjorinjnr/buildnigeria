@@ -56,7 +56,7 @@ define(function () {
                     user: resolves.loggedInUser
                 },
                 data: {
-                    public: false
+                    public: true
                 }
 
             })
@@ -102,7 +102,17 @@ define(function () {
                     user: resolves.loggedInUser
                 },
                 data: {
-                    public: false
+                    public: true
+                }
+            })
+            
+            .state('drafts', {
+                url: '/drafts',
+                controller: 'DraftsCtrl as draftsCtrl',
+                templateUrl: 'drafts/drafts.html',
+                parent: 'main',
+                data: {
+                    public: true
                 }
             })
             
