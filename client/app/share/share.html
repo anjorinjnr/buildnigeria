@@ -25,7 +25,7 @@
                         <div class="ibox-content">
                             <h2 style="margin-bottom:20px;">Post an Issue</h2>
 
-                            <form  role="form" name="issueForm" ng-submit="shareCtrl.postIssue(issueForm)" novalidate>
+                            <form  role="form" name="issueForm" novalidate>
                                 <div class="form-group"
                                      ng-class="{'has-error': shareCtrl.errors.issueDetail &&  (!shareCtrl.issue.detail || shareCtrl.issue.detail.length < 150)}" >
                                     <label for="problem_desc">Problem Description</label>
@@ -54,8 +54,8 @@
                                 </div>
                                <div>
                                    <a style="margin-right: 10px" ui-sref="home">Cancel</a>
-                                   <a style="margin-right: 10px" href="#">Save as Draft</a>
-                                   <button type="submit" class="btn btn-primary">Post</button>
+                                   <button ng-click="shareCtrl.postIssue(issueForm, true)" class="btn btn-w-m btn-white" style="margin-right: 10px">Save as Draft</button>
+                                   <button ng-click="shareCtrl.postIssue(issueForm)" class="btn btn-primary">Post</button>
                                </div>
 
                             </form>

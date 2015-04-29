@@ -8,8 +8,9 @@ abstract class Controller extends BaseController {
 
     use DispatchesCommands, ValidatesRequests;
 
-    public function successResponse() {
-        return ['status' => 'success'];
+    public function successResponse($data=[]) {
+
+        return ['status' => 'success', 'data' => $data];
     }
 
     public function errorResponse($errors) {

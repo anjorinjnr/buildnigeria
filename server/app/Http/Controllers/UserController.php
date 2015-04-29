@@ -19,7 +19,7 @@ class UserController extends Controller {
         if ($user) {
             return $user->toJson();
         }
-        return [];
+        //return [];
 
     }
 

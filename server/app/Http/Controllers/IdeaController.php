@@ -18,8 +18,8 @@ class IdeaController extends Controller {
         return $this->ideaService->categories()->toJson();
     }
     public function createIssue(Request $request) {
-        if ($this->ideaService->createIssue($request->all())) {
-            return $this->successResponse();
+        if (($issue = $this->ideaService->createIssue($request->all()))) {
+            return $this->successResponse($issue);
         } else {
             return $this->errorResponse($this->ideaService->errors());
         }

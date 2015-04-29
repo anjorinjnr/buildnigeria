@@ -46,7 +46,7 @@ define(['angular',
                 'summernote'
             ]);
         app.config(StateConfig)
-            .config(['ngToastProvider', function(ngToast) {
+            .config(['ngToastProvider', function (ngToast) {
                 ngToast.configure({
                     verticalPosition: 'top',
                     horizontalPosition: 'center',
@@ -76,12 +76,13 @@ define(['angular',
                 //authService.createSession('261b350e166beed992af9fa0c2f58296');
 
                 $rootScope.$on('$stateChangeSuccess', function () {
-                    tipService.hide();
+                    //tipService.hide();
                 });
 
                 $rootScope.$on('$stateChangeStart', function (event, toState) {
-                   tipService.info('Loading...').show();
 
+                    //tipService.info('Loading...').show();
+                    authService.isPublic = (toState.data && toState.data.public) ? true : false;
                     if (toState.url === '/logout') {
                         event.preventDefault();
                         authService.logout();

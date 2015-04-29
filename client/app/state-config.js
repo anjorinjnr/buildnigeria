@@ -8,17 +8,22 @@ define(function () {
             //return user data, if user is logged in
             loggedInUser: ['userService', '$cookieStore', 'authService', '$q', '$state',
                 function (userService, $cookieStore, authService, $q, $state) {
+
                     var userPromise = $q.defer();
                     //check if session information exist, and query user information
                     var session = authService.getSession();
                     if (session) {
                         userService.get({'user_token': session.user_token}, function (user) {
-                            if (user) {
+                            var user  = user.toJSON();
+                            if (!_.isEmpty(user)) {
                                 userPromise.resolve(user);
                                 authService.setCurrentUser(user);
+                            } else if (authService.isPublic) {
+                                authService.logout();
                             } else {
                                 userPromise.resolve(null);
                             }
+
                         });
                     } else {
                         userPromise.resolve(null);
@@ -92,7 +97,7 @@ define(function () {
                 }]
             })
 
-            
+
             .state('share', {
                 url: '/share',
                 controller: 'ShareCtrl as shareCtrl',
@@ -105,10 +110,10 @@ define(function () {
                     public: true
                 }
             })
-            
+
             .state('drafts', {
                 url: '/drafts',
-                controller: ['$state', function($state) {
+                controller: ['$state', function ($state) {
                     $state.go('issues');
                 }],
                 templateUrl: 'drafts/drafts.html',
@@ -117,7 +122,7 @@ define(function () {
                     public: true
                 }
             })
-            
+
             .state('issues', {
                 url: '/issues',
                 controller: 'DraftsCtrl as draftsCtrl',
@@ -125,12 +130,12 @@ define(function () {
                 data: {
                     public: true
                 },
-                parent: 'drafts', 
+                parent: 'drafts',
                 resolve: {
                     user: resolves.loggedInUser
                 }
             })
-            
+
             .state('edit-issue-draft', {
                 url: '/drafts/issues/edit/:draftId',
                 controller: 'IssueDraftCtrl as issueDraftCtrl',
@@ -143,7 +148,7 @@ define(function () {
                     user: resolves.loggedInUser
                 }
             })
-            
+
             .state('solutions', {
                 url: '/solutions',
                 controller: 'DraftsCtrl as draftsCtrl',
@@ -156,7 +161,7 @@ define(function () {
                     user: resolves.loggedInUser
                 }
             })
-            
+
             .state('edit-solution-draft', {
                 url: '/drafts/solutions/edit/:draftId',
                 controller: 'SolutionDraftCtrl as solutionDraftCtrl',
@@ -169,7 +174,7 @@ define(function () {
                     user: resolves.loggedInUser
                 }
             })
-            
+
             .state('search', {
                 url: '/search',
                 controller: 'SearchCtrl as searchCtrl',
@@ -188,7 +193,7 @@ define(function () {
                     public: true
                 }
             })
-            
+
             .state('register', {
                 url: '/register',
                 templateUrl: 'register/register.html',

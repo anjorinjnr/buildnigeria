@@ -19,20 +19,14 @@ define(function () {
         var self = this;
         form.submitted = true;
         if (form.$valid) {
-            this.tipService
-                .loading()
-                .delay(function () {
-                    self.userService.login(self.user, function (resp) {
-                        if (resp.status === 'error') {
-                            self.errors = resp.errors;
-                        } else {
-                            self.authService.createSession(resp.user_token);
-                            self.$state.go('home');
-                        }
-                    });
-                })
-                .show();
-
+            self.userService.login(self.user, function (resp) {
+                if (resp.status === 'error') {
+                    self.errors = resp.errors;
+                } else {
+                    self.authService.createSession(resp.user_token);
+                    self.$state.go('home');
+                }
+            });
         }
     };
 

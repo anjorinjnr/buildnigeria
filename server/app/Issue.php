@@ -5,6 +5,8 @@ use Illuminate\Database\Eloquent\Model;
 class Issue extends Model {
 
     protected $fillable = [];
+    const DRAFT = 0;
+    const PUBLISH = 1;
 
     public function categories() {
         return $this->belongsToMany('BuildNigeria\Category', 'issues_categories', 'issue_id', 'category_id');

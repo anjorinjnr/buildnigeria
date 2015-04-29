@@ -3,6 +3,8 @@
  */
 define(function () {
 
+    var DRAFT = 0;
+    var PUBLISHED = 1;
     var ShareCtrl = function (user, ideaService, tipService, $scope, ngToast) {
         this.ideaService = ideaService;
         this.tipService = tipService;
@@ -30,24 +32,47 @@ define(function () {
         });
         return filter;
     };
-    ShareCtrl.prototype.postIssue = function (form) {
-        this.ngToast.create('Posting issue...');
+    ShareCtrl.prototype.postIssue = function (form, draft) {
+
         var self = this;
-        if (_.isEmpty(this.issue.detail) || this.issue.detail.trim().length < 150) {
-            this.errors.issueDetail = true;
-            return;
+        if (!draft) {
+            if (_.isEmpty(this.issue.detail) || this.issue.detail.trim().length < 150) {
+                this.errors.issueDetail = true;
+                return;
+            }
+            if (this.issueCategories.length == 0) {
+                this.errors.missingCategory = true;
+                return;
+            }
         }
-        if (this.issueCategories.length == 0) {
-            this.errors.missingCategory = true;
-            return;
-        }
+
         this.issue.categories = _.pluck(this.issueCategories, 'text');
+        if (draft) {
+            this.ngToast.create('Saving post as draft...');
+            this.issue.status = DRAFT;
+            if (this.issue.solution) {
+                this.issue.solution.status = DRAFT;
+            }
+        } else {
+            this.issue.status = PUBLISHED;
+            if (this.issue.solution) {
+                this.solution.status = PUBLISHED;
+            }
+            this.ngToast.create('Posting issue...');
+        }
+
         self.ideaService.createIssue(self.issue, function (resp) {
             if (resp.status === 'success') {
-                self.issue = {};
-                self.errors = {};
-                self.issueCategories = [];
-                self.ngToast.create('Your issue has been posted...');
+                if (draft) {
+                    self.issue = resp.data;
+                    self.ngToast.create('Your post has been saved.');
+                } else {
+                    self.issue = {};
+                    self.errors = {};
+                    self.issueCategories = [];
+                    self.ngToast.create('Your issue has been posted.');
+                }
+
             }
         });
     };
