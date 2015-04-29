@@ -9,6 +9,8 @@ define(['angular',
         'share/share-ctrl',
         'search/search-ctrl',
         'drafts/drafts-ctrl',
+        'drafts/issue-draft-ctrl',
+        'drafts/solution-draft-ctrl',
         'components/auth/auth-service',
         'components/user/user-service',
         'components/idea/idea-service',
@@ -25,6 +27,8 @@ define(['angular',
               ShareCtrl,
               SearchCtrl,
               DraftsCtrl,
+              SolutionDraftCtrl,
+              IssueDraftCtrl,
               AuthService,
               UserService,
               IdeaService) {
@@ -58,6 +62,8 @@ define(['angular',
             .controller('ShareCtrl', ShareCtrl)
             .controller('SearchCtrl', SearchCtrl)
             .controller('DraftsCtrl', DraftsCtrl)
+            .controller('SolutionDraftCtrl', SolutionDraftCtrl)
+            .controller('IssueDraftCtrl', IssueDraftCtrl)
             .service('authService', AuthService)
             .service('userService', UserService)
             .service('ideaService', IdeaService);
