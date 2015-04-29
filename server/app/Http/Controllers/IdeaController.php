@@ -17,6 +17,9 @@ class IdeaController extends Controller {
     public function getCategories(){
         return $this->ideaService->categories()->toJson();
     }
+    public function getIssues(){
+        return $this->ideaService->issues()->toJson();
+    }
     public function createIssue(Request $request) {
         if (($issue = $this->ideaService->createIssue($request->all()))) {
             return $this->successResponse($issue);

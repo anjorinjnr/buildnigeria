@@ -23,5 +23,6 @@ Route::get('user', 'UserController@getUserByToken');
 Route::post('user', 'UserController@create');
 Route::post('user/login', 'UserController@login');
 Route::post('issue', 'IdeaController@createIssue');
+Route::get('issues', 'IdeaController@getIssues');
 Route::get('categories', 'IdeaController@getCategories');
 

@@ -3,10 +3,12 @@
  */
 define(function () {
 
-    var HomeCtrl = function (user) {
-       this.user = user;
+    var HomeCtrl = function (user, issues, categories) {
+        this.user = user;
+        this.issues = issues;
+        this.categories =  categories;
     };
 
-    HomeCtrl.$inject = ['user'];
+    HomeCtrl.$inject = ['user', 'issues', 'categories'];
     return HomeCtrl;
 });

@@ -72,7 +72,10 @@ class IdeaService {
     }
 
     public function categories() {
-        return $this->category->select('id', 'category')->get();
+        return $this->category->leftJoin('issues_categories as ic', 'categories.id', '=', 'ic.category_id')
+            ->select(DB::raw('count(ic.id) as issue_count'), 'categories.id', 'category')
+            ->groupBy('id', 'category')
+            ->get();
     }
 
     /**
@@ -130,5 +133,11 @@ class IdeaService {
         $this->issue->status = (array_key_exists('status', $data) &&
             $data['status'] == Issue::DRAFT) ? Issue::DRAFT : Issue::PUBLISH;
         $this->issue->save();
+    }
+
+    public function issues() {
+        return $this->issue->with(['user', 'solutions', 'categories'])
+            ->where('status', Issue::PUBLISH)
+            ->orderBy('updated_at', 'desc')->get();
     }
 }

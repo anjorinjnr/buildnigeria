@@ -32,7 +32,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token', 'user_token_expires_at',
+    protected $hidden = ['password', 'remember_token', 'user_token', 'user_token_expires_at',
         'fb_id', 'fb_token'];
 
     public function ideas() {
@@ -55,11 +55,18 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                     'email' => 'required|email|max:255|unique:users',
                 ]);
                 if ($validator->passes()) {
-                  return  $this->create($data);
+                    return $this->create($data);
                 }
             }
         }
         return null;
+    }
+
+    public function getNoOfDrafts() {
+        return Issue::where('user_id', $this->id)
+            ->where('status', Issue::DRAFT)->count() +
+        Solution::where('user_id', $this->id)
+            ->where('status', Solution::DRAFT)->count();
     }
 
 }

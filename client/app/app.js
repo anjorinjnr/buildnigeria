@@ -14,9 +14,10 @@ define(['angular',
         'components/auth/auth-service',
         'components/user/user-service',
         'components/idea/idea-service',
+        'components/date-time-filter/date-time-filter',
         'components/tip/tip-module',
         //'angularMaterial',
-        'lodash', 'uiRouter', 'angularResource', 'angularCookies', 'ngToast', 'ngTags', 'ngSummernote'],
+        'lodash', 'uiRouter', 'angularResource', 'angularCookies', 'ngToast', 'ngTags', 'ngSummernote', 'moment'],
     function (angular,
               StateConfig,
               MainCtrl,
@@ -31,7 +32,8 @@ define(['angular',
               IssueDraftCtrl,
               AuthService,
               UserService,
-              IdeaService) {
+              IdeaService,
+    dateTimeFilter) {
 
         var app = angular.module(
             'buildnigeria.web',
@@ -54,6 +56,7 @@ define(['angular',
                     maxNumber: 1
                 });
             }])
+            .filter('formatDate', dateTimeFilter)
             .controller('MainCtrl', MainCtrl)
             .controller('LoginCtrl', LoginCtrl)
             .controller('HomeCtrl', HomeCtrl)
@@ -67,6 +70,7 @@ define(['angular',
             .service('authService', AuthService)
             .service('userService', UserService)
             .service('ideaService', IdeaService);
+
 
 
         app.run(['$state', '$stateParams', '$location', '$rootScope', 'authService', 'tipService',

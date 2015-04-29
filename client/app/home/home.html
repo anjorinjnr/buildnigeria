@@ -7,20 +7,8 @@
                         <div class="file-manager">
                             <h5>Categories</h5>
                             <ul class="folder-list m-b-md" style="padding: 0">
-                                <li class="">
-                                    <a ui-sref="#">Education <span class="label label-info pull-right">10</span></a>
-                                    
-                                </li>
-                                <li class="">
-                                    <a ui-sref="#">Security  <span class="label label-info pull-right">8</span></a>
-                                   
-                                </li>
-                                <li class="">
-                                    <a ui-sref="#">Economy <span class="label label-info pull-right">3</span></a>
-                                    
-                                </li>
-                                <li class="">
-                                    <a ui-sref="#">Employment <span class="label label-info pull-right">1</span></a>
+                                <li ng-repeat="category in homeCtrl.categories">
+                                    <a ui-sref="#">{{category.category}} <span class="label label-info pull-right">{{category.issue_count}}</span></a>
                                     
                                 </li>
                             </ul>
@@ -29,7 +17,7 @@
                 </div>
             </div>
             <div class="col-lg-9">
-                <div class="row">
+                <div class="row" ng-repeat="issue in homeCtrl.issues | limitTo: 10">
                     <div class="ibox float-e-margins">
                         <div class="ibox-content">
                             <div class="idea-element">
@@ -38,90 +26,19 @@
                                         <img alt="image" class="img-circle" src="assets/images/profile.jpg" />
                                     </a>
                                     &nbsp;&nbsp;
-                                    Tope Fasua
+                                    {{issue.user.name}}
                                     
-                                    <span class="pull-right label label-success">Education</span>
-                                    <span class="pull-right" style="margin-right:20px;">12 January 2014</span>
+                                    <span ng-repeat="category in issue.categories" class="pull-right label label-success">{{category.category}}</span>
+                                    <span class="pull-right" style="margin-right:20px;">{{issue.created_at | formatDate:'':'DD/MM/YYYY'}}</span>
                                 </div>
                                 
                                 <div class="idea-body">
-                                    <p><a ui-sref="idea-detail({ ideaId: 1 })" class="idea-problem"><!--<strong>Problem</strong>--><strong>Boko Haram has been getting in the way of education in the country due to their tendency to kidnap girls...</strong></a></p>
-                                    <p><!--<strong>Solution</strong>--> Once upon a time, there was a country where people did not have to worry about anything. All they had to worry about was putting food on their tables, getting their salaries and paying their children's school fees. How about we all move to a parallel universe where Boko Haram does not exist? <a ui-sref="idea-detail({ ideaId: 1 })">More</a></p>  
-                                </div>
-                                <a href="#" class="btn btn-primary">Upvote (10)</a>&nbsp;&nbsp;<a href="#">Downvote</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-content">
-                            <div class="idea-element">
-                                <div class="idea-header">
-                                    <a ui-sref="profile" class="pull-left">
-                                        <img alt="image" class="img-circle" src="assets/images/profile.jpg" />
-                                    </a>
-                                    &nbsp;&nbsp;
-                                    Tope Fasua
-                                    
-                                    <span class="pull-right label label-success">Education</span>
-                                    <span class="pull-right" style="margin-right:20px;">12 January 2014</span>
-                                </div>
-                                
-                                <div class="idea-body">
-                                    <p><a ui-sref="idea-detail({ ideaId: 1 })" class="idea-problem"><!--<strong>Problem</strong>--><strong>Boko Haram has been getting in the way of education in the country due to their tendency to kidnap girls...</strong></a></p>
-                                    <p><!--<strong>Solution</strong>--> Once upon a time, there was a country where people did not have to worry about anything. All they had to worry about was putting food on their tables, getting their salaries and paying their children's school fees. How about we all move to a parallel universe where Boko Haram does not exist? <a ui-sref="idea-detail({ ideaId: 1 })">More</a></p>  
-                                </div>
-                                <a href="#" class="btn btn-primary">Upvote (10)</a>&nbsp;&nbsp;<a href="#">Downvote</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-content">
-                            <div class="idea-element">
-                                <div class="idea-header">
-                                    <a ui-sref="profile" class="pull-left">
-                                        <img alt="image" class="img-circle" src="assets/images/profile.jpg" />
-                                    </a>
-                                    &nbsp;&nbsp;
-                                    Tope Fasua
-                                    
-                                    <span class="pull-right label label-success">Education</span>
-                                    <span class="pull-right" style="margin-right:20px;">12 January 2014</span>
-                                </div>
-                                
-                                <div class="idea-body">
-                                    <p><a href="#" class="idea-problem"><!--<strong>Problem</strong>--><strong>Boko Haram has been getting in the way of education in the country due to their tendency to kidnap girls...</strong></a></p>
-                                    <p><!--<strong>Solution</strong>--> Once upon a time, there was a country where people did not have to worry about anything. All they had to worry about was putting food on their tables, getting their salaries and paying their children's school fees. How about we all move to a parallel universe where Boko Haram does not exist? <a ui-sref="idea-detail({ ideaId: 1 })">More</a></p>  
-                                </div>
-                                <a href="#" class="btn btn-primary">Upvote (10)</a>&nbsp;&nbsp;<a href="#">Downvote</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-content">
-                            <div class="idea-element">
-                                <div class="idea-header">
-                                    <a ui-sref="profile" class="pull-left">
-                                        <img alt="image" class="img-circle" src="assets/images/profile.jpg" />
-                                    </a>
-                                    &nbsp;&nbsp;
-                                    Tope Fasua
-                                    
-                                    <span class="pull-right label label-success">Education</span>
-                                    <span class="pull-right" style="margin-right:20px;">12 January 2014</span>
-                                </div>
-                                
-                                <div class="idea-body">
-                                    <p><a ui-sref="idea-detail({ ideaId: 1 })" class="idea-problem"><!--<strong>Problem</strong>--><strong>Boko Haram has been getting in the way of education in the country due to their tendency to kidnap girls...</strong></a></p>
-                                    <p><!--<strong>Solution</strong>--> Once upon a time, there was a country where people did not have to worry about anything. All they had to worry about was putting food on their tables, getting their salaries and paying their children's school fees. How about we all move to a parallel universe where Boko Haram does not exist? <a href=ui-sref="idea-detail({ ideaId: 1 })">More</a></p>  
+                                    <p><a ui-sref="idea-detail({ ideaId: 1 })" class="idea-problem"><!--<strong>Problem</strong>-->
+                                        <strong>
+                                            {{issue.detail | limitTo:120}} ...
+                                        </strong></a></p>
+                                    <p><!--<strong>Solution</strong>--> {{issue.solutions[0].detail | limitTo:300}}
+                                        <a ui-sref="idea-detail({ ideaId: 1 })"> More</a></p>
                                 </div>
                                 <a href="#" class="btn btn-primary">Upvote (10)</a>&nbsp;&nbsp;<a href="#">Downvote</a>
                             </div>

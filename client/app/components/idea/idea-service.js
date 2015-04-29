@@ -17,6 +17,11 @@ define(function () {
                     method: 'GET',
                     url: API_PATH + 'categories',
                     isArray: true
+                },
+                issues: {
+                    method: 'GET',
+                    url: API_PATH + 'issues',
+                    isArray: true
                 }
             }
         );

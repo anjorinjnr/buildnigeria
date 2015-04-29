@@ -15,4 +15,7 @@ class Issue extends Model {
     public function solutions() {
         return $this->hasMany('BuildNigeria\Solution');
     }
+    public function user() {
+        return $this->belongsTo('BuildNigeria\User');
+    }
 }

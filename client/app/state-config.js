@@ -14,7 +14,7 @@ define(function () {
                     var session = authService.getSession();
                     if (session) {
                         userService.get({'user_token': session.user_token}, function (user) {
-                            var user  = user.toJSON();
+                            var user = user.toJSON();
                             if (!_.isEmpty(user)) {
                                 userPromise.resolve(user);
                                 authService.setCurrentUser(user);
@@ -30,14 +30,14 @@ define(function () {
                     }
                     return userPromise.promise;
                 }],
-            ideas: function () {
-                //@todo
+            issues: ['ideaService', function (ideaService) {
+                return ideaService.issues().$promise;
 
-            },
-            categories: function () {
-                //@todo
+            }],
+            categories: ['ideaService', function (ideaService) {
+                return ideaService.categories().$promise;
 
-            }
+            }]
 
         };
 
@@ -58,7 +58,9 @@ define(function () {
                 parent: 'main',
                 templateUrl: 'home/home.html',
                 resolve: {
-                    user: resolves.loggedInUser
+                    user: resolves.loggedInUser,
+                    issues: resolves.issues,
+                    categories: resolves.categories
                 },
                 data: {
                     public: true
