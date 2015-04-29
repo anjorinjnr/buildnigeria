@@ -14,7 +14,7 @@ define(['angular',
         'components/idea/idea-service',
         'components/tip/tip-module',
         //'angularMaterial',
-        'lodash', 'uiRouter', 'angularResource', 'angularCookies', 'ngTags', 'ngSummernote'],
+        'lodash', 'uiRouter', 'angularResource', 'angularCookies', 'ngToast', 'ngTags', 'ngSummernote'],
     function (angular,
               StateConfig,
               MainCtrl,
@@ -34,13 +34,22 @@ define(['angular',
             [
                 //  'ngMaterial',
                 'ngCookies',
+                'ngToast',
                 'ui.router',
                 'ngResource',
-                'ngTip',
+                'tip.bar',
                 'ngTagsInput',
                 'summernote'
             ]);
         app.config(StateConfig)
+            .config(['ngToastProvider', function(ngToast) {
+                ngToast.configure({
+                    verticalPosition: 'top',
+                    horizontalPosition: 'center',
+                    dismissButton: true,
+                    maxNumber: 1
+                });
+            }])
             .controller('MainCtrl', MainCtrl)
             .controller('LoginCtrl', LoginCtrl)
             .controller('HomeCtrl', HomeCtrl)
@@ -65,7 +74,7 @@ define(['angular',
                 });
 
                 $rootScope.$on('$stateChangeStart', function (event, toState) {
-                    tipService.info('Loading...').show();
+                   tipService.info('Loading...').show();
 
                     if (toState.url === '/logout') {
                         event.preventDefault();

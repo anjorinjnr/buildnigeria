@@ -13,7 +13,7 @@
                                         ng-model="shareCtrl.issueCategories">
                                 <auto-complete source="shareCtrl.suggestTags($query)"></auto-complete>
                             </tags-input>
-                            <span ng-show="shareCtrl.missingCategory" style="color:#a94442">
+                            <span ng-show="shareCtrl.errors.missingCategory && (shareCtrl.issueCategories.length < 1)" style="color:#a94442">
                                 <small>Please enter at least one category.</small></span>
                         </div>
                     </div>
@@ -27,17 +27,16 @@
 
                             <form  role="form" name="issueForm" ng-submit="shareCtrl.postIssue(issueForm)" novalidate>
                                 <div class="form-group"
-                                     ng-class="{'has-error':  issueForm.problem_desc.$invalid &&
-                                     ( !issueForm.problem_desc.$pristine || issueForm.submitted )}" >
+                                     ng-class="{'has-error': shareCtrl.errors.issueDetail &&  (!shareCtrl.issue.detail || shareCtrl.issue.detail.length < 150)}" >
                                     <label for="problem_desc">Problem Description</label>
                                     <!-- use a rich text editor here -->
                                     <span ng-show="issueForm.problem_desc.$viewValue.length > 1" style="float: right"
                                             ><small>{{issueForm.problem_desc.$viewValue.length}} characters</small></span>
                                     <textarea rows="10" class="form-control" name="problem_desc" id="problem_desc"
-                                              ng-model="shareCtrl.issue.detail"  pattern=".{150,}" required=""
+                                              ng-model="shareCtrl.issue.detail"  required=""
                                               title="150 characters minimum"
                                               placeholder="Provide a detailed description of the problem you are proposing a solution for."></textarea>
-                                     <span ng-show="issueForm.problem_desc.$invalid && ( !issueForm.problem_desc.$pristine || issueForm.submitted )"
+                                    <span ng-show="shareCtrl.errors.issueDetail && (!shareCtrl.issue.detail || shareCtrl.issue.detail.length < 150)"
                                            class="help-block" style="float: right"><small>Your problem  description must be at least 150 characters.</small></span>
 
                                     <a style="margin-top:10px; margin-right: 10px" ng-click="shareCtrl.showSolution = true;">I have a solution to this problem</a>

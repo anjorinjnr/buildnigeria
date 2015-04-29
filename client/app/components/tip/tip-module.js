@@ -3,7 +3,7 @@
  */
 define(['angular','./tip-service', './tip-directive'], function (angular,  TipService, TipDirective) {
     'use strict';
-    return  angular.module('ngTip', [])
+    return  angular.module('tip.bar', [])
         .service('tipService', TipService)
         .directive('tipBar', TipDirective);
 });

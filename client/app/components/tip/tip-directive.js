@@ -2,7 +2,7 @@
  * Created by eanjorin on 9/23/14.
  */
 
-define([], function () {
+define(function () {
 
     var TipBar = function ($parse, tipService) {
         return {

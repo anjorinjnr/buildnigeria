@@ -81,25 +81,17 @@ define([], function () {
     };
 
     var stop;
+    TipService.prototype.execute = function (fn) {
+        fn(this);
+    };
     TipService.prototype.show = function () {
-        if (angular.isDefined(stop)) {
-            this.interval_.cancel(stop);
-        }
+
         if (angular.isString(this.tip.message.toString())) {
+            console.log('show tip');
             var self = this;
             this.tip.visible = true;
-            if (typeof this.tip.delay === 'function') {
-                stop = this.interval_(function () {
-                    self.tip.delay();
-                    self.hide();
-                    self.interval_.cancel(stop);
-                }, 100, 1);
-            } else {
-                stop = this.interval_(function () {
-                    self.hide();
-                    self.interval_.cancel(stop);
-                }, this.tip.delay, 1);
-            }
+
+
         }
 
     };
