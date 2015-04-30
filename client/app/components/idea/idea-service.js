@@ -22,6 +22,26 @@ define(function () {
                     method: 'GET',
                     url: API_PATH + 'issues',
                     isArray: true
+                },
+                upVoteIssue: {
+                    method: 'POST',
+                    url: API_PATH + 'vote/issue/up',
+                    isArray: false
+                },
+                downVoteIssue: {
+                    method: 'POST',
+                    url: API_PATH + 'vote/issue/down',
+                    isArray: false
+                },
+                upVoteSolution: {
+                    method: 'POST',
+                    url: API_PATH + 'vote/solution/up',
+                    isArray: false
+                },
+                downVoteSolution: {
+                    method: 'POST',
+                    url: API_PATH + 'vote/solution/down',
+                    isArray: false
                 }
             }
         );

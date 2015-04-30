@@ -26,3 +26,6 @@ Route::post('issue', 'IdeaController@createIssue');
 Route::get('issues', 'IdeaController@getIssues');
 Route::get('categories', 'IdeaController@getCategories');
 
+Route::post('vote/{item_type}/{vote_type}', 'IdeaController@vote')
+    ->where(['item_type' => 'issue|solution', 'vote_type' => 'up|down']);
+

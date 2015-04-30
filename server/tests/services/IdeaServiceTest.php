@@ -1,5 +1,6 @@
 <?php
 use BuildNigeria\Issue;
+use BuildNigeria\Vote;
 use Laracasts\TestDummy\DbTestCase;
 use Laracasts\TestDummy\Factory;
 
@@ -160,7 +161,40 @@ class IdeaServiceTest extends DbTestCase {
         $response = $ideaService->createIssue($data);
         $this->assertInstanceOf('BuildNigeria\Issue', $response);
         $this->assertEquals(1, $response->solutions->count());
+    }
 
+    public function test_issue_up_vote() {
+        $issue = Factory::create('BuildNigeria\Issue');
+        $user = Factory::create('BuildNigeria\User');
+        $this->assertEquals(0, $issue->upVotes());
 
+        //test initiate vote is set
+        $ideaService = $this->app->make('BuildNigeria\Services\IdeaService');
+        $result = $ideaService->vote($user->id, $issue->id, Vote::ITEM_TYPE_ISSUE, Vote::VOTE_TYPE_UP);
+        $this->assertTrue($result);
+        //print_r(Vote::all()->toArray());
+        $this->assertEquals(1, $issue->upVotes());
+
+        //test vote is remove, if same vote request is made
+        $result = $ideaService->vote($user->id, $issue->id, Vote::ITEM_TYPE_ISSUE, Vote::VOTE_TYPE_UP);
+        $this->assertTrue($result);
+        $this->assertEquals(0, $issue->upVotes());
+
+        //test different user votes reflect appropriate count
+        $user = Factory::create('BuildNigeria\User');
+        $result = $ideaService->vote($user->id, $issue->id, Vote::ITEM_TYPE_ISSUE, Vote::VOTE_TYPE_UP);
+        $this->assertTrue($result);
+        $this->assertEquals(1, $issue->upVotes());
+
+        //test downvote removes upvote for user
+        $result = $ideaService->vote($user->id, $issue->id, Vote::ITEM_TYPE_ISSUE, Vote::VOTE_TYPE_DOWN);
+        $this->assertTrue($result);
+        $this->assertEquals(0, $issue->upVotes());
+        $this->assertEquals(1, $issue->downVotes());
+
+        //test validation
+        $result = $ideaService->vote(0, $issue->id, Vote::ITEM_TYPE_SOLUTION, 'wrong_type');
+        $this->assertFalse($result);
+        $this->assertEquals(3, count($ideaService->errors()));
     }
 }

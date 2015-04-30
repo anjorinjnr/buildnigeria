@@ -13,7 +13,7 @@ $factory('BuildNigeria\User', [
 
 $factory('BuildNigeria\Issue', [
     //'id' => $faker->randomDigit,
-    'user' => 'factory:BuildNigeria\User',
+    'user_id' => 'factory:BuildNigeria\User',
     'detail' => $faker->paragraphs(),
 ]);
 

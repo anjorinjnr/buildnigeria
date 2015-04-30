@@ -1,5 +1,5 @@
 <div class="wrapper wrapper-content p-x1">
-	<div class="container animated fadeInRight">
+    <div class="container animated fadeInRight">
         <div class="row">
             <div class="col-lg-3">
                 <div class="ibox float-e-margins">
@@ -9,7 +9,7 @@
                             <ul class="folder-list m-b-md" style="padding: 0">
                                 <li ng-repeat="category in homeCtrl.categories">
                                     <a ui-sref="#">{{category.category}} <span class="label label-info pull-right">{{category.issue_count}}</span></a>
-                                    
+
                                 </li>
                             </ul>
                         </div>
@@ -23,29 +23,47 @@
                             <div class="idea-element">
                                 <div class="idea-header">
                                     <a ui-sref="profile" class="pull-left">
-                                        <img alt="image" class="img-circle" src="assets/images/profile.jpg" />
+                                        <img alt="image" class="img-circle" src="assets/images/profile.jpg"/>
                                     </a>
                                     &nbsp;&nbsp;
                                     {{issue.user.name}}
-                                    
-                                    <span ng-repeat="category in issue.categories" class="pull-right label label-success">{{category.category}}</span>
+
+                                    <span ng-repeat="category in issue.categories"
+                                          class="pull-right label label-success">{{category.category}}</span>
                                     <span class="pull-right" style="margin-right:20px;">{{issue.created_at | formatDate:'':'DD/MM/YYYY'}}</span>
                                 </div>
-                                
+
                                 <div class="idea-body">
-                                    <p><a ui-sref="idea-detail({ ideaId: 1 })" class="idea-problem"><!--<strong>Problem</strong>-->
+                                    <p><a ui-sref="idea-detail({ ideaId: 1 })" class="idea-problem">
+                                        <!--<strong>Problem</strong>-->
                                         <strong>
                                             {{issue.detail | limitTo:120}} ...
                                         </strong></a></p>
+
+                                </div>
+                                <div ng-show="issue.solutions.length > 0">
                                     <p><!--<strong>Solution</strong>--> {{issue.solutions[0].detail | limitTo:300}}
                                         <a ui-sref="idea-detail({ ideaId: 1 })"> More</a></p>
+                                    <a ng-click="homeCtrl.upVoteSolution(issue.solutions[0])"
+                                       class="btn" ng-class="{'btn-default': homeCtrl.votes.solutions.up[issue.solutions[0].id],
+                                        'btn-primary':  !homeCtrl.votes.solutions.up[issue.solutions[0].id] }">
+                                        <span ng-if="homeCtrl.votes.solutions.up[issue.solutions[0].id]">Upvoted </span>
+                                        <span ng-if="!homeCtrl.votes.solutions.up[issue.solutions[0].id]">Upvote </span>({{issue.solutions[0].up_vote}})</a>&nbsp;&nbsp;
+                                    <a ng-click="homeCtrl.downVoteSolution(issue.solutions[0])">
+                                        <span class="text-muted"
+                                              ng-if="homeCtrl.votes.solutions.down[issue.solutions[0].id]">Downvoted</span>
+                                        <span ng-if="!homeCtrl.votes.solutions.down[issue.solutions[0].id]">Downvote</span></a>
+                                    <img ng-show="homeCtrl.voteLoading" style="margin-left: 5px;" src="../assets/images/ajax-loader.gif" alt=""/>
                                 </div>
-                                <a href="#" class="btn btn-primary">Upvote (10)</a>&nbsp;&nbsp;<a href="#">Downvote</a>
+                                <div>
+                                    <!--No solution posted.-->
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-	</div>
+    </div>
 </div>

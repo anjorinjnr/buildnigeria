@@ -12,6 +12,7 @@ use BuildNigeria\Idea;
 use BuildNigeria\Issue;
 use BuildNigeria\Solution;
 use BuildNigeria\Traits\ErrorTrait;
+use BuildNigeria\Vote;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,12 +24,15 @@ class IdeaService {
     private $solution;
     private $issue;
     private $category;
+    private $vote;
 
-    public function __construct(Issue $issue, Category $category, Solution $solution, SecurityService $securityService) {
+    public function __construct(Issue $issue, Category $category, Solution $solution, Vote $vote,
+                                SecurityService $securityService) {
         $this->securityService = $securityService;
         $this->solution = $solution;
         $this->issue = $issue;
         $this->category = $category;
+        $this->vote = $vote;
     }
 
     /**
@@ -136,8 +140,65 @@ class IdeaService {
     }
 
     public function issues() {
-        return $this->issue->with(['user', 'solutions', 'categories'])
+        return $this->issue->with(
+            [
+                'user', 'solutions' => function ($query) {
+                $query->with(
+                    [
+                        'votes' => function ($q) {
+                            $q->where('item_type', Vote::ITEM_TYPE_SOLUTION);
+                        }
+                    ])->orderBy('up_vote', 'desc');
+            },
+                'categories'])
             ->where('status', Issue::PUBLISH)
             ->orderBy('updated_at', 'desc')->get();
     }
+
+    public function vote($userId, $itemId, $itemType, $voteType) {
+
+        $validator = Validator::make(
+            [
+                'user_id' => $userId,
+                'item_id' => $itemId,
+                'item_type' => $itemType,
+                'vote_type' => $voteType
+            ],
+            [
+                'user_id' => 'required|exists:users,id',
+                'item_type' => sprintf('required|in:%s,%s', Vote::ITEM_TYPE_ISSUE, Vote::ITEM_TYPE_SOLUTION),
+                'vote_type' => sprintf('required|in:%s,%s', Vote::VOTE_TYPE_DOWN, Vote::VOTE_TYPE_UP),
+                'item_id' => sprintf('required|exists:%s,id', ($itemType == 'issue' ? 'issues' : 'solutions'))
+            ]
+        );
+
+        if ($validator->passes()) {
+            //try to get existing user vote
+            $vote = $this->vote->where('item_id', $itemId)
+                ->where('user_id', $userId)
+                ->where('item_type', $itemType)
+                ->first();
+
+            if ($vote && $vote->vote_type == $voteType) {
+                //if user already voted this type, just remove vote
+                $vote->delete();
+            } else {
+                //if user already voted another type, remove vote
+                //and add new vote
+                if ($vote) $vote->delete();
+                $this->vote->create([
+                    'item_id' => $itemId,
+                    'user_id' => $userId,
+                    'item_type' => $itemType,
+                    'vote_type' => $voteType
+                ]);
+            }
+            return true;
+        } else {
+            $this->clearErrors()->addError($validator->messages()->all());
+            return false;
+        }
+
+    }
+
 }

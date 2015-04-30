@@ -14,12 +14,14 @@ class IdeaController extends Controller {
         $this->ideaService = $ideaService;
     }
 
-    public function getCategories(){
+    public function getCategories() {
         return $this->ideaService->categories()->toJson();
     }
-    public function getIssues(){
+
+    public function getIssues() {
         return $this->ideaService->issues()->toJson();
     }
+
     public function createIssue(Request $request) {
         if (($issue = $this->ideaService->createIssue($request->all()))) {
             return $this->successResponse($issue);
@@ -28,7 +30,15 @@ class IdeaController extends Controller {
         }
     }
 
-    public function all() {
+    public function vote($itemType, $voteType, Request $request) {
+        $voteType = $voteType . '_vote';
+        $userId = $request->get('user_id');
+        $itemId = $request->get('item_id');
+        if ($this->ideaService->vote($userId, $itemId, $itemType, $voteType)) {
+            return $this->successResponse();
+        } else {
+            return $this->errorResponse($this->ideaService->errors());
+        };
 
     }
 
