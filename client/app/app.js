@@ -113,8 +113,8 @@ define(['angular',
         if (window.location.hostname.indexOf('buildnigeria.com.ng') >= 0) {
             app.constant('API_PATH', 'http://api.buildnigeria.com.ng/');
         } else {
-            // app.constant('API_PATH', 'http://buildnigeria-service.local/');
-            app.constant('API_PATH', 'http://localhost:8000/');
+            app.constant('API_PATH', 'http://buildnigeria-service.local/');
+            // app.constant('API_PATH', 'http://localhost:8000/');
         }
         return app;
     });
