@@ -46,9 +46,9 @@ define(function () {
      */
     HomeCtrl.prototype.upVoteSolution = function (solution) {
         var self = this;
-        this.voteLoading = true;
+        solution.voteLoading = true;
         this.ideaService.upVoteSolution({'user_id': this.user.id, 'item_id': solution.id}, function (resp) {
-            self.voteLoading = false;
+            solution.voteLoading = false;
             if (resp.status === 'success') {
                 //if wasn't upvoted before, increase vote
                 //remove downvote if available and mark as upvoted
@@ -73,9 +73,9 @@ define(function () {
      */
     HomeCtrl.prototype.downVoteSolution = function (solution) {
         var self = this;
-        this.voteLoading = true;
+        solution.voteLoading = true;
         this.ideaService.downVoteSolution({'user_id': this.user.id, 'item_id': solution.id}, function (resp) {
-            self.voteLoading = false;
+            solution.voteLoading = false;
             if (resp.status === 'success') {
                 //if wasn't downvoted before,
                 //if user already upvoted, negate that

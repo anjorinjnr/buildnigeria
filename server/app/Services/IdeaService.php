@@ -78,6 +78,7 @@ class IdeaService {
     public function categories() {
         return $this->category->leftJoin('issues_categories as ic', 'categories.id', '=', 'ic.category_id')
             ->select(DB::raw('count(ic.id) as issue_count'), 'categories.id', 'category')
+            ->orderBy('issue_count', 'desc')
             ->groupBy('id', 'category')
             ->get();
     }
@@ -152,7 +153,7 @@ class IdeaService {
             },
                 'categories'])
             ->where('status', Issue::PUBLISH)
-            ->orderBy('updated_at', 'desc')->get();
+            ->orderBy('created_at', 'desc')->get();
     }
 
     public function vote($userId, $itemId, $itemType, $voteType) {

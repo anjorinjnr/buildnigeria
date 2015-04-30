@@ -53,7 +53,7 @@
                                         <span class="text-muted"
                                               ng-if="homeCtrl.votes.solutions.down[issue.solutions[0].id]">Downvoted</span>
                                         <span ng-if="!homeCtrl.votes.solutions.down[issue.solutions[0].id]">Downvote</span></a>
-                                    <img ng-show="homeCtrl.voteLoading" style="margin-left: 5px;" src="../assets/images/ajax-loader.gif" alt=""/>
+                                    <img ng-show="issue.solutions[0].voteLoading" style="margin-left: 5px;" src="../assets/images/ajax-loader.gif" alt=""/>
                                 </div>
                                 <div>
                                     <!--No solution posted.-->
