@@ -11,6 +11,7 @@ define(['angular',
         'drafts/drafts-ctrl',
         'drafts/issue-draft-ctrl',
         'drafts/solution-draft-ctrl',
+        'issues/issue-ctrl',
         'components/auth/auth-service',
         'components/user/user-service',
         'components/idea/idea-service',
@@ -28,6 +29,7 @@ define(['angular',
               ShareCtrl,
               SearchCtrl,
               DraftsCtrl,
+              IssueCtrl,
               SolutionDraftCtrl,
               IssueDraftCtrl,
               AuthService,
@@ -67,6 +69,7 @@ define(['angular',
             .controller('DraftsCtrl', DraftsCtrl)
             .controller('SolutionDraftCtrl', SolutionDraftCtrl)
             .controller('IssueDraftCtrl', IssueDraftCtrl)
+            .controller('IssueCtrl', IssueCtrl)
             .service('authService', AuthService)
             .service('userService', UserService)
             .service('ideaService', IdeaService);
@@ -110,7 +113,8 @@ define(['angular',
         if (window.location.hostname.indexOf('buildnigeria.com.ng') >= 0) {
             app.constant('API_PATH', 'http://api.buildnigeria.com.ng/');
         } else {
-            app.constant('API_PATH', 'http://buildnigeria-service.local/');
+            // app.constant('API_PATH', 'http://buildnigeria-service.local/');
+            app.constant('API_PATH', 'http://localhost:8000/');
         }
         return app;
     });

@@ -72,7 +72,20 @@ define(function () {
                 url: '/ideas/:ideaId',
                 templateUrl: 'ideas/idea.html',
                 parent: 'main',
-                controller: 'IdeaCtrl as ideaCtrl'
+                controller: 'IdeaCtrl as ideaCtrl',
+                resolve: {
+                    user: resolves.loggedInUser
+                }
+            })
+            
+            .state('issue-detail', {
+                url: '/issues/:issueId',
+                templateUrl: 'issues/issue.html',
+                parent: 'main',
+                controller: 'IssueCtrl as issueCtrl',
+                resolve: {
+                    user: resolves.loggedInUser
+                }
             })
 
             .state('oauth-callback', {
