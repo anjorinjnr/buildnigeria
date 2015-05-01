@@ -14,6 +14,7 @@ define(function () {
                     var session = authService.getSession();
                     if (session) {
                         userService.get({'user_token': session.user_token}, function (user) {
+                            console.log(2);
                             var user = user.toJSON();
                             if (!_.isEmpty(user)) {
                                 userPromise.resolve(user);
@@ -37,6 +38,9 @@ define(function () {
             categories: ['ideaService', function (ideaService) {
                 return ideaService.categories().$promise;
 
+            }],
+            drafts: ['user', 'userService', function (user, userService) {
+                return userService.drafts({id: user.id}).$promise;
             }]
 
         };
@@ -45,7 +49,10 @@ define(function () {
         $stateProvider
             .state('main', {
                 abstract: true,
-                templateUrl: 'main/main.html'
+                templateUrl: 'main/main.html',
+                resolve: {
+                    user: resolves.loggedInUser
+                }
             })
 
             .state('logout', {
@@ -58,12 +65,11 @@ define(function () {
                 parent: 'main',
                 templateUrl: 'home/home.html',
                 resolve: {
-                    user: resolves.loggedInUser,
                     issues: resolves.issues,
                     categories: resolves.categories
                 },
                 data: {
-                    public: true
+                    public: false
                 }
 
             })
@@ -77,7 +83,7 @@ define(function () {
                     user: resolves.loggedInUser
                 }
             })
-            
+
             .state('issue-detail', {
                 url: '/issues/:issueId',
                 templateUrl: 'issues/issue.html',
@@ -122,19 +128,19 @@ define(function () {
                     user: resolves.loggedInUser
                 },
                 data: {
-                    public: true
+                    public: false
                 }
             })
 
             .state('drafts', {
                 url: '/drafts',
-                controller: ['$state', function ($state) {
-                    $state.go('issues');
-                }],
                 templateUrl: 'drafts/drafts.html',
                 parent: 'main',
                 data: {
-                    public: true
+                    public: false
+                },
+                resolve: {
+                    drafts: resolves.drafts
                 }
             })
 
@@ -143,11 +149,12 @@ define(function () {
                 controller: 'DraftsCtrl as draftsCtrl',
                 templateUrl: 'drafts/issue_drafts.html',
                 data: {
-                    public: true
+                    public: false
                 },
                 parent: 'drafts',
                 resolve: {
-                    user: resolves.loggedInUser
+                    //user: resolves.loggedInUser
+
                 }
             })
 

@@ -69,4 +69,24 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             ->where('status', Solution::DRAFT)->count();
     }
 
+    public function drafts() {
+        return [
+            'issues' => $this->issueDrafts(),
+            'solutions' => $this->solutionDrafts()
+        ];
+    }
+
+    public function issueDrafts() {
+        return Issue::where('user_id', $this->id)
+            ->where('status', Issue::DRAFT)
+            ->paginate(15);
+    }
+
+    public function solutionDrafts() {
+        return Solution::where('user_id', $this->id)
+            ->where('status', Solution::DRAFT)
+            ->paginate(15);
+
+    }
+
 }

@@ -20,6 +20,8 @@ Route::controllers([
 ]);
 
 Route::get('user', 'UserController@getUserByToken');
+Route::get('user/{user}/drafts', 'UserController@getDrafts');
+Route::get('user/solutions', 'UserController@getUserIssues');
 Route::post('user', 'UserController@create');
 Route::post('user/login', 'UserController@login');
 Route::post('issue', 'IdeaController@createIssue');

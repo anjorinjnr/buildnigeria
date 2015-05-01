@@ -49,8 +49,11 @@ class UserController extends Controller {
         }
     }
 
-    public function all() {
-
+    public function getDrafts(User $user) {
+        return [
+            'issues' => $user->issueDrafts()->toJson(),
+            'solutions' => $user->solutionDrafts()->toJson()
+        ];
     }
 
     public function create(Request $request) {

@@ -17,6 +17,12 @@ define(function () {
                     method: 'POST',
                     url: API_PATH + 'user/login',
                     isArray: false
+                },
+                drafts: {
+                    method: 'GET',
+                    url: API_PATH + 'user/:id/drafts',
+                    isArray: true
+
                 }
             }
         );

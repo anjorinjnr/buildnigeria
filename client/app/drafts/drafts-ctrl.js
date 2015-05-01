@@ -3,10 +3,11 @@
  */
 define(function () {
 
-    var DraftsCtrl = function (user) {
+    var DraftsCtrl = function (user, drafts) {
        this.user = user;
+        console.log(drafts);
     };
 
-    DraftsCtrl.$inject = ['user'];
+    DraftsCtrl.$inject = ['user', 'drafts'];
     return DraftsCtrl;
 });

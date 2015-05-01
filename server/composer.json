@@ -10,7 +10,8 @@
   "require": {
     "laravel/framework": "5.0.*",
     "laravel/socialite": "~2.0",
-    "nesbot/Carbon": "*"
+    "nesbot/Carbon": "*",
+    "torann/hashids": "1.0.*@dev"
   },
   "require-dev": {
     "laracasts/testdummy": "2.0.12",
