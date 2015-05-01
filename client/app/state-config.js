@@ -151,8 +151,8 @@ define(function () {
                 }
             })
 
-            .state('edit-issue-draft', {
-                url: '/drafts/issues/edit/:draftId',
+            .state('edit-issue', {
+                url: '/issues/edit/:issueId',
                 controller: 'IssueDraftCtrl as issueDraftCtrl',
                 templateUrl: 'drafts/edit_issue_draft.html',
                 data: {
@@ -177,8 +177,8 @@ define(function () {
                 }
             })
 
-            .state('edit-solution-draft', {
-                url: '/drafts/solutions/edit/:draftId',
+            .state('edit-solution', {
+                url: '/solutions/edit/:solutionsId',
                 controller: 'SolutionDraftCtrl as solutionDraftCtrl',
                 templateUrl: 'drafts/edit_solution_draft.html',
                 data: {

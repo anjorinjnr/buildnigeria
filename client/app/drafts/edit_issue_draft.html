@@ -1,0 +1,67 @@
+<div class="wrapper wrapper-content p-x1">
+    <div class="container animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Select Categories</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="form-group">
+                            <!-- use ngTagsInput here -->
+                            <tags-input placeholder="Add a category for this idea"
+                                        ng-model="">
+                                <auto-complete source=""></auto-complete>
+                            </tags-input>
+                            <span ng-show="" style="color:#a94442">
+                                <small>Please enter at least one category.</small></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <h2 style="margin-bottom:20px;">Edit Issue Draft</h2>
+
+                            <form  role="form" name="issueForm" novalidate>
+                                <div class="form-group"
+                                     ng-class="{'has-error': shareCtrl.errors.issueDetail &&  (!shareCtrl.issue.detail || shareCtrl.issue.detail.length < 150)}" >
+                                    <label for="problem_desc">Problem Description</label>
+                                    <!-- use a rich text editor here -->
+                                    <span ng-show="issueForm.problem_desc.$viewValue.length > 1" style="float: right"
+                                            ><small>{{issueForm.problem_desc.$viewValue.length}} characters</small></span>
+                                    <textarea rows="10" class="form-control" name="problem_desc" id="problem_desc"
+                                              ng-model=""  required=""
+                                              title="150 characters minimum"
+                                              placeholder="Previously saved problem description here. Plenty of talk. Everything bad. This world is going to shits. Let's all collectively jump off a bridge."></textarea>
+                                    <span ng-show=""
+                                           class="help-block" style="float: right"><small>Your problem  description must be at least 150 characters.</small></span>
+                                </div>
+
+
+                                <div class="form-group" ng-show="shareCtrl.showSolution">
+                                    <div class="form-group">
+                                        <label>Proposed Solution</label>
+                                        <!-- use a rich text editor here -->
+                                        <div summernote
+                                             class="summernote"
+                                             ng-model=""></div>
+                                    </div>
+                                </div>
+                               <div>
+                                   <a style="margin-right: 10px" ui-sref="home">Cancel</a>
+                                   <button ng-click="" class="btn btn-w-m btn-white" style="margin-right: 10px">Save as Draft</button>
+                                   <button ng-click="" class="btn btn-primary">Post</button>
+
+                               </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
