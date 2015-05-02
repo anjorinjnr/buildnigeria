@@ -9,6 +9,9 @@ class Solution extends Model {
     protected $fillable = [];
 
 
+    public function issue(){
+        return $this->belongsTo('BuildNigeria\Issue');
+    }
     public function votes() {
         return $this->hasMany('BuildNigeria\Vote', 'item_id', 'id');
     }

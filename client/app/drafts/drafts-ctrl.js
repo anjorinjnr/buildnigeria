@@ -2,7 +2,6 @@
  * Created by davidadamojr on 4/15/15.
  */
 define(function () {
-
     /**
      *
      * @param user
@@ -25,6 +24,19 @@ define(function () {
             solutions: []
         };
         this.$cacheFactory = $cacheFactory;
+        //the solution maybe a rich text, so the limitTo filter will not work
+        //so we use jquery to get the text content and do a substring.
+        solutions.data.forEach(function (row) {
+            var body;
+            try {
+                 body = $(row.detail).text();
+            } catch (er) {
+                body = row.detail;
+
+            }
+            var text = body.substring(0, 120);
+            row.detail = (body.length > 120) ? text + '...' : text;
+        });
     };
 
     /**

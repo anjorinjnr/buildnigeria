@@ -16,7 +16,8 @@ use BuildNigeria\Vote;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
-class IdeaService {
+class IdeaService
+{
 
     use ErrorTrait;
 
@@ -27,7 +28,8 @@ class IdeaService {
     private $vote;
 
     public function __construct(Issue $issue, Category $category, Solution $solution, Vote $vote,
-                                SecurityService $securityService) {
+                                SecurityService $securityService)
+    {
         $this->securityService = $securityService;
         $this->solution = $solution;
         $this->issue = $issue;
@@ -36,11 +38,42 @@ class IdeaService {
     }
 
     /**
+     * Create or update solution
+     * @param $data
+     * @return bool|Solution
+     */
+    public function createSolution($data)
+    {
+        $validator = Validator::make($data, [
+            'user_id' => 'required|exists:users,id',
+            'issue_id' => 'required|exists:issues,id',
+            'detail' => 'required'
+        ]);
+
+        if ($validator->passes()) {
+            //solution exist, update
+            if (array_key_exists('id', $data)) {
+                $this->solution = $this->solution->findOrFail($data['id']);
+            } else {
+                $this->solution->user_id = $data['user_id'];
+                $this->solution->issue_id = $data['issue_id'];
+            }
+            $this->saveSolution($data);
+            return $this->solution;
+        } else {
+            $this->clearErrors()->addError($validator->messages()->all());
+            return false;
+        }
+
+    }
+
+    /**
      * Creates or updates an issue
      * @param $data
      * @return bool|Issue
      */
-    public function createIssue($data) {
+    public function createIssue($data)
+    {
 
         $validator = Validator::make($data, ['user_id' => 'required|exists:users,id']);
         $validator->sometimes('detail', 'required|min:150', function ($input) {
@@ -75,7 +108,8 @@ class IdeaService {
         }
     }
 
-    public function categories() {
+    public function categories()
+    {
         return $this->category->leftJoin('issues_categories as ic', 'categories.id', '=', 'ic.category_id')
             ->select(DB::raw('count(ic.id) as issue_count'), 'categories.id', 'category')
             ->orderBy('issue_count', 'desc')
@@ -86,7 +120,8 @@ class IdeaService {
     /**
      * @param $data
      */
-    private function updateIssueCategory($data) {
+    private function updateIssueCategory($data)
+    {
 
         DB::commit(); //commit to release lock on issues_categories
         $this->issue->categories()->detach();
@@ -108,7 +143,8 @@ class IdeaService {
         }
     }
 
-    private function saveSolution($data) {
+    private function saveSolution($data)
+    {
         if ($this->solution->issue_id && $this->solution->user_id) {
             $this->solution->detail = $data['detail'];
             $this->solution->status = (array_key_exists('status', $data) &&
@@ -119,7 +155,8 @@ class IdeaService {
     }
 
 
-    private function addSolutionToIssue($data) {
+    private function addSolutionToIssue($data)
+    {
         if (array_key_exists('solution', $data) && array_key_exists('detail', $data['solution'])) {
             //create new solution
             $this->solution->issue_id = $this->issue->id;
@@ -132,7 +169,8 @@ class IdeaService {
     /**
      * @param $data
      */
-    private function saveIssue($data) {
+    private function saveIssue($data)
+    {
         $this->issue->user_id = $data['user_id'];
         $this->issue->detail = $data['detail'];
         $this->issue->status = (array_key_exists('status', $data) &&
@@ -140,7 +178,8 @@ class IdeaService {
         $this->issue->save();
     }
 
-    public function issues() {
+    public function issues()
+    {
         return $this->issue->with(
             [
                 'user', 'solutions' => function ($query) {
@@ -156,7 +195,8 @@ class IdeaService {
             ->orderBy('created_at', 'desc')->get();
     }
 
-    public function vote($userId, $itemId, $itemType, $voteType) {
+    public function vote($userId, $itemId, $itemType, $voteType)
+    {
 
         $validator = Validator::make(
             [
@@ -201,5 +241,6 @@ class IdeaService {
         }
 
     }
+
 
 }

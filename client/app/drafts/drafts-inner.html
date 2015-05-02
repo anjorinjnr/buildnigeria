@@ -33,7 +33,7 @@
             <td class="check-mail">
                 <input ng-click="draftsCtrl.select(stateData.type, draft.id)" type="checkbox">
             </td>
-            <td class="mail-subject"><a ui-sref="edit-issue({ issueId:1 })">{{draft.detail | limitTo:120}}...</a></td>
+            <td class="mail-subject"><a href="#/{{stateData.type}}/edit/{{draft.id | hashId}}">{{draft.detail}}</a></td>
             <td class="text-right mail-date">{{draft.created_at | formatDate:'':'DD/MM/YYYY'}}</td>
         </tr>
         <tr class="read" ng-if="draftsCtrl.drafts[stateData.type].total == 0">

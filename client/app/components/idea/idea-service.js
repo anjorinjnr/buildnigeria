@@ -8,9 +8,14 @@ define(function () {
         var Idea = $resource(API_PATH,
             {id: '@id'},
             {
-                createIssue: {
+               saveIssue: {
                     method: 'POST',
                     url: API_PATH + 'issue',
+                    isArray: false
+                },
+                saveSolution: {
+                    method: 'POST',
+                    url: API_PATH + 'solution',
                     isArray: false
                 },
                 categories: {
@@ -22,6 +27,16 @@ define(function () {
                     method: 'GET',
                     url: API_PATH + 'issues',
                     isArray: true
+                },
+                issue: {
+                    method: 'GET',
+                    url: API_PATH + 'issue/:issue_id',
+                    isArray: false
+                },
+                solution: {
+                    method: 'GET',
+                    url: API_PATH + 'solution/:solution_id',
+                    isArray: false
                 },
                 upVoteIssue: {
                     method: 'POST',

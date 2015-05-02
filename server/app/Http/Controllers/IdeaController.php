@@ -1,36 +1,66 @@
 <?php namespace BuildNigeria\Http\Controllers;
 
 use BuildNigeria\Http\Requests;
+use BuildNigeria\Issue;
 use BuildNigeria\Services\IdeaService;
+use BuildNigeria\Solution;
 use Illuminate\Http\Request;
 
-class IdeaController extends Controller {
+class IdeaController extends Controller
+{
 
 
     private $ideaService;
 
-    public function __construct(IdeaService $ideaService) {
+    public function __construct(IdeaService $ideaService)
+    {
 
         $this->ideaService = $ideaService;
     }
 
-    public function getCategories() {
+    public function getCategories()
+    {
         return $this->ideaService->categories()->toJson();
     }
 
-    public function getIssues() {
+    public function getIssues()
+    {
         return $this->ideaService->issues()->toJson();
     }
 
-    public function createIssue(Request $request) {
+    public function getIssue(Issue $issue)
+    {
+        $issue->load(['categories', 'solutions']);
+        return $issue->toJson();
+    }
+
+    public function getSolution(Solution $solution)
+    {
+        $solution->load('issue');
+        return $solution->toJson();
+    }
+
+    public function createIssue(Request $request)
+    {
         if (($issue = $this->ideaService->createIssue($request->all()))) {
-            return $this->successResponse($issue);
+            return $this->successResponse($issue->toArray());
         } else {
             return $this->errorResponse($this->ideaService->errors());
         }
     }
 
-    public function vote($itemType, $voteType, Request $request) {
+    public function createSolution(Request $request)
+    {
+        if (($solution = $this->ideaService->createSolution($request->all()))) {
+            return $this->successResponse($solution->toArray());
+        } else {
+            return $this->errorResponse($this->ideaService->errors());
+        }
+    }
+
+
+    public function vote($itemType, $voteType, Request $request)
+    {
         $voteType = $voteType . '_vote';
         $userId = $request->get('user_id');
         $itemId = $request->get('item_id');

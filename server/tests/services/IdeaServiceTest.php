@@ -8,19 +8,23 @@ use Laracasts\TestDummy\Factory;
  * @author: eanjorin
  * @date: 4/26/15
  */
-class IdeaServiceTest extends DbTestCase {
+class IdeaServiceTest extends DbTestCase
+{
 
-    public function setUp() {
+    public function setUp()
+    {
         //@session_start();
         parent::setUp();
         $this->faker = Faker\Factory::create();
     }
 
-    public function tearDown() {
+    public function tearDown()
+    {
         Mockery::close();
     }
 
-    public function test_issue_is_not_created() {
+    public function test_issue_is_not_created()
+    {
         $user = Factory::create('BuildNigeria\User');
         $issue = Factory::build('BuildNigeria\Issue');
         $ideaService = $this->app->make('BuildNigeria\Services\IdeaService');
@@ -40,7 +44,8 @@ class IdeaServiceTest extends DbTestCase {
 
     }
 
-    public function test_issue_is_created() {
+    public function test_issue_is_created()
+    {
         $user = Factory::create('BuildNigeria\User');
         $issue = Factory::build('BuildNigeria\Issue');
         $ideaService = $this->app->make('BuildNigeria\Services\IdeaService');
@@ -52,7 +57,8 @@ class IdeaServiceTest extends DbTestCase {
         $this->assertEquals($issue->detail, $response->detail);
     }
 
-    public function test_issue_is_created_as_draft() {
+    public function test_issue_is_created_as_draft()
+    {
         $user = Factory::create('BuildNigeria\User');
         $issue = Factory::build('BuildNigeria\Issue');
         $ideaService = $this->app->make('BuildNigeria\Services\IdeaService');
@@ -67,7 +73,8 @@ class IdeaServiceTest extends DbTestCase {
         $this->assertSame(Issue::DRAFT, $response->status);
     }
 
-    public function test_issue_draft_is_updated_and_not_created() {
+    public function test_issue_draft_is_updated_and_not_created()
+    {
         $user = Factory::create('BuildNigeria\User');
         $issue = Factory::build('BuildNigeria\Issue');
         $ideaService = $this->app->make('BuildNigeria\Services\IdeaService');
@@ -83,7 +90,8 @@ class IdeaServiceTest extends DbTestCase {
         $this->assertEquals($response2->detail, $response->detail);
     }
 
-    public function test_issue_draft__solution_is_updated_and_not_created() {
+    public function test_issue_draft__solution_is_updated_and_not_created()
+    {
         $user = Factory::create('BuildNigeria\User');
         $issue = Factory::build('BuildNigeria\Issue');
         $ideaService = $this->app->make('BuildNigeria\Services\IdeaService');
@@ -106,7 +114,8 @@ class IdeaServiceTest extends DbTestCase {
         $this->assertEquals($response->solution->detail, $response2->solution->detail);
     }
 
-    public function test_issue_draft__solution__category_is_updated() {
+    public function test_issue_draft__solution__category_is_updated()
+    {
         $category = Factory::create('BuildNigeria\Category');
         $user = Factory::create('BuildNigeria\User');
         $issue = Factory::build('BuildNigeria\Issue');
@@ -130,7 +139,8 @@ class IdeaServiceTest extends DbTestCase {
 
     }
 
-    public function test_issue_is_created_and_assigned_categories() {
+    public function test_issue_is_created_and_assigned_categories()
+    {
         $category = Factory::create('BuildNigeria\Category');
         $user = Factory::create('BuildNigeria\User');
         $issue = Factory::build('BuildNigeria\Issue');
@@ -147,7 +157,8 @@ class IdeaServiceTest extends DbTestCase {
 
     }
 
-    public function test_issue_is_created_with_solution() {
+    public function test_issue_is_created_with_solution()
+    {
         $category = Factory::create('BuildNigeria\Category');
         $user = Factory::create('BuildNigeria\User');
         $issue = Factory::build('BuildNigeria\Issue');
@@ -163,7 +174,45 @@ class IdeaServiceTest extends DbTestCase {
         $this->assertEquals(1, $response->solutions->count());
     }
 
-    public function test_issue_up_vote() {
+    public function test_create_new_solution()
+    {
+        $user = Factory::create('BuildNigeria\User');
+        $issue = Factory::create('BuildNigeria\Issue');
+        $ideaService = $this->app->make('BuildNigeria\Services\IdeaService');
+        $data = [
+            'user_id' => $user->id,
+            'issue_id' => $issue->id,
+            'detail' => $this->faker->text()
+        ];
+        $response = $ideaService->createSolution($data);
+        $this->assertInstanceOf('BuildNigeria\Solution', $response);
+        foreach ($data as $key => $value) {
+            $this->assertEquals($value, $response->$key);
+        }
+    }
+
+    public function test_edit_solution()
+    {
+        $user = Factory::create('BuildNigeria\User');
+        $issue = Factory::create('BuildNigeria\Issue');
+        $ideaService = $this->app->make('BuildNigeria\Services\IdeaService');
+        $data = [
+            'user_id' => $user->id,
+            'issue_id' => $issue->id,
+            'detail' => $this->faker->text()
+        ];
+        $response = $ideaService->createSolution($data);
+        $this->assertInstanceOf('BuildNigeria\Solution', $response);
+        $data['detail'] = $this->faker->text();
+        $response2 = $ideaService->createSolution($data);
+        foreach ($data as $key => $value) {
+            $this->assertEquals($value, $response->$key);
+        }
+        $this->assertEquals($response2->id, $response->id);
+    }
+
+    public function test_issue_up_vote()
+    {
         $issue = Factory::create('BuildNigeria\Issue');
         $user = Factory::create('BuildNigeria\User');
         $this->assertEquals(0, $issue->upVotes());

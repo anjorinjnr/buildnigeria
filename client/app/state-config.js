@@ -30,8 +30,18 @@ define(function () {
                     }
                     return userPromise.promise;
                 }],
+            issue: ['ideaService', 'util', '$stateParams', function (ideaService, util, $stateParams) {
+                var id = util.decodeId($stateParams.issueId);
+                return ideaService.issue({issue_id: id}).$promise;
+
+            }],
             issues: ['ideaService', function (ideaService) {
                 return ideaService.issues().$promise;
+
+            }],
+            solution: ['ideaService', 'util', '$stateParams', function (ideaService, util, $stateParams) {
+                var id = util.decodeId($stateParams.solutionId);
+                return ideaService.solution({solution_id: id}).$promise;
 
             }],
             categories: ['ideaService', function (ideaService) {
@@ -45,6 +55,9 @@ define(function () {
                 solutions: ['user', 'userService', function (user, userService) {
                     return userService.drafts({user_id: user.id, type: 'solution'}).$promise;
                 }]
+            },
+            emptyObject: function () {
+                return {};
             }
         };
 
@@ -128,7 +141,9 @@ define(function () {
                 templateUrl: 'share/share.html',
                 parent: 'main',
                 resolve: {
-                    user: resolves.loggedInUser
+                    user: resolves.loggedInUser,
+                    issue: resolves.emptyObject,
+                    solution: resolves.emptyObject
                 },
                 data: {
                     public: false
@@ -173,29 +188,46 @@ define(function () {
 
             .state('edit-issue', {
                 url: '/issues/edit/:issueId',
-                controller: 'IssueDraftCtrl as issueDraftCtrl',
-                templateUrl: 'drafts/edit_issue_draft.html',
+                controller: 'ShareCtrl as shareCtrl',
+                templateUrl: 'share/share.html',
                 data: {
-                    public: false
+                    public: false,
+                    edit: true
                 },
                 parent: 'main',
                 resolve: {
-                    //user: resolves.loggedInUser
+                    issue: resolves.issue,
+                    solution: resolves.emptyObject,
+                    validate: ['user', '$state', 'issue', function (user, $state, issue) {
+                        if (issue.user_id != user.id) {
+                            $state.go('home');
+                        }
+                        return true;
+
+                    }]
                 }
             })
 
 
-
             .state('edit-solution', {
-                url: '/solutions/edit/:solutionsId',
-                controller: 'SolutionDraftCtrl as solutionDraftCtrl',
-                templateUrl: 'drafts/edit_solution_draft.html',
+                url: '/solutions/edit/:solutionId',
+                controller: 'ShareCtrl as shareCtrl',
+                templateUrl: 'share/share.html',
                 data: {
-                    public: true
+                    public: true,
+                    edit: true
                 },
                 parent: 'main',
                 resolve: {
-                    user: resolves.loggedInUser
+                    issue: resolves.emptyObject,
+                    solution: resolves.solution,
+                    validate: ['user', '$state', 'solution', function (user, $state, solution) {
+                        if (solution.user_id != user.id) {
+                            $state.go('home');
+                        }
+                        return true;
+
+                    }]
                 }
             })
 
