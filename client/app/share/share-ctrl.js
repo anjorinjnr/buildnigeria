@@ -32,10 +32,10 @@ define(function () {
         });
         return filter;
     };
-    ShareCtrl.prototype.postIssue = function (form, draft) {
+    ShareCtrl.prototype.postIssue = function (form, saveAsDraft) {
 
         var self = this;
-        if (!draft) {
+        if (!saveAsDraft) {
             if (_.isEmpty(this.issue.detail) || this.issue.detail.trim().length < 150) {
                 this.errors.issueDetail = true;
                 return;
@@ -47,7 +47,7 @@ define(function () {
         }
 
         this.issue.categories = _.pluck(this.issueCategories, 'text');
-        if (draft) {
+        if (saveAsDraft) {
             this.ngToast.create('Saving post as draft...');
             this.issue.status = DRAFT;
             if (this.issue.solution) {
@@ -63,9 +63,11 @@ define(function () {
 
         self.ideaService.createIssue(self.issue, function (resp) {
             if (resp.status === 'success') {
-                if (draft) {
+                if (saveAsDraft) {
+                    if (!self.issue.id) self.user.drafts++;
                     self.issue = resp.data;
                     self.ngToast.create('Your post has been saved.');
+
                 } else {
                     self.issue = {};
                     self.errors = {};

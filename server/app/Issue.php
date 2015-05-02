@@ -1,12 +1,15 @@
 <?php namespace BuildNigeria;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Issue extends Model {
 
     protected $fillable = [];
     const DRAFT = 0;
     const PUBLISH = 1;
+
+    use SoftDeletes;
 
     public function votes() {
         return $this->hasMany('BuildNigeria\Vote', 'item_id', 'id');

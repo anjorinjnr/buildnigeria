@@ -14,12 +14,13 @@ class UserController extends Controller {
         $this->userService = $userService;
     }
 
-    private function userDataResponse(User $user){
+    private function userDataResponse(User $user) {
         $data = $user->toArray();
         $data['drafts'] = $user->getNoOfDrafts();
         $data['user_token'] = $user->user_token;
         return $data;
     }
+
     public function getUserByToken(Request $request) {
         $userToken = $request->get('user_token');
         $user = $this->userService->getUser($userToken);
@@ -49,11 +50,20 @@ class UserController extends Controller {
         }
     }
 
-    public function getDrafts(User $user) {
-        return [
-            'issues' => $user->issueDrafts()->toJson(),
-            'solutions' => $user->solutionDrafts()->toJson()
-        ];
+    public function getDrafts(User $user, $type) {
+        if ($type === 'issue') {
+            return $user->issueDrafts()->toJson();
+        } else {
+            return $user->solutionDrafts()->toJson();
+        }
+    }
+
+    public function deleteDrafts(User $user, $type, Request $request) {
+        if ($user->deleteDrafts($type, $request->get('ids'))) {
+            return $this->successResponse();
+        }
+        return $this->errorResponse();
+
     }
 
     public function create(Request $request) {

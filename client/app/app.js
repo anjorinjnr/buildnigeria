@@ -9,13 +9,13 @@ define(['angular',
         'share/share-ctrl',
         'search/search-ctrl',
         'drafts/drafts-ctrl',
-        'drafts/issue-draft-ctrl',
-        'drafts/solution-draft-ctrl',
-        'issues/issue-ctrl',
+         'issues/issue-ctrl',
         'components/auth/auth-service',
         'components/user/user-service',
         'components/idea/idea-service',
         'components/date-time-filter/date-time-filter',
+        'components/sentence-case-filter/sentence-case-filter',
+        'components/util/util',
         'components/tip/tip-module',
         //'angularMaterial',
         'lodash', 'uiRouter', 'angularResource', 'angularCookies', 'ngToast', 'ngTags', 'ngSummernote', 'moment'],
@@ -30,12 +30,12 @@ define(['angular',
               SearchCtrl,
               DraftsCtrl,
               IssueCtrl,
-              SolutionDraftCtrl,
-              IssueDraftCtrl,
               AuthService,
               UserService,
               IdeaService,
-    dateTimeFilter) {
+              dateTimeFilter,
+              sentenceCaseFilter,
+              Util) {
 
         var app = angular.module(
             'buildnigeria.web',
@@ -59,6 +59,7 @@ define(['angular',
                 });
             }])
             .filter('formatDate', dateTimeFilter)
+            .filter('sentencecase', sentenceCaseFilter)
             .controller('MainCtrl', MainCtrl)
             .controller('LoginCtrl', LoginCtrl)
             .controller('HomeCtrl', HomeCtrl)
@@ -67,22 +68,22 @@ define(['angular',
             .controller('ShareCtrl', ShareCtrl)
             .controller('SearchCtrl', SearchCtrl)
             .controller('DraftsCtrl', DraftsCtrl)
-            .controller('SolutionDraftCtrl', SolutionDraftCtrl)
-            .controller('IssueDraftCtrl', IssueDraftCtrl)
             .controller('IssueCtrl', IssueCtrl)
             .service('authService', AuthService)
             .service('userService', UserService)
-            .service('ideaService', IdeaService);
+            .service('ideaService', IdeaService)
+            .service('util', Util);
 
 
-
-        app.run(['$state', '$stateParams', '$location', '$rootScope', 'authService', 'tipService',
-            function ($state, $stateParams, $location, $rootScope, authService, tipService) {
+        app.run(['$state', '$stateParams', '$location', '$rootScope', 'authService',
+            function ($state, $stateParams, $location, $rootScope, authService) {
 
                 $rootScope.authService = authService;
+                console.log(authService);
                 //authService.createSession('261b350e166beed992af9fa0c2f58296');
 
-                $rootScope.$on('$stateChangeSuccess', function () {
+                $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+                    $rootScope.stateData = toState.data;
                     //tipService.hide();
                 });
 

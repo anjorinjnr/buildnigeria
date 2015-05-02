@@ -13,7 +13,7 @@ abstract class Controller extends BaseController {
         return ['status' => 'success', 'data' => $data];
     }
 
-    public function errorResponse($errors) {
+    public function errorResponse($errors=[]) {
         return ['status' => 'error', 'errors' => $errors];
     }
 }

@@ -35,6 +35,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $hidden = ['password', 'remember_token', 'user_token', 'user_token_expires_at',
         'fb_id', 'fb_token'];
 
+    const PAGE_SIZE = 10;
+
     public function ideas() {
         return $this->hasMany('BuildNigeria\Idea');
     }
@@ -79,14 +81,27 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function issueDrafts() {
         return Issue::where('user_id', $this->id)
             ->where('status', Issue::DRAFT)
-            ->paginate(15);
+            ->paginate(self::PAGE_SIZE);
     }
 
     public function solutionDrafts() {
         return Solution::where('user_id', $this->id)
             ->where('status', Solution::DRAFT)
-            ->paginate(15);
+            ->paginate(self::PAGE_SIZE);
 
     }
 
+    public function deleteDrafts($type, array $ids) {
+        switch ($type) {
+            case 'issue':
+                return Issue::where('user_id', $this->id)
+                    ->where('status', Issue::DRAFT)
+                    ->whereIn('id', $ids)->delete();
+            case 'solution':
+                return Solution::where('user_id', $this->id)
+                    ->where('status', Solution::DRAFT)
+                    ->whereIn('id', $ids)->delete();
+        }
+        return 0;
+    }
 }

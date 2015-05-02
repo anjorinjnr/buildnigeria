@@ -14,12 +14,11 @@ define(function () {
                     var session = authService.getSession();
                     if (session) {
                         userService.get({'user_token': session.user_token}, function (user) {
-                            console.log(2);
                             var user = user.toJSON();
                             if (!_.isEmpty(user)) {
                                 userPromise.resolve(user);
                                 authService.setCurrentUser(user);
-                            } else if (authService.isPublic) {
+                            } else if (!authService.isPublic) {
                                 authService.logout();
                             } else {
                                 userPromise.resolve(null);
@@ -39,10 +38,14 @@ define(function () {
                 return ideaService.categories().$promise;
 
             }],
-            drafts: ['user', 'userService', function (user, userService) {
-                return userService.drafts({id: user.id}).$promise;
-            }]
-
+            drafts: {
+                issues: ['user', 'userService', function (user, userService) {
+                    return userService.drafts({user_id: user.id, type: 'issue'}).$promise;
+                }],
+                solutions: ['user', 'userService', function (user, userService) {
+                    return userService.drafts({user_id: user.id, type: 'solution'}).$promise;
+                }]
+            }
         };
 
 
@@ -135,27 +138,37 @@ define(function () {
             .state('drafts', {
                 url: '/drafts',
                 templateUrl: 'drafts/drafts.html',
+                controller: 'DraftsCtrl as draftsCtrl',
                 parent: 'main',
                 data: {
                     public: false
                 },
                 resolve: {
-                    drafts: resolves.drafts
+                    issues: resolves.drafts.issues,
+                    solutions: resolves.drafts.solutions
                 }
             })
 
             .state('issues', {
                 url: '/issues',
-                controller: 'DraftsCtrl as draftsCtrl',
-                templateUrl: 'drafts/issue_drafts.html',
+                templateUrl: 'drafts/drafts-inner.html',
                 data: {
-                    public: false
+                    public: false,
+                    type: 'issues'
                 },
-                parent: 'drafts',
-                resolve: {
-                    //user: resolves.loggedInUser
+                parent: 'drafts'
 
-                }
+            })
+            .state('solutions', {
+                url: '/solutions',
+                templateUrl: 'drafts/drafts-inner.html',
+                data: {
+                    public: false,
+                    type: 'solutions'
+
+                },
+                parent: 'drafts'
+
             })
 
             .state('edit-issue', {
@@ -163,26 +176,15 @@ define(function () {
                 controller: 'IssueDraftCtrl as issueDraftCtrl',
                 templateUrl: 'drafts/edit_issue_draft.html',
                 data: {
-                    public: true
+                    public: false
                 },
                 parent: 'main',
                 resolve: {
-                    user: resolves.loggedInUser
+                    //user: resolves.loggedInUser
                 }
             })
 
-            .state('solutions', {
-                url: '/solutions',
-                controller: 'DraftsCtrl as draftsCtrl',
-                templateUrl: 'drafts/solution_drafts.html',
-                data: {
-                    public: true
-                },
-                parent: 'drafts',
-                resolve: {
-                    user: resolves.loggedInUser
-                }
-            })
+
 
             .state('edit-solution', {
                 url: '/solutions/edit/:solutionsId',

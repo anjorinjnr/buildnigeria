@@ -20,7 +20,10 @@ Route::controllers([
 ]);
 
 Route::get('user', 'UserController@getUserByToken');
-Route::get('user/{user}/drafts', 'UserController@getDrafts');
+Route::get('user/{user}/drafts/{item_type}', 'UserController@getDrafts')
+    ->where('type', 'issue|solution');
+Route::post('user/{user}/drafts/{item_type}/delete', 'UserController@deleteDrafts')
+    ->where('type', 'issue|solution');
 Route::get('user/solutions', 'UserController@getUserIssues');
 Route::post('user', 'UserController@create');
 Route::post('user/login', 'UserController@login');
