@@ -3,10 +3,12 @@
  */
 define(function () {
 
-    var IssueCtrl = function ($stateParams) {
-       
+    var IssueCtrl = function (user, issue) {
+        this.user = user;
+        this.issue = issue;
+        console.log(issue);
     };
 
-    IssueCtrl.$inject = ['$stateParams'];
+    IssueCtrl.$inject = ['user', 'issue'];
     return IssueCtrl;
 });

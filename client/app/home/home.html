@@ -8,7 +8,7 @@
                             <h5>Categories</h5>
                             <ul class="folder-list m-b-md" style="padding: 0">
                                 <li ng-repeat="category in homeCtrl.categories">
-                                    <a ui-sref="#">{{category.category}} <span class="label label-info pull-right">{{category.issue_count}}</span></a>
+                                    <a href="#/tagged/{{category.category}}">{{category.category}} <span class="label label-info pull-right">{{category.issue_count}}</span></a>
 
                                 </li>
                             </ul>
@@ -28,16 +28,16 @@
                                     &nbsp;&nbsp;
                                     {{issue.user.name}}
 
-                                    <span ng-repeat="category in issue.categories"
+                                    <span style="margin:3px"  ng-repeat="category in issue.categories"
                                           class="pull-right label label-success">{{category.category}}</span>
                                     <span class="pull-right" style="margin-right:20px;">{{issue.created_at | formatDate:'':'DD/MM/YYYY'}}</span>
                                 </div>
 
                                 <div class="idea-body">
-                                    <p><a ui-sref="issue-detail({ issueId: 1 })" class="idea-problem">
+                                    <p><a href="#/issue/{{issue.id | hashId }}" href class="idea-problem">
                                         <!--<strong>Problem</strong>-->
                                         <strong>
-                                            {{issue.detail | limitTo:120}} ...
+                                            {{issue.detail}}
                                         </strong></a></p>
 
                                 </div>
@@ -53,7 +53,8 @@
                                         <span class="text-muted"
                                               ng-if="homeCtrl.votes.solutions.down[issue.solutions[0].id]">Downvoted</span>
                                         <span ng-if="!homeCtrl.votes.solutions.down[issue.solutions[0].id]">Downvote</span></a>
-                                    <img ng-show="issue.solutions[0].voteLoading" style="margin-left: 5px;" src="../assets/images/ajax-loader.gif" alt=""/>
+                                    <img ng-show="issue.solutions[0].voteLoading" style="margin-left: 5px;"
+                                         src="../assets/images/ajax-loader.gif" alt=""/>
                                 </div>
                                 <div>
                                     <!--No solution posted.-->

@@ -178,9 +178,9 @@ class IdeaService
         $this->issue->save();
     }
 
-    public function issues()
+    public function issues($category = null)
     {
-        return $this->issue->with(
+        $query = $this->issue->with(
             [
                 'user', 'solutions' => function ($query) {
                 $query->with(
@@ -191,8 +191,18 @@ class IdeaService
                     ])->orderBy('up_vote', 'desc');
             },
                 'categories'])
-            ->where('status', Issue::PUBLISH)
-            ->orderBy('created_at', 'desc')->get();
+            ->where('status', Issue::PUBLISH);
+        if ($category != null) {
+            $query->whereExists(function ($q) use ($category) {
+                $q->select(DB::raw(1))
+                    ->from('issues_categories')
+                    ->join('categories', 'issues_categories.category_id', '=',
+                        'categories.id')
+                    ->where('categories.category', $category)
+                    ->whereRaw('issues_categories.issue_id = issues.id');
+            });
+        }
+        return $query->orderBy('created_at', 'desc')->get();
     }
 
     public function vote($userId, $itemId, $itemType, $voteType)

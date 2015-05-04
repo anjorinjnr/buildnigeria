@@ -23,14 +23,15 @@ class IdeaController extends Controller
         return $this->ideaService->categories()->toJson();
     }
 
-    public function getIssues()
+    public function getIssues(Request $request)
     {
-        return $this->ideaService->issues()->toJson();
+        $category = ($request->has('category')) ? $request->get('category') : null;
+        return $this->ideaService->issues($category)->toJson();
     }
 
     public function getIssue(Issue $issue)
     {
-        $issue->load(['categories', 'solutions']);
+        $issue->load(['user', 'categories', 'solutions']);
         return $issue->toJson();
     }
 

@@ -35,10 +35,15 @@ define(function () {
                 return ideaService.issue({issue_id: id}).$promise;
 
             }],
-            issues: ['ideaService', function (ideaService) {
-                return ideaService.issues().$promise;
+            issues: ['ideaService', '$stateParams', function (ideaService, $stateParams) {
+                if ($stateParams.category) {
+                    return ideaService.issues({category: $stateParams.category}).$promise;
+                } else {
+                    return ideaService.issues().$promise;
+                }
 
             }],
+
             solution: ['ideaService', 'util', '$stateParams', function (ideaService, util, $stateParams) {
                 var id = util.decodeId($stateParams.solutionId);
                 return ideaService.solution({solution_id: id}).$promise;
@@ -89,6 +94,20 @@ define(function () {
                 }
 
             })
+            .state('issues-by-tag', {
+                url: '/tagged/:category',
+                controller: 'HomeCtrl as homeCtrl',
+                parent: 'main',
+                templateUrl: 'home/home.html',
+                resolve: {
+                    issues: resolves.issues,
+                    categories: resolves.categories
+                },
+                data: {
+                    public: false
+                }
+
+            })
 
             .state('idea-detail', {
                 url: '/ideas/:ideaId',
@@ -101,12 +120,15 @@ define(function () {
             })
 
             .state('issue-detail', {
-                url: '/issues/:issueId',
+                url: '/issue/:issueId',
                 templateUrl: 'issues/issue.html',
                 parent: 'main',
                 controller: 'IssueCtrl as issueCtrl',
+                data: {
+                    public: false
+                },
                 resolve: {
-                    user: resolves.loggedInUser
+                    issue: resolves.issue
                 }
             })
 

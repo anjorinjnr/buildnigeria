@@ -1,5 +1,5 @@
 <div class="wrapper wrapper-content p-x1">
-	<div class="container animated fadeInRight">
+    <div class="container animated fadeInRight">
         <div class="row">
             <div class="col-lg-3">
                 <div class="ibox float-e-margins">
@@ -7,8 +7,9 @@
                         <h5>Issue Stats</h5>
                     </div>
                     <div class="ibox-content">
-                        <p>130,007 views</p>
-                        <p>5 solutions</p>
+                        <p>{{issueCtrl.issue.views | number}} views</p>
+
+                        <p>{{issueCtrl.issue.solutions.length}} solutions</p>
                     </div>
                 </div>
             </div>
@@ -19,75 +20,56 @@
                             <div class="idea-element">
                                 <div class="idea-header">
                                     <a ui-sref="profile" class="pull-left">
-                                        <img alt="image" class="img-circle" src="assets/images/profile.jpg" />
+                                        <img alt="image" class="img-circle" src="assets/images/profile.jpg"/>
                                     </a>
                                     &nbsp;&nbsp;
-                                    Tope Fasua
-                                    
-                                    <span class="pull-right label label-success">Education</span>
-                                    <span class="pull-right" style="margin-right:20px;">12 January 2014</span>
+                                    {{issueCtrl.issue.user.name}}
+
+                                    <span ng-repeat="tag in issueCtrl.issue.categories"
+                                          class="pull-right label label-success">{{tag.category}}</span>
+                                    <span class="pull-right" style="margin-right:20px;">{{issueCtrl.issue.created_at | formatDate:'':'DD MMM YYYY'}}</span>
                                 </div>
-                                
-                                <div class="idea-body">
-                                    <p><a href="#" class="idea-problem"><!--<strong>Problem</strong>--><strong>Boko Haram has been getting in the way of education in the country due to their tendency to kidnap girls. This has caused a painful decline in the willingness of many women to go to school.</strong></a></p>
-                                    <p><!--<strong>Solution</strong>--> Once upon a time, there was a country where people did not have to worry about anything. All they had to worry about was putting food on their tables, getting their salaries and paying their children's school fees. </p> 
-                                    
-                                    <p>Eleyi gidi gan. This one is strong. Now, let's dance to solving this problem.</p>  
+
+                                <div class="idea-body" style="font-size: 19px;">
+                                    <p><strong>
+                                        {{issueCtrl.issue.detail}}
+                                    </strong>
+                                    </p>
                                 </div>
-                                <a href="#" class="btn btn-primary">Propose a solution</a>
+                                <a href="#" class="btn btn-primary btn-sm">Propose a solution</a>
                             </div>
                         </div>
                     </div>
+                    <!--<hr>-->
                 </div>
-                
-                <div class="row">
+
+                <div class="row" ng-repeat="solution in issueCtrl.issue.solutions">
                     <div class="ibox float-e-margins" style="">
                         <div class="ibox-content">
                             <div class="idea-element">
                                 <div class="idea-header">
                                     <a ui-sref="profile" class="pull-left">
-                                        <img alt="image" class="img-circle" src="assets/images/profile.jpg" />
+                                        <img alt="image" class="img-circle" src="assets/images/profile.jpg"/>
                                     </a>
                                     &nbsp;&nbsp;
                                     Tope Fasua
-                                    
+
                                     <span class="pull-right label label-success">Education</span>
                                     <span class="pull-right" style="margin-right:20px;">12 January 2014</span>
                                 </div>
-                                
+
                                 <div class="idea-body">
-                                    <p>Why don't we all just move to an alternate universe where all these problems do not exist? I am working on a trans-dimensional time ripper and it will be done by the middle of May. If anyone's interested in my work, please get in touch with me. <a ui-sref="idea-detail( {ideaId: 1} )">More</a></p>  
+                                    <p>Why don't we all just move to an alternate universe where all these problems do
+                                        not exist? I am working on a trans-dimensional time ripper and it will be done
+                                        by the middle of May. If anyone's interested in my work, please get in touch
+                                        with me. <a ui-sref="idea-detail( {ideaId: 1} )">More</a></p>
                                 </div>
-                                 <a href="#" class="btn btn-primary">Upvote (10)</a>&nbsp;&nbsp;<a href="#">Downvote</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="ibox float-e-margins" style="">
-                        <div class="ibox-content">
-                            <div class="idea-element">
-                                <div class="idea-header">
-                                    <a ui-sref="profile" class="pull-left">
-                                        <img alt="image" class="img-circle" src="assets/images/profile.jpg" />
-                                    </a>
-                                    &nbsp;&nbsp;
-                                    Eric Cartman
-                                    
-                                    <span class="pull-right label label-success">Education</span>
-                                    <span class="pull-right" style="margin-right:20px;">12 January 2014</span>
-                                </div>
-                                
-                                <div class="idea-body">
-                                    <p>Why don't we all just move to an alternate universe where all these problems do not exist? I am working on a trans-dimensional time ripper and it will be done by the middle of May. If anyone's interested in my work, please get in touch with me. <a ui-sref="idea-detail( {ideaId: 1} )">More</a></p>  
-                                </div>
-                                 <a href="#" class="btn btn-primary">Upvote (10)</a>&nbsp;&nbsp;<a href="#">Downvote</a>
+                                <a href="#" class="btn btn-primary">Upvote (10)</a>&nbsp;&nbsp;<a href="#">Downvote</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-	</div>
+    </div>
 </div>
