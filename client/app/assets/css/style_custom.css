@@ -28,7 +28,7 @@
 }
 
 .idea-body .idea-problem {
-    color: #676a6c;
+    color: #000000;
 }
 
 .login-form {
@@ -61,4 +61,24 @@
 
 .scaled-image {
     max-width: 100%;
+}
+
+body {
+    color: #000000;
+}
+
+.folder-list li a {
+    color: #000000;
+}
+
+.top-navigation .nav > li > a {
+    color: #000000;
+}
+
+.help-block {
+    color: #000000;
+}
+
+#problem-section {
+    border-bottom: 5px solid #e7eaec;
 }

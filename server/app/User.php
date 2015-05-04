@@ -32,8 +32,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token', 'user_token_expires_at',
+    protected $hidden = ['password', 'remember_token', 'user_token', 'user_token_expires_at',
         'fb_id', 'fb_token'];
+
+    const PAGE_SIZE = 10;
 
     public function ideas() {
         return $this->hasMany('BuildNigeria\Idea');
@@ -55,11 +57,51 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                     'email' => 'required|email|max:255|unique:users',
                 ]);
                 if ($validator->passes()) {
-                  return  $this->create($data);
+                    return $this->create($data);
                 }
             }
         }
         return null;
     }
 
+    public function getNoOfDrafts() {
+        return Issue::where('user_id', $this->id)
+            ->where('status', Issue::DRAFT)->count() +
+        Solution::where('user_id', $this->id)
+            ->where('status', Solution::DRAFT)->count();
+    }
+
+    public function drafts() {
+        return [
+            'issues' => $this->issueDrafts(),
+            'solutions' => $this->solutionDrafts()
+        ];
+    }
+
+    public function issueDrafts() {
+        return Issue::where('user_id', $this->id)
+            ->where('status', Issue::DRAFT)
+            ->paginate(self::PAGE_SIZE);
+    }
+
+    public function solutionDrafts() {
+        return Solution::where('user_id', $this->id)
+            ->where('status', Solution::DRAFT)
+            ->paginate(self::PAGE_SIZE);
+
+    }
+
+    public function deleteDrafts($type, array $ids) {
+        switch ($type) {
+            case 'issue':
+                return Issue::where('user_id', $this->id)
+                    ->where('status', Issue::DRAFT)
+                    ->whereIn('id', $ids)->delete();
+            case 'solution':
+                return Solution::where('user_id', $this->id)
+                    ->where('status', Solution::DRAFT)
+                    ->whereIn('id', $ids)->delete();
+        }
+        return 0;
+    }
 }

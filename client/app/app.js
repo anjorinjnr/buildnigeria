@@ -9,14 +9,17 @@ define(['angular',
         'share/share-ctrl',
         'search/search-ctrl',
         'drafts/drafts-ctrl',
-        'drafts/issue-draft-ctrl',
-        'drafts/solution-draft-ctrl',
+        'issues/issue-ctrl',
         'components/auth/auth-service',
         'components/user/user-service',
         'components/idea/idea-service',
+        'components/date-time-filter/date-time-filter',
+        'components/sentence-case-filter/sentence-case-filter',
+        'components/hashid-filter/hashid-filter',
+        'components/util/util',
         'components/tip/tip-module',
         //'angularMaterial',
-        'lodash', 'uiRouter', 'angularResource', 'angularCookies', 'ngToast', 'ngTags', 'ngSummernote'],
+        'lodash', 'uiRouter', 'angularResource', 'angularCookies', 'ngToast', 'ngTags', 'ngSummernote', 'moment', 'angularSanitize'],
     function (angular,
               StateConfig,
               MainCtrl,
@@ -27,11 +30,14 @@ define(['angular',
               ShareCtrl,
               SearchCtrl,
               DraftsCtrl,
-              SolutionDraftCtrl,
-              IssueDraftCtrl,
+              IssueCtrl,
               AuthService,
               UserService,
-              IdeaService) {
+              IdeaService,
+              dateTimeFilter,
+              sentenceCaseFilter,
+              hashIdFilter,
+              Util) {
 
         var app = angular.module(
             'buildnigeria.web',
@@ -43,10 +49,11 @@ define(['angular',
                 'ngResource',
                 'tip.bar',
                 'ngTagsInput',
-                'summernote'
+                'summernote',
+                'ngSanitize'
             ]);
         app.config(StateConfig)
-            .config(['ngToastProvider', function(ngToast) {
+            .config(['ngToastProvider', function (ngToast) {
                 ngToast.configure({
                     verticalPosition: 'top',
                     horizontalPosition: 'center',
@@ -54,6 +61,9 @@ define(['angular',
                     maxNumber: 1
                 });
             }])
+            .filter('formatDate', dateTimeFilter)
+            .filter('sentencecase', sentenceCaseFilter)
+            .filter('hashId', hashIdFilter)
             .controller('MainCtrl', MainCtrl)
             .controller('LoginCtrl', LoginCtrl)
             .controller('HomeCtrl', HomeCtrl)
@@ -62,26 +72,28 @@ define(['angular',
             .controller('ShareCtrl', ShareCtrl)
             .controller('SearchCtrl', SearchCtrl)
             .controller('DraftsCtrl', DraftsCtrl)
-            .controller('SolutionDraftCtrl', SolutionDraftCtrl)
-            .controller('IssueDraftCtrl', IssueDraftCtrl)
+            .controller('IssueCtrl', IssueCtrl)
             .service('authService', AuthService)
             .service('userService', UserService)
-            .service('ideaService', IdeaService);
+            .service('ideaService', IdeaService)
+            .service('util', Util);
 
 
-        app.run(['$state', '$stateParams', '$location', '$rootScope', 'authService', 'tipService',
-            function ($state, $stateParams, $location, $rootScope, authService, tipService) {
+        app.run(['$state', '$stateParams', '$location', '$rootScope', 'authService',
+            function ($state, $stateParams, $location, $rootScope, authService) {
 
                 $rootScope.authService = authService;
                 //authService.createSession('261b350e166beed992af9fa0c2f58296');
 
-                $rootScope.$on('$stateChangeSuccess', function () {
-                    tipService.hide();
+                $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+                    $rootScope.stateData = toState.data;
+                    //tipService.hide();
                 });
 
                 $rootScope.$on('$stateChangeStart', function (event, toState) {
-                   tipService.info('Loading...').show();
 
+                    //tipService.info('Loading...').show();
+                    authService.isPublic = (toState.data && toState.data.public) ? true : false;
                     if (toState.url === '/logout') {
                         event.preventDefault();
                         authService.logout();
@@ -106,6 +118,7 @@ define(['angular',
             app.constant('API_PATH', 'http://api.buildnigeria.com.ng/');
         } else {
             app.constant('API_PATH', 'http://buildnigeria-service.local/');
+            // app.constant('API_PATH', 'http://localhost:8000/');
         }
         return app;
     });

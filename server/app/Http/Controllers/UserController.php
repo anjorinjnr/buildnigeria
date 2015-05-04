@@ -2,6 +2,7 @@
 
 use BuildNigeria\Http\Requests;
 use BuildNigeria\Services\UserService;
+use BuildNigeria\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller {
@@ -13,22 +14,29 @@ class UserController extends Controller {
         $this->userService = $userService;
     }
 
+    private function userDataResponse(User $user) {
+        $data = $user->toArray();
+        $data['drafts'] = $user->getNoOfDrafts();
+        $data['user_token'] = $user->user_token;
+        return $data;
+    }
+
     public function getUserByToken(Request $request) {
         $userToken = $request->get('user_token');
         $user = $this->userService->getUser($userToken);
         if ($user) {
-            return $user->toJson();
+            return $this->userDataResponse($user);
         }
-        return [];
+        //return [];
 
     }
 
-    public function Login(Request $request) {
+    public function login(Request $request) {
         if ($request->has('email') && $request->has('password')) {
             $data = $request->all();
             $user = $this->userService->login($data['email'], $data['password']);
             if ($user) {
-                return $user->toJson();
+                return $this->userDataResponse($user);
             }
             return [
                 'status' => 'error',
@@ -42,7 +50,19 @@ class UserController extends Controller {
         }
     }
 
-    public function all() {
+    public function getDrafts(User $user, $type) {
+        if ($type === 'issue') {
+            return $user->issueDrafts()->toJson();
+        } else {
+            return $user->solutionDrafts()->toJson();
+        }
+    }
+
+    public function deleteDrafts(User $user, $type, Request $request) {
+        if ($user->deleteDrafts($type, $request->get('ids'))) {
+            return $this->successResponse();
+        }
+        return $this->errorResponse();
 
     }
 

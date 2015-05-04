@@ -3,18 +3,27 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Select Categories</h5>
+                    <div>
+                        <h5 ng-if="shareCtrl.mode!='edit-solution' || shareCtrl.canEditIssue">Select Categories</h5>
+                        <h5 ng-if="shareCtrl.mode=='edit-solution' && !shareCtrl.canEditIssue">Categories</h5>
                     </div>
                     <div class="ibox-content">
-                        <div class="form-group">
+                        <div class="form-group ">
+                            <ul class="list-inline" ng-if="shareCtrl.mode=='edit-solution' && !shareCtrl.canEditIssue">
+                                <li ng-repeat="tag in shareCtrl.issueCategories"><span class="badge badge-success">{{tag.text}}</span>
+                                </li>
+                            </ul>
                             <!-- use ngTagsInput here -->
-                            <tags-input placeholder="Add a category for this idea"
-                                        ng-model="shareCtrl.issueCategories">
-                                <auto-complete source="shareCtrl.suggestTags($query)"></auto-complete>
-                            </tags-input>
-                            <span ng-show="shareCtrl.errors.missingCategory && (shareCtrl.issueCategories.length < 1)" style="color:#a94442">
+                            <div ng-if="shareCtrl.mode!='edit-solution' || shareCtrl.canEditIssue">
+                                <tags-input placeholder="Add a category for this idea"
+                                            ng-model="shareCtrl.issueCategories">
+                                    <auto-complete source="shareCtrl.suggestTags($query)"></auto-complete>
+                                </tags-input>
+                            <span ng-show="shareCtrl.errors.missingCategory && (shareCtrl.issueCategories.length < 1)"
+                                  style="color:#a94442">
                                 <small>Please enter at least one category.</small></span>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -25,38 +34,55 @@
                         <div class="ibox-content">
                             <h2 style="margin-bottom:20px;">Post an Issue</h2>
 
-                            <form  role="form" name="issueForm" ng-submit="shareCtrl.postIssue(issueForm)" novalidate>
+
+                            <form role="form" name="issueForm" novalidate>
                                 <div class="form-group"
-                                     ng-class="{'has-error': shareCtrl.errors.issueDetail &&  (!shareCtrl.issue.detail || shareCtrl.issue.detail.length < 150)}" >
+                                     ng-hide="shareCtrl.mode=='edit-solution' && !shareCtrl.showProblem"
+                                     ng-class="{'has-error': shareCtrl.errors.issueDetail &&  (!shareCtrl.issue.detail || shareCtrl.issue.detail.length < 150)}">
                                     <label for="problem_desc">Problem Description</label>
                                     <!-- use a rich text editor here -->
                                     <span ng-show="issueForm.problem_desc.$viewValue.length > 1" style="float: right"
-                                            ><small>{{issueForm.problem_desc.$viewValue.length}} characters</small></span>
+                                            ><small>{{issueForm.problem_desc.$viewValue.length}} characters
+                                    </small></span>
                                     <textarea rows="10" class="form-control" name="problem_desc" id="problem_desc"
-                                              ng-model="shareCtrl.issue.detail"  required=""
+                                              ng-model="shareCtrl.issue.detail" required=""
+                                              ng-disabled="shareCtrl.mode=='edit-solution' && !shareCtrl.canEditIssue"
                                               title="150 characters minimum"
                                               placeholder="Provide a detailed description of the problem you are proposing a solution for."></textarea>
                                     <span ng-show="shareCtrl.errors.issueDetail && (!shareCtrl.issue.detail || shareCtrl.issue.detail.length < 150)"
-                                           class="help-block" style="float: right"><small>Your problem  description must be at least 150 characters.</small></span>
+                                          class="help-block" style="float: right"><small>Your problem description must
+                                        be at least 150 characters.
+                                    </small></span>
 
-                                    <a style="margin-top:10px; margin-right: 10px" ng-click="shareCtrl.showSolution = true;">I have a solution to this problem</a>
+                                    <a ng-hide="shareCtrl.mode=='edit-solution'"
+                                       style="margin-top:10px; margin-right: 10px"
+                                       ng-click="shareCtrl.showSolution = true;">I have a solution to this problem</a>
                                 </div>
 
 
                                 <div class="form-group" ng-show="shareCtrl.showSolution">
                                     <div class="form-group">
                                         <label>Proposed Solution</label>
+                                        <a ng-if="shareCtrl.mode=='edit-solution'"
+                                           ng-click="(shareCtrl.showProblem)?shareCtrl.showProblem=false:
+                                           shareCtrl.showProblem=true"
+                                           style="float: right"><span ng-show="!shareCtrl.showProblem">Show</span>
+                                            <span ng-show="shareCtrl.showProblem">Hide</span> Problem Description</a>
                                         <!-- use a rich text editor here -->
                                         <div summernote
                                              class="summernote"
                                              ng-model="shareCtrl.issue.solution.detail"></div>
                                     </div>
                                 </div>
-                               <div>
-                                   <a style="margin-right: 10px" ui-sref="home">Cancel</a>
-                                   <a style="margin-right: 10px" href="#">Save as Draft</a>
-                                   <button type="submit" class="btn btn-primary">Post</button>
-                               </div>
+                                <div>
+                                    <a style="margin-right: 10px" ui-sref="home">Cancel</a>
+                                    <button ng-click="shareCtrl.save(issueForm, true)"
+                                            class="btn btn-w-m btn-white" style="margin-right: 10px">Save as Draft
+                                    </button>
+                                    <button ng-click="shareCtrl.save(issueForm)" class="btn btn-primary">Post
+                                    </button>
+
+                                </div>
 
                             </form>
                         </div>

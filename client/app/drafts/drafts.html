@@ -5,16 +5,20 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-content mailbox-content">
                         <div class="file-manager">
-                            <h5>Folders</h5>
+                            <h5>Draft Folders</h5>
                             <ul class="folder-list m-b-md" style="padding: 0">
-                                <li><a ui-sref="issues">Issues <span class="label label-info pull-right">3</span></a></li>
-                                <li><a ui-sref="solutions">Solutions <span class="label label-info pull-right">1</span></a></li>
+                                <li><a ui-sref="issues">Issues <span  ng-if="draftsCtrl.drafts.issues.total > 0"
+                                                                      class="label label-info pull-right">{{draftsCtrl.drafts.issues.total}}</span></a>
+                                </li>
+                                <li><a ui-sref="solutions">Solutions <span ng-if="draftsCtrl.drafts.solutions.total > 0"
+                                                                           class="label label-info pull-right">{{draftsCtrl.drafts.solutions.total}}</span></a>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        
+
             <div class="col-lg-9 animated fadeInRight">
                 <div ui-view></div>
             </div>

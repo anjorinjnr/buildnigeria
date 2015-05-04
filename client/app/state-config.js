@@ -8,39 +8,72 @@ define(function () {
             //return user data, if user is logged in
             loggedInUser: ['userService', '$cookieStore', 'authService', '$q', '$state',
                 function (userService, $cookieStore, authService, $q, $state) {
+
                     var userPromise = $q.defer();
                     //check if session information exist, and query user information
                     var session = authService.getSession();
                     if (session) {
                         userService.get({'user_token': session.user_token}, function (user) {
-                            if (user) {
+                            var user = user.toJSON();
+                            if (!_.isEmpty(user)) {
                                 userPromise.resolve(user);
                                 authService.setCurrentUser(user);
+                            } else if (!authService.isPublic) {
+                                authService.logout();
                             } else {
                                 userPromise.resolve(null);
                             }
+
                         });
                     } else {
                         userPromise.resolve(null);
                     }
                     return userPromise.promise;
                 }],
-            ideas: function () {
-                //@todo
+            issue: ['ideaService', 'util', '$stateParams', function (ideaService, util, $stateParams) {
+                var id = util.decodeId($stateParams.issueId);
+                return ideaService.issue({issue_id: id}).$promise;
 
+            }],
+            issues: ['ideaService', '$stateParams', function (ideaService, $stateParams) {
+                if ($stateParams.category) {
+                    return ideaService.issues({category: $stateParams.category}).$promise;
+                } else {
+                    return ideaService.issues().$promise;
+                }
+
+            }],
+
+            solution: ['ideaService', 'util', '$stateParams', function (ideaService, util, $stateParams) {
+                var id = util.decodeId($stateParams.solutionId);
+                return ideaService.solution({solution_id: id}).$promise;
+
+            }],
+            categories: ['ideaService', function (ideaService) {
+                return ideaService.categories().$promise;
+
+            }],
+            drafts: {
+                issues: ['user', 'userService', function (user, userService) {
+                    return userService.drafts({user_id: user.id, type: 'issue'}).$promise;
+                }],
+                solutions: ['user', 'userService', function (user, userService) {
+                    return userService.drafts({user_id: user.id, type: 'solution'}).$promise;
+                }]
             },
-            categories: function () {
-                //@todo
-
+            emptyObject: function () {
+                return {};
             }
-
         };
 
 
         $stateProvider
             .state('main', {
                 abstract: true,
-                templateUrl: 'main/main.html'
+                templateUrl: 'main/main.html',
+                resolve: {
+                    user: resolves.loggedInUser
+                }
             })
 
             .state('logout', {
@@ -53,10 +86,25 @@ define(function () {
                 parent: 'main',
                 templateUrl: 'home/home.html',
                 resolve: {
-                    user: resolves.loggedInUser
+                    issues: resolves.issues,
+                    categories: resolves.categories
                 },
                 data: {
-                    public: true
+                    public: false
+                }
+
+            })
+            .state('issues-by-tag', {
+                url: '/tagged/:category',
+                controller: 'HomeCtrl as homeCtrl',
+                parent: 'main',
+                templateUrl: 'home/home.html',
+                resolve: {
+                    issues: resolves.issues,
+                    categories: resolves.categories
+                },
+                data: {
+                    public: false
                 }
 
             })
@@ -65,7 +113,23 @@ define(function () {
                 url: '/ideas/:ideaId',
                 templateUrl: 'ideas/idea.html',
                 parent: 'main',
-                controller: 'IdeaCtrl as ideaCtrl'
+                controller: 'IdeaCtrl as ideaCtrl',
+                resolve: {
+                    user: resolves.loggedInUser
+                }
+            })
+
+            .state('issue-detail', {
+                url: '/issue/:issueId',
+                templateUrl: 'issues/issue.html',
+                parent: 'main',
+                controller: 'IssueCtrl as issueCtrl',
+                data: {
+                    public: false
+                },
+                resolve: {
+                    issue: resolves.issue
+                }
             })
 
             .state('oauth-callback', {
@@ -92,84 +156,103 @@ define(function () {
                 }]
             })
 
-            
+
             .state('share', {
                 url: '/share',
                 controller: 'ShareCtrl as shareCtrl',
                 templateUrl: 'share/share.html',
                 parent: 'main',
                 resolve: {
-                    user: resolves.loggedInUser
+                    user: resolves.loggedInUser,
+                    issue: resolves.emptyObject,
+                    solution: resolves.emptyObject
                 },
                 data: {
-                    public: true
+                    public: false
                 }
             })
-            
+
             .state('drafts', {
                 url: '/drafts',
-                controller: ['$state', function($state) {
-                    $state.go('issues');
-                }],
                 templateUrl: 'drafts/drafts.html',
+                controller: 'DraftsCtrl as draftsCtrl',
                 parent: 'main',
                 data: {
-                    public: true
+                    public: false
+                },
+                resolve: {
+                    issues: resolves.drafts.issues,
+                    solutions: resolves.drafts.solutions
                 }
             })
-            
+
             .state('issues', {
                 url: '/issues',
-                controller: 'DraftsCtrl as draftsCtrl',
-                templateUrl: 'drafts/issue_drafts.html',
+                templateUrl: 'drafts/drafts-inner.html',
                 data: {
-                    public: true
+                    public: false,
+                    type: 'issues'
                 },
-                parent: 'drafts', 
-                resolve: {
-                    user: resolves.loggedInUser
-                }
+                parent: 'drafts'
+
             })
-            
-            .state('edit-issue-draft', {
-                url: '/drafts/issues/edit/:draftId',
-                controller: 'IssueDraftCtrl as issueDraftCtrl',
-                templateUrl: 'drafts/edit_issue_draft.html',
-                data: {
-                    public: true
-                },
-                parent: 'main',
-                resolve: {
-                    user: resolves.loggedInUser
-                }
-            })
-            
             .state('solutions', {
                 url: '/solutions',
-                controller: 'DraftsCtrl as draftsCtrl',
-                templateUrl: 'drafts/solution_drafts.html',
+                templateUrl: 'drafts/drafts-inner.html',
                 data: {
-                    public: true
+                    public: false,
+                    type: 'solutions'
+
                 },
-                parent: 'drafts',
-                resolve: {
-                    user: resolves.loggedInUser
-                }
+                parent: 'drafts'
+
             })
-            
-            .state('edit-solution-draft', {
-                url: '/drafts/solutions/edit/:draftId',
-                controller: 'SolutionDraftCtrl as solutionDraftCtrl',
-                templateUrl: 'drafts/edit_solution_draft.html',
+
+            .state('edit-issue', {
+                url: '/issues/edit/:issueId',
+                controller: 'ShareCtrl as shareCtrl',
+                templateUrl: 'share/share.html',
                 data: {
-                    public: true
+                    public: false,
+                    edit: true
                 },
                 parent: 'main',
                 resolve: {
-                    user: resolves.loggedInUser
+                    issue: resolves.issue,
+                    solution: resolves.emptyObject,
+                    validate: ['user', '$state', 'issue', function (user, $state, issue) {
+                        if (issue.user_id != user.id) {
+                            $state.go('home');
+                        }
+                        return true;
+
+                    }]
                 }
             })
-            
+
+
+            .state('edit-solution', {
+                url: '/solutions/edit/:solutionId',
+                controller: 'ShareCtrl as shareCtrl',
+                templateUrl: 'share/share.html',
+                data: {
+                    public: true,
+                    edit: true
+                },
+                parent: 'main',
+                resolve: {
+                    issue: resolves.emptyObject,
+                    solution: resolves.solution,
+                    validate: ['user', '$state', 'solution', function (user, $state, solution) {
+                        if (solution.user_id != user.id) {
+                            $state.go('home');
+                        }
+                        return true;
+
+                    }]
+                }
+            })
+
             .state('search', {
                 url: '/search',
                 controller: 'SearchCtrl as searchCtrl',
@@ -188,7 +271,7 @@ define(function () {
                     public: true
                 }
             })
-            
+
             .state('register', {
                 url: '/register',
                 templateUrl: 'register/register.html',

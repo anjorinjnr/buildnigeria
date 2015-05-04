@@ -15,7 +15,9 @@ requirejs.config({
         ngSummernote: 'bower_components/angular-summernote/dist/angular-summernote.min',
         summernote: 'bower_components/summernote/dist/summernote',
         twBootstrap: 'bower_components/bootstrap/dist/js/bootstrap.min',
-        ngToast: 'bower_components/ngtoast/dist/ngToast.min'
+        ngToast: 'bower_components/ngtoast/dist/ngToast.min',
+        moment: 'bower_components/momentjs/min/moment.min',
+        hashids: 'bower_components/hashids/lib/hashids.min'
     },
     shim: {
         ngToast: {deps: ['angular', 'angularSanitize']},

@@ -1,0 +1,46 @@
+<div class="mail-box-header">
+    <h2>
+        Drafts ({{stateData.type | sentencecase}})
+    </h2>
+
+    <div class="mail-tools tooltip-demo m-t-md">
+        <div ng-if="draftsCtrl.drafts[stateData.type].total > 0" class="btn-group pull-right">
+            <button ng-click="draftsCtrl.paginate(stateData.type, draftsCtrl.drafts[stateData.type].prev_page_url)"
+                    ng-disabled="draftsCtrl.drafts[stateData.type].prev_page_url == null"
+                    class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>
+            <button ng-click="draftsCtrl.paginate('issues', draftsCtrl.drafts[stateData.type].next_page_url)"
+                    ng-disabled="draftsCtrl.drafts[stateData.type].next_page_url == null"
+                    class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
+        </div>
+        <div ng-if="draftsCtrl.drafts[stateData.type].total > 0">
+            <span style="margin-right: 10px" class="pull-right">
+                {{draftsCtrl.drafts[stateData.type].from}}-{{draftsCtrl.drafts[stateData.type].to}} of  {{draftsCtrl.drafts[stateData.type].total}}</span>
+            <button ng-click="draftsCtrl.delete(stateData.type)" ng-show="draftsCtrl.selects[stateData.type].length > 0"
+                    class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Delete"><i
+                    class="fa fa-trash-o"></i> &nbsp; Delete
+            </button>
+        </div>
+    </div>
+</div>
+<div class="mail-box">
+    <table class="table table-hover table-mail">
+        <tbody>
+        <!--<tr class="read">-->
+        <!--<td  class="check-mail">  <input ng-click="draftsCtrl.masterSelect('issues')" type="checkbox" ></td>-->
+        <!--<td colspan="2"></td>-->
+        <!--</tr>-->
+        <tr class="read" ng-repeat="draft in draftsCtrl.drafts[stateData.type].data">
+            <td class="check-mail">
+                <input ng-click="draftsCtrl.select(stateData.type, draft.id)" type="checkbox">
+            </td>
+            <td class="mail-subject"><a href="#/{{stateData.type}}/edit/{{draft.id | hashId}}">{{draft.detail}}</a></td>
+            <td class="text-right mail-date">{{draft.created_at | formatDate:'':'DD/MM/YYYY'}}</td>
+        </tr>
+        <tr class="read" ng-if="draftsCtrl.drafts[stateData.type].total == 0">
+            <td><p>There are currently no drafts.</p></td>
+        </tr>
+
+        </tbody>
+
+    </table>
+</div>
