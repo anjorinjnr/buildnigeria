@@ -23,27 +23,43 @@
                                         <img alt="image" class="img-circle" src="assets/images/profile.jpg"/>
                                     </a>
                                     &nbsp;&nbsp;
-                                    {{issueCtrl.issue.user.name}}
+                                    <!--{{issueCtrl.issue.user.name}}--> David Adamo
 
                                     <span ng-repeat="tag in issueCtrl.issue.categories"
-                                          class="pull-right label label-success">{{tag.category}}</span>
+                                          class="pull-right label label-success"><!--{{tag.category}}--> Education</span>
                                     <span class="pull-right" style="margin-right:20px;">{{issueCtrl.issue.created_at | formatDate:'':'DD MMM YYYY'}}</span>
                                 </div>
 
-                                <div class="idea-body" style="font-size: 19px;">
+                                <div class="idea-body" style="font-size: 16px;">
                                     <p><strong>
-                                        {{issueCtrl.issue.detail}}
+                                        <!--{{issueCtrl.issue.detail}}-->
+                                        Why is there such a difference in the world's response to the Charlie Hebdo attacks and the recent Boko Haram massacres?
                                     </strong>
                                     </p>
                                 </div>
-                                <a href="#" class="btn btn-primary btn-sm">Propose a solution</a>
+                                
+                                <div class="solution_proposal" style="overflow:auto;padding:10px;">
+                                    <form role="form" name="solutionForm">
+                                        <div class="form-group">
+                                            <div summernote class="summernote" />
+                                        </div>
+                                        <div>
+                                            <button ng-click=""
+                                                    class="btn btn-w-m btn-white" style="margin-right: 10px">Save as Draft
+                                            </button>
+                                            <button ng-click="" class="btn btn-primary">Post Solution
+                                            </button>
+
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <!--<hr>-->
                 </div>
 
-                <div class="row" ng-repeat="solution in issueCtrl.issue.solutions">
+                <div class="row"> <!--ng-repeat="solution in issueCtrl.issue.solutions"-->
                     <div class="ibox float-e-margins" style="">
                         <div class="ibox-content">
                             <div class="idea-element">
@@ -54,7 +70,7 @@
                                     &nbsp;&nbsp;
                                     Tope Fasua
 
-                                    <span class="pull-right label label-success">Education</span>
+                                    <!--<span class="pull-right label label-success">Education</span>-->
                                     <span class="pull-right" style="margin-right:20px;">12 January 2014</span>
                                 </div>
 

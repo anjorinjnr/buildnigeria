@@ -272,6 +272,47 @@ define(function () {
                     public: true
                 }
             })
+            
+            .state('static-template', {
+                abstract: true,
+                templateUrl: 'static/template.html'
+            })
+            
+            .state('about', {
+                url: '/about',
+                templateUrl: 'static/about.html',
+                controller: function() {
+                
+                },
+                data: {
+                    public: true
+                },
+                parent: 'static-template'
+            })
+            
+            .state('privacy', {
+                url: '/privacy',
+                templateUrl: 'static/privacy.html',
+                controller: function() {
+                
+                },
+                data: {
+                    public: true
+                },
+                parent: 'static-template'
+            })
+            
+            .state('terms', {
+                url: '/terms',
+                templateUrl: 'static/terms.html',
+                controller: function() {
+                
+                },
+                data: {
+                    public: true
+                },
+                parent: 'static-template'
+            })
 
             .state('register', {
                 url: '/register',
