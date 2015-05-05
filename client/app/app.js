@@ -79,10 +79,11 @@ define(['angular',
             .service('util', Util);
 
 
-        app.run(['$state', '$stateParams', '$location', '$rootScope', 'authService',
-            function ($state, $stateParams, $location, $rootScope, authService) {
+        app.run(['$state', '$stateParams', '$location', '$rootScope', 'authService', 'util',
+            function ($state, $stateParams, $location, $rootScope, authService, util) {
 
                 $rootScope.authService = authService;
+                $rootScope.util = util;
                 //authService.createSession('261b350e166beed992af9fa0c2f58296');
 
                 $rootScope.$on('$stateChangeSuccess', function (event, toState) {

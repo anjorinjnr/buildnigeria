@@ -33,6 +33,11 @@ define(function () {
                     url: API_PATH + 'issue/:issue_id',
                     isArray: false
                 },
+                search: {
+                    method: 'GET',
+                    url: API_PATH + 'search',
+                    isArray: false
+                },
                 solution: {
                     method: 'GET',
                     url: API_PATH + 'solution/:solution_id',

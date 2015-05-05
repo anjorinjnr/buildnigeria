@@ -37,14 +37,7 @@ class IdeaService
         $this->vote = $vote;
     }
 
-    public function searchIssues($term){
-        return $this->issue->whereRaw("match(detail) against (?)", [$term])
-            ->orderBy('views', 'desc')
-            ->get();
-    }
-    public function searchSolutions($term){
-        return $this->issue->whereRaw("match(detail) against (?)", [$term])->get();
-    }
+
 
     /**
      * Create or update solution
@@ -187,9 +180,20 @@ class IdeaService
         $this->issue->save();
     }
 
-    public function issues($category = null)
+    public function searchIssues($term)
     {
-        $query = $this->issue->with(
+        return $this->issuesQuery()->whereRaw("match(detail) against (?)", [$term])
+            ->orderBy('views', 'desc')
+            ->paginate(15);
+    }
+
+    public function searchSolutions($term)
+    {
+        return $this->issue->whereRaw("match(detail) against (?)", [$term])->get();
+    }
+    private function issuesQuery()
+    {
+        return $query = $this->issue->with(
             [
                 'user', 'solutions' => function ($query) {
                 $query->with(
@@ -201,6 +205,11 @@ class IdeaService
             },
                 'categories'])
             ->where('status', Issue::PUBLISH);
+    }
+
+    public function issues($category = null)
+    {
+        $query = $this->issuesQuery();
         if ($category != null) {
             $query->whereExists(function ($q) use ($category) {
                 $q->select(DB::raw(1))

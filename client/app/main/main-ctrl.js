@@ -3,8 +3,9 @@
  */
 define(function () {
 
-    var MainCtrl = function (authService) {
+    var MainCtrl = function (authService, $state) {
         this.authService = authService;
+        this.$state = $state;
     };
     MainCtrl.prototype.signUpWithFacebook = function () {
         this.authService.loginWithFacebook();
@@ -12,7 +13,7 @@ define(function () {
     };
     MainCtrl.prototype.onSearchSubmit = function (keyEvent) {
         if (keyEvent.keyCode == 13 && this.searchTerm) {
-            $state.go('search', {term: this.searchTerm});
+            this.$state.go('search', {term: this.searchTerm});
 
         }
 

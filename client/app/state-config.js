@@ -53,6 +53,11 @@ define(function () {
                 return ideaService.categories().$promise;
 
             }],
+            search : {
+                issues: ['ideaService', '$stateParams', function (ideaService, $stateParams) {
+                        return ideaService.search({term: $stateParams.term}).$promise;
+                }]
+            },
             drafts: {
                 issues: ['user', 'userService', function (user, userService) {
                     return userService.drafts({user_id: user.id, type: 'issue'}).$promise;
@@ -255,12 +260,15 @@ define(function () {
             })
 
             .state('search', {
-                url: '/search',
+                url: '/search/:term',
                 controller: 'SearchCtrl as searchCtrl',
                 templateUrl: 'search/search.html',
                 parent: 'main',
                 data: {
-                    public: true
+                    public: false
+                },
+                resolve: {
+                    issues: resolves.search.issues
                 }
             })
 

@@ -29,7 +29,7 @@ class IdeaController extends Controller
                     '/\b\w*' . $term . '\w*\b/i',
                     function ($matches) {
                         foreach ($matches as $match) {
-                            return sprintf("<span style='background:yellow'>%s</span>", $match);
+                            return sprintf("<span style=\"background:yellow\">%s</span>", $match);
                         }
                     },
                     $row->detail

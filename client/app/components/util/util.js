@@ -3,9 +3,10 @@
  */
 define(['hashids'], function (Hashids) {
 
-    var Util = function (ngToast) {
+    var Util = function (ngToast, $sce) {
         this.ngToast = ngToast;
         this.hasher = new Hashids('#a$her-th@n-th0u', 12);
+        this.$sce = $sce;
     };
 
     Util.prototype.toast = function (message) {
@@ -27,7 +28,11 @@ define(['hashids'], function (Hashids) {
             return this.hasher.decode(id)[0];
         }
     };
-    Util.$inject = ['ngToast'];
+
+    Util.prototype.trustAsHtml = function (string) {
+        return this.$sce.trustAsHtml(string);
+    };
+    Util.$inject = ['ngToast', '$sce'];
     return Util;
 
 });
