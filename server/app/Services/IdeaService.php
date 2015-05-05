@@ -37,6 +37,15 @@ class IdeaService
         $this->vote = $vote;
     }
 
+    public function searchIssues($term){
+        return $this->issue->whereRaw("match(detail) against (?)", [$term])
+            ->orderBy('views', 'desc')
+            ->get();
+    }
+    public function searchSolutions($term){
+        return $this->issue->whereRaw("match(detail) against (?)", [$term])->get();
+    }
+
     /**
      * Create or update solution
      * @param $data

@@ -4,17 +4,21 @@
             <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
                 <i class="fa fa-reorder"></i>
             </button>
-            <a href="#" class="navbar-brand">BuildNigeria</a>
+            <a ui-sref="home" href class="navbar-brand">BuildNigeria</a>
         </div>
         <div class="navbar-collapse collapse" id="navbar">
-			<form role="search" class="navbar-form-custom" method="post" ng-submit="mainCtrl.onSearchSubmit()">
+			<form role="search" class="navbar-form-custom">
 				<div class="form-group">
-					<input type="text" placeholder="Search" class="form-control" name="top-search" id="top-search" />
+					<input type="text" ng-keypress="mainCtrl.onSearchSubmit($event)" placeholder="Search"
+                           class="form-control" name="top-search"
+                           ng-model="mainCtrl.searchTerm"
+                           id="top-search" />
+
 				</div>
 			</form>
             <ul class="nav navbar-nav">
                 <li>
-                    <a ui-sref="home" href="#" >Home</a>
+                    <a ui-sref="home" href>Home</a>
                 </li>
 				<!--<li>
 					<a ui-sref="profile" href="#">Profile</a>

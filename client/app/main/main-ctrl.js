@@ -6,13 +6,17 @@ define(function () {
     var MainCtrl = function (authService) {
         this.authService = authService;
     };
-    MainCtrl.prototype.signUpWithFacebook = function(){
+    MainCtrl.prototype.signUpWithFacebook = function () {
         this.authService.loginWithFacebook();
 
     };
-    MainCtrl.prototype.onSearchSubmit = function() {
-        alert("Hello world!");
-        $state.go('search');
+    MainCtrl.prototype.onSearchSubmit = function (keyEvent) {
+        if (keyEvent.keyCode == 13 && this.searchTerm) {
+            $state.go('search', {term: this.searchTerm});
+
+        }
+
+
     };
 
     MainCtrl.inject = ['authService', '$state'];

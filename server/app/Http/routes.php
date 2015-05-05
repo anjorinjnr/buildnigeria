@@ -31,6 +31,7 @@ Route::get('issue/{issue}', 'IdeaController@getIssue');
 Route::get('solution/{solution}', 'IdeaController@getSolution');
 Route::get('issues', 'IdeaController@getIssues');
 Route::get('categories', 'IdeaController@getCategories');
+Route::get('search', 'IdeaController@search');
 
 Route::post('vote/{item_type}/{vote_type}', 'IdeaController@vote')->where(['item_type' => 'issue|solution',
     'vote_type' => 'up|down']);

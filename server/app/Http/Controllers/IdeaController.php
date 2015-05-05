@@ -18,6 +18,28 @@ class IdeaController extends Controller
         $this->ideaService = $ideaService;
     }
 
+    public function search(Request $request)
+    {
+        $term = $request->get('term');
+        $results = $this->ideaService->searchIssues($term);
+        if ($results) {
+            // $termWithBg = "<span style='background:yellow'>" . $term . '</span>';
+            $results->each(function ($row) use ($term) {
+                $row->detail = preg_replace_callback(
+                    '/\b\w*' . $term . '\w*\b/i',
+                    function ($matches) {
+                        foreach ($matches as $match) {
+                            return sprintf("<span style='background:yellow'>%s</span>", $match);
+                        }
+                    },
+                    $row->detail
+                );
+            });
+            return $results;
+        }
+
+    }
+
     public function getCategories()
     {
         return $this->ideaService->categories()->toJson();

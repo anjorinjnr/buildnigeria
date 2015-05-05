@@ -71,6 +71,7 @@ define(function () {
             .state('main', {
                 abstract: true,
                 templateUrl: 'main/main.html',
+                controller: 'MainCtrl as mainCtrl',
                 resolve: {
                     user: resolves.loggedInUser
                 }
