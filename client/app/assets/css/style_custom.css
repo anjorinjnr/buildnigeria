@@ -82,3 +82,7 @@ body {
 #problem-section {
     border-bottom: 5px solid #e7eaec;
 }
+
+#problem_desc {
+    margin-bottom: 5px;
+}
