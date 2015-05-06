@@ -7,6 +7,7 @@ define(function () {
         this.user = user;
         this.issues = issues;
         this.categories = categories;
+        // this.util = util;
         this.votes = {
             solutions: {
                 up: {},
@@ -96,7 +97,7 @@ define(function () {
 
 
     };
-
+    
     HomeCtrl.$inject = ['user', 'issues', 'categories', 'ideaService'];
     return HomeCtrl;
 });

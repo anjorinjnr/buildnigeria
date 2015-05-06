@@ -115,13 +115,16 @@ define(function () {
 
             })
 
-            .state('idea-detail', {
-                url: '/ideas/:ideaId',
-                templateUrl: 'ideas/idea.html',
+            .state('solution-detail', {
+                url: '/solutions/:solutionId',
+                templateUrl: 'solutions/solution.html',
                 parent: 'main',
-                controller: 'IdeaCtrl as ideaCtrl',
+                controller: 'SolutionCtrl as solutionCtrl',
+                data: {
+                    public: false
+                },
                 resolve: {
-                    user: resolves.loggedInUser
+                    solution: resolves.solution
                 }
             })
 
