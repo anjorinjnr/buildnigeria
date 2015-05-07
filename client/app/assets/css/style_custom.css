@@ -111,3 +111,21 @@ body {
     max-width: 800px;
     margin: 0 auto;
 }
+
+#issue {
+    border-bottom: 2px solid #e7eaec;
+}
+
+#solution-detail {
+    padding-top: 10px;
+}
+
+#solution-content {
+    padding:10px 0px 5px 0px;
+}
+
+#solution-headline {
+    border-bottom: 1px solid #e7eaec;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
