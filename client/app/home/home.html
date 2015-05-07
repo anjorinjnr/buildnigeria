@@ -16,8 +16,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-9">
-                <div class="row" ng-repeat="issue in homeCtrl.issues | limitTo: 10">
+            <div class="col-lg-9" infinite-scroll="homeCtrl.loadMore()"
+                 infinite-scroll-immediate-check="false">
+                <div  class="row" ng-repeat="issue in homeCtrl.issues.data">
                     <issue-card issue="issue" user="homeCtrl.user"></issue-card>
                 </div>
             </div>

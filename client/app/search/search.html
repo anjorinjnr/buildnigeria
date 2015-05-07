@@ -1,11 +1,12 @@
-<div class="container padding-1x">
-    <div class="row wrapper border-bottom white-bg page-heading page-title">
-        <div class="col-lg-9">
-            <h2>{{searchCtrl.issues.total}} results for: "{{searchCtrl.term}}"</h2>
+
+<div class="wrapper wrapper-content p-x1">
+    <div class="container padding-1x" style="margin-bottom: 30px">
+        <div class="row wrapper border-bottom white-bg page-heading page-title">
+            <div class="col-lg-9">
+                <h2>{{searchCtrl.issues.total}} results for: "{{searchCtrl.term}}"</h2>
+            </div>
         </div>
     </div>
-</div>
-<div class="wrapper wrapper-content p-x1">
     <div class="container animated fadeInRight">
         <div class="row">
             <div class="col-lg-3">
@@ -25,7 +26,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-9">
+            <div class="col-lg-9"
+                 infinite-scroll="searchCtrl.loadMore()"
+                 infinite-scroll-immediate-check="false">
                 <div class="row" ng-repeat="issue in searchCtrl.issues.data ">
                     <issue-card issue="issue" user="authService.currentUser()"></issue-card>
                 </div>

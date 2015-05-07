@@ -20,7 +20,8 @@ define(['angular',
         'components/util/util',
         'components/tip/tip-module',
         //'angularMaterial',
-        'lodash', 'uiRouter', 'angularResource', 'angularCookies', 'ngToast', 'ngTags', 'ngSummernote', 'moment', 'angularSanitize'],
+        'lodash', 'uiRouter', 'angularResource', 'angularCookies', 'ngToast', 'ngTags', 'ngSummernote', 'moment',
+        'angularSanitize', 'infiniteScroll'],
     function (angular,
               StateConfig,
               MainCtrl,
@@ -52,7 +53,8 @@ define(['angular',
                 'tip.bar',
                 'ngTagsInput',
                 'summernote',
-                'ngSanitize'
+                'ngSanitize',
+                'infinite-scroll'
             ]);
         app.config(StateConfig)
             .config(['ngToastProvider', function (ngToast) {

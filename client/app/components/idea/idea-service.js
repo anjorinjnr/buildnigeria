@@ -26,7 +26,7 @@ define(function () {
                 issues: {
                     method: 'GET',
                     url: API_PATH + 'issues',
-                    isArray: true
+                    isArray: false
                 },
                 issue: {
                     method: 'GET',

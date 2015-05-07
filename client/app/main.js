@@ -17,9 +17,11 @@ requirejs.config({
         twBootstrap: 'bower_components/bootstrap/dist/js/bootstrap.min',
         ngToast: 'bower_components/ngtoast/dist/ngToast.min',
         moment: 'bower_components/momentjs/min/moment.min',
-        hashids: 'bower_components/hashids/lib/hashids.min'
+        hashids: 'bower_components/hashids/lib/hashids.min',
+        infiniteScroll: 'bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min'
     },
     shim: {
+        infiniteScroll: {deps: ['angular']},
         ngToast: {deps: ['angular', 'angularSanitize']},
         ngSummernote: {deps: ['summernote', 'angular']},
         twBootstrap: {deps: ['jquery']},
