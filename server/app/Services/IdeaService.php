@@ -26,6 +26,7 @@ class IdeaService
     private $issue;
     private $category;
     private $vote;
+    const PAGE_SIZE = 15;
 
     public function __construct(Issue $issue, Category $category, Solution $solution, Vote $vote,
                                 SecurityService $securityService)
@@ -220,7 +221,7 @@ class IdeaService
                     ->whereRaw('issues_categories.issue_id = issues.id');
             });
         }
-        return $query->orderBy('created_at', 'desc')->get();
+        return $query->orderBy('created_at', 'desc')->paginate(self::PAGE_SIZE);
         
         // maybe order by total number of solution upvotes
     }
