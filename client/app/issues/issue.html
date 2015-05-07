@@ -9,7 +9,7 @@
                     <div class="ibox-content">
                         <p>{{issueCtrl.issue.views | number}} views</p>
 
-                        <p>{{issueCtrl.issue.solutions.length}} solutions</p>
+                        <p>{{issueCtrl.issue.solutions.length}} <span ng-if="issueCtrl.issue.solutions.length > 1 || issueCtrl.issue.solutions.length == 0">solutions</span><span ng-if="issueCtrl.issue.solutions.length == 1">solution</span></p>
                     </div>
                 </div>
             </div>
@@ -23,17 +23,16 @@
                                         <img alt="image" class="img-circle" src="assets/images/profile.jpg"/>
                                     </a>
                                     &nbsp;&nbsp;
-                                    <!--{{issueCtrl.issue.user.name}}--> David Adamo
+                                    {{issueCtrl.issue.user.name}}
 
                                     <span ng-repeat="tag in issueCtrl.issue.categories"
-                                          class="pull-right label label-success"><!--{{tag.category}}--> Education</span>
+                                          class="pull-right label label-success">{{tag.category}}</span>
                                     <span class="pull-right" style="margin-right:20px;">{{issueCtrl.issue.created_at | formatDate:'':'DD MMM YYYY'}}</span>
                                 </div>
 
                                 <div class="idea-body" style="font-size: 16px;">
                                     <p><strong>
-                                        <!--{{issueCtrl.issue.detail}}-->
-                                        Why is there such a difference in the world's response to the Charlie Hebdo attacks and the recent Boko Haram massacres?
+                                        {{issueCtrl.issue.detail}}
                                     </strong>
                                     </p>
                                 </div>
@@ -58,75 +57,32 @@
                     </div>
                     <!--<hr>-->
                 </div>
-                <div class="row"> <!--ng-repeat="solution in issueCtrl.issue.solutions"-->
+                <div class="row" ng-hide="issueCtrl.issue.solutions.length == 0">
                     <div class="ibox float-e-margins" style="">
                         <div class="ibox-title">
-                            <strong>10 solutions</strong>
+                            <strong>{{issueCtrl.issue.solutions.length}} <span ng-if="issueCtrl.issue.solutions.length > 1 || issueCtrl.issue.solutions.length == 0">solutions</span><span ng-if="issueCtrl.issue.solutions.length == 1">solution</span></strong>
                         </div>
                         <div class="ibox-content" style="overflow:auto;">
-                            <div class="idea-element">
+                            <div class="idea-element" ng-repeat="solution in issueCtrl.issue.solutions">
                                 <div class="idea-header">
                                     <a ui-sref="profile" class="pull-left">
                                         <img alt="image" class="img-circle" src="assets/images/profile.jpg"/>
                                     </a>
                                     &nbsp;&nbsp;
-                                    Tope Fasua
+                                    {{solution.user.name}}
 
                                     <!--<span class="pull-right label label-success">Education</span>-->
-                                    <span class="pull-right" style="margin-right:20px;">12 January 2014</span>
+                                    <span class="pull-right" style="margin-right:20px;">{{solution.created_at | formatDate:'':'DD MMM YYYY'}}</span>
                                 </div>
 
                                 <div class="idea-body">
-                                    <p>Why don't we all just move to an alternate universe where all these problems do
-                                        not exist? I am working on a trans-dimensional time ripper and it will be done
-                                        by the middle of May. If anyone's interested in my work, please get in touch
-                                        with me. <a ui-sref="idea-detail( {ideaId: 1} )">More</a></p>
+                                    <p>{{solution.detail}} <a ui-sref="idea-detail( {ideaId: 1} )">More</a></p>
                                 </div>
                                 <a href="#" class="btn btn-primary">Upvote (10)</a>&nbsp;&nbsp;<a href="#">Downvote</a>
-                            </div>
-                            <hr/>
-                            <div class="idea-element">
-                                <div class="idea-header">
-                                    <a ui-sref="profile" class="pull-left">
-                                        <img alt="image" class="img-circle" src="assets/images/profile.jpg"/>
-                                    </a>
-                                    &nbsp;&nbsp;
-                                    Tope Fasua
-
-                                    <!--<span class="pull-right label label-success">Education</span>-->
-                                    <span class="pull-right" style="margin-right:20px;">12 January 2014</span>
-                                </div>
-
-                                <div class="idea-body">
-                                    <p>Why don't we all just move to an alternate universe where all these problems do
-                                        not exist? I am working on a trans-dimensional time ripper and it will be done
-                                        by the middle of May. If anyone's interested in my work, please get in touch
-                                        with me. <a ui-sref="idea-detail( {ideaId: 1} )">More</a></p>
-                                </div>
-                                <a href="#" class="btn btn-primary">Upvote (10)</a>&nbsp;&nbsp;<a href="#">Downvote</a>
-                            </div>
-                            <hr/>
-                            <div class="idea-element">
-                                <div class="idea-header">
-                                    <a ui-sref="profile" class="pull-left">
-                                        <img alt="image" class="img-circle" src="assets/images/profile.jpg"/>
-                                    </a>
-                                    &nbsp;&nbsp;
-                                    Tope Fasua
-
-                                    <!--<span class="pull-right label label-success">Education</span>-->
-                                    <span class="pull-right" style="margin-right:20px;">12 January 2014</span>
-                                </div>
-
-                                <div class="idea-body">
-                                    <p>Why don't we all just move to an alternate universe where all these problems do
-                                        not exist? I am working on a trans-dimensional time ripper and it will be done
-                                        by the middle of May. If anyone's interested in my work, please get in touch
-                                        with me. <a ui-sref="idea-detail( {ideaId: 1} )">More</a></p>
-                                </div>
-                                <a href="#" class="btn btn-primary">Upvote (10)</a>&nbsp;&nbsp;<a href="#">Downvote</a>
+                                <hr/>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@ define(function () {
 
     var SolutionCtrl = function (solution) {
        this.solution = solution;
-       console.log(this.solution);
+       console.log(JSON.stringify(this.solution));
     };
 
     SolutionCtrl.$inject = ['solution'];
