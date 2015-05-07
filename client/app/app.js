@@ -4,7 +4,7 @@ define(['angular',
         'main/main-ctrl',
         'login/login-ctrl',
         'home/home-ctrl',
-        'ideas/idea-ctrl',
+        'solutions/solution-ctrl',
         'register/register-ctrl',
         'share/share-ctrl',
         'search/search-ctrl',
@@ -26,7 +26,7 @@ define(['angular',
               MainCtrl,
               LoginCtrl,
               HomeCtrl,
-              IdeaCtrl,
+              SolutionCtrl,
               RegisterCtrl,
               ShareCtrl,
               SearchCtrl,
@@ -66,7 +66,7 @@ define(['angular',
             .controller('MainCtrl', MainCtrl)
             .controller('LoginCtrl', LoginCtrl)
             .controller('HomeCtrl', HomeCtrl)
-            .controller('IdeaCtrl', IdeaCtrl)
+            .controller('SolutionCtrl', SolutionCtrl)
             .controller('RegisterCtrl', RegisterCtrl)
             .controller('ShareCtrl', ShareCtrl)
             .controller('SearchCtrl', SearchCtrl)

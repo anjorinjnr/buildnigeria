@@ -221,6 +221,8 @@ class IdeaService
             });
         }
         return $query->orderBy('created_at', 'desc')->get();
+        
+        // maybe order by total number of solution upvotes
     }
 
     public function vote($userId, $itemId, $itemType, $voteType)
