@@ -16,6 +16,7 @@ define(['angular',
         'components/date-time-filter/date-time-filter',
         'components/sentence-case-filter/sentence-case-filter',
         'components/hashid-filter/hashid-filter',
+        'components/issue-card/issue-card-directive',
         'components/util/util',
         'components/tip/tip-module',
         //'angularMaterial',
@@ -37,6 +38,7 @@ define(['angular',
               dateTimeFilter,
               sentenceCaseFilter,
               hashIdFilter,
+              issueCardDirective,
               Util) {
 
         var app = angular.module(
@@ -61,9 +63,6 @@ define(['angular',
                     maxNumber: 1
                 });
             }])
-            .filter('formatDate', dateTimeFilter)
-            .filter('sentencecase', sentenceCaseFilter)
-            .filter('hashId', hashIdFilter)
             .controller('MainCtrl', MainCtrl)
             .controller('LoginCtrl', LoginCtrl)
             .controller('HomeCtrl', HomeCtrl)
@@ -73,6 +72,10 @@ define(['angular',
             .controller('SearchCtrl', SearchCtrl)
             .controller('DraftsCtrl', DraftsCtrl)
             .controller('IssueCtrl', IssueCtrl)
+            .directive('issueCard', issueCardDirective)
+            .filter('formatDate', dateTimeFilter)
+            .filter('sentencecase', sentenceCaseFilter)
+            .filter('hashId', hashIdFilter)
             .service('authService', AuthService)
             .service('userService', UserService)
             .service('ideaService', IdeaService)

@@ -26,31 +26,8 @@
                 </div>
             </div>
             <div class="col-lg-9">
-                <div class="row" ng-repeat="row in searchCtrl.issues.data ">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-content">
-                            <div class="idea-element">
-                                <div class="idea-header">
-                                    <a ui-sref="profile" class="pull-left">
-                                        <img alt="image" class="img-circle" src="assets/images/profile.jpg"/>
-                                    </a>
-                                    &nbsp;&nbsp;
-                                   {{row.user.name}}
-
-                                     <span style="margin:3px"  ng-repeat="category in row.categories"
-                                           class="pull-right label label-success">{{category.category}}</span>
-                                    <span class="pull-right" style="margin-right:20px;">{{row.created_at | formatDate:'':'DD MMM YYYY'}}</span>
-                                </div>
-
-                                <div class="idea-body">
-                                    <p><a ui-sref="idea-detail({ ideaId: 1 })" class="idea-problem">
-                                       <strong ng-bind-html="util.trustAsHtml(row.detail)"></strong></a>
-                                    </p>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                <div class="row" ng-repeat="issue in searchCtrl.issues.data ">
+                    <issue-card issue="issue" user="authService.currentUser()"></issue-card>
                 </div>
             </div>
         </div>

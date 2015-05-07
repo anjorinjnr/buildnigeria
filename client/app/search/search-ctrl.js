@@ -4,8 +4,8 @@
 define(function () {
 
     var SearchCtrl = function (issues,$stateParams) {
+
         this.issues = issues;
-        console.log(issues);
         this.term = $stateParams.term;
     };
     SearchCtrl.$inject = ['issues', '$stateParams'];
