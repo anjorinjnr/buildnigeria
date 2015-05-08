@@ -30,7 +30,7 @@ define(function () {
             categories.forEach(function (item) {
                 self.categories.push({text: item.category})
             });
-            console.log(self.categories);
+            //console.log(self.categories);
         });
         this.issueCategories = [];
         //if a solution is injected, then we're in edit mode
@@ -90,9 +90,7 @@ define(function () {
      * @param saveAsDraft
      */
     ShareCtrl.prototype.save = function (form, saveAsDraft) {
-
         var self = this;
-
         if (self.mode == 'edit-solution') {  //user is editing solution
             this.issue.solution.status = (saveAsDraft) ? DRAFT : PUBLISHED;
             if (saveAsDraft) {

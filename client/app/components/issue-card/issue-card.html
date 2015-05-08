@@ -1,12 +1,4 @@
 <div class="ibox float-e-margins">
-    <style>
-        .solution-text span {
-            font-size: 13px !important;
-            font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-            line-height: 1.4 !important;
-        }
-
-    </style>
     <div class="ibox-content">
         <div class="idea-element">
             <div class="idea-header">
@@ -32,9 +24,14 @@
 
             </div>
             <div ng-show="issue.solutions.length > 0">
-                <p class="solution-text"><span
-                        ng-bind-html="util.trustAsHtml(issue.solutions[0].detail) |  limitTo:350"></span>
-                    <a ng-if="issue.solutions[0].showMore" href="#/solutions/{{issue.solutions[0].id | hashId}}"> More</a></p>
+
+
+                <div ng-hide="issue.solutions[0].fullView"
+                     ng-bind-html="issue.solutions[0].miniContent"
+                     class="solution-text"></div>
+
+                <div ng-if="issue.solutions[0].fullView" ng-bind-html="util.trustAsHtml(issue.solutions[0].detail)"
+                     class="solution-text"></div>
                 <a ng-click="upVoteSolution(issue.solutions[0])"
                    class="btn" ng-class="{'btn-default': votes.up[issue.solutions[0].id],
                                         'btn-primary':  !votes.up[issue.solutions[0].id] }">

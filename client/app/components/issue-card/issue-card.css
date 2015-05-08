@@ -1,0 +1,13 @@
+.solution-text span {
+    font-size: 13px !important;
+    font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    line-height: 1.4 !important;
+}
+.thumbnail-img {
+    width: 50%;
+    margin: 0 auto;
+}
+.thumbnail-img img {
+    max-height: 200px;
+    max-width: 450px;
+}

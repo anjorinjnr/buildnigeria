@@ -221,7 +221,7 @@ class IdeaService
                     ->whereRaw('issues_categories.issue_id = issues.id');
             });
         }
-        return $query->orderBy('created_at', 'desc')->paginate(self::PAGE_SIZE);
+        return $query->orderBy('updated_at', 'desc')->paginate(self::PAGE_SIZE);
         
         // maybe order by total number of solution upvotes
     }
