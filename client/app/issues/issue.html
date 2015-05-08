@@ -37,16 +37,16 @@
                                     </p>
                                 </div>
                                 
-                                <div class="solution_proposal" style="overflow:auto;padding:10px;">
+                                <div class="solution_proposal" style="overflow:auto;padding:10px;" novalidate>
                                     <form role="form" name="solutionForm">
                                         <div class="form-group">
-                                            <div summernote class="summernote" />
+                                            <div summernote class="summernote" ng-model="issueCtrl.solution.detail" />
                                         </div>
                                         <div>
-                                            <button ng-click=""
+                                            <button ng-click="issueCtrl.saveSolution(true)"
                                                     class="btn btn-w-m btn-white" style="margin-right: 10px">Save as Draft
                                             </button>
-                                            <button ng-click="" class="btn btn-primary">Post Solution
+                                            <button ng-click="issueCtrl.saveSolution(false)" class="btn btn-primary">Post Solution
                                             </button>
 
                                         </div>
