@@ -119,6 +119,35 @@ class IdeaService
             ->groupBy('id', 'category')
             ->get();
     }
+    
+    /**
+    * Gets a particular issue, and all its solutions
+    * @param $issue_id
+    */
+    public function getIssue($issue_id) 
+    {
+        return $this->issueQuery($issue_id)->first();
+    }
+    
+    private function issueQuery($issue_id)
+    {
+        return $query = $this->issue->with(
+            [
+                'user', 
+                'solutions' => function($query) {
+                    $query->with(
+                        [
+                            'votes' => function($q) {
+                                $q->where('item_type', Vote::ITEM_TYPE_SOLUTION);
+                            },
+                            'user'
+                        ]
+                    )->orderBy('up_vote', 'desc');
+                },
+                'categories'
+            ]
+        )->where('id', $issue_id);
+    }
 
     /**
      * @param $data

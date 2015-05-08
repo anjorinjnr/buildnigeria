@@ -51,10 +51,9 @@ class IdeaController extends Controller
         return $this->ideaService->issues($category)->toJson();
     }
 
-    public function getIssue(Issue $issue)
+    public function getIssue($issue_id)
     {
-        $issue->load(['user', 'categories', 'solutions']);
-        return $issue->toJson();
+        return $this->ideaService->getIssue($issue_id)->toJson();
     }
 
     public function getSolution(Solution $solution)

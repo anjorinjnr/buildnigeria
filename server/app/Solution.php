@@ -15,6 +15,10 @@ class Solution extends Model {
     public function votes() {
         return $this->hasMany('BuildNigeria\Vote', 'item_id', 'id');
     }
+    
+    public function user() {
+        return $this->belongsTo('BuildNigeria\User');
+    }
 
     public function upVotes() {
         return Vote::where('item_id', $this->id)
