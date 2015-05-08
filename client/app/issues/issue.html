@@ -78,7 +78,16 @@
                                 <div class="idea-body">
                                     <p>{{solution.detail}} <a ui-sref="idea-detail( {ideaId: 1} )">More</a></p>
                                 </div>
-                                <a href="#" class="btn btn-primary">Upvote (10)</a>&nbsp;&nbsp;<a href="#">Downvote</a>
+                                <a ng-click="issueCtrl.upVoteSolution(solution)" ng-class="{ 'btn-default': issueCtrl.votes.up[solution.id], 'btn-primary': !issueCtrl.votes.up[solution.id] }" class="btn btn-primary">
+                                    <span ng-if="issueCtrl.votes.up[solution.id]">Upvoted </span>
+                                    <span ng-if="!issueCtrl.votes.up[solution.id]">Upvote </span>
+                                    <span ng-if="solution.up_vote > 0">({{solution.up_vote}})</span>
+                                </a>&nbsp;&nbsp;
+                                <a ng-click="issueCtrl.downVoteSolution(solution)">
+                                    <span class="text-muted" ng-if="issueCtrl.votes.down[solution.id]">Downvoted</span>
+                                    <span ng-if="!issueCtrl.votes.down[solution.id]">Downvote</span>
+                                </a>
+                                <img ng-show="solution.voteLoading" style="margin-left: 5px;" src="../../assets/images/ajax-loader.gif" alt="" />
                                 <hr/>
                             </div>
                         </div>

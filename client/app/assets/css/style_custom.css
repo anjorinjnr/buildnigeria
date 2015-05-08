@@ -129,3 +129,7 @@ body {
     padding-bottom: 5px;
     margin-bottom: 15px;
 }
+
+.nav-bottom-border {
+    border-bottom: 1px solid #e7eaec;
+}
