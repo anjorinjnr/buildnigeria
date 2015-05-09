@@ -15,7 +15,7 @@ class AddForeignKeysToSolutionsTable extends Migration {
 		Schema::table('solutions', function(Blueprint $table)
 		{
 			$table->foreign('user_id', 'fk_solution_user')->references('id')->on('users')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-			$table->foreign('id', 'fk_solution_issue')->references('id')->on('issues')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+			$table->foreign('issue_id', 'fk_solution_issue')->references('id')->on('issues')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
 
