@@ -80,14 +80,8 @@
                                     <!--<span class="pull-right label label-success">Education</span>-->
                                     <span class="pull-right" style="margin-right:20px;">{{solution.created_at | formatDate:'':'DD MMM YYYY'}}</span>
                                 </div>
-
-<<<<<<< HEAD
-                                <div class="idea-body">
-                                    <p ng-bind-html="solution.detail"><a ui-sref="idea-detail( {ideaId: 1} )">More</a></p>
-=======
                                 <div class="idea-body" ng-bind-html="solution.detail">
-                                    <!--<p>{{solution.detail}} <a ui-sref="idea-detail( {ideaId: 1} )">More</a></p>-->
->>>>>>> c603ce5999b65bdad50c09976d5062dc1d5d71a8
+                                    <!--<p ng-bind-html="solution.detail"><a ui-sref="idea-detail( {ideaId: 1} )">More</a></p>-->
                                 </div>
                                 <a ng-click="issueCtrl.voteService.upVoteSolution(solution)" ng-class="{ 'btn-default': issueCtrl.voteService.votes.up[solution.id],
                                 'btn-primary': !issueCtrl.voteService.votes.up[solution.id] }" class="btn btn-primary">

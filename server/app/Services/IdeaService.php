@@ -138,7 +138,7 @@ class IdeaService
                     [
                         'votes' => function ($q) {
                             $q->where('item_type', Vote::ITEM_TYPE_SOLUTION);
-                        }
+                        }, 'user'
                     ])->orderBy('up_vote', 'desc');
             },
                 'categories'])
