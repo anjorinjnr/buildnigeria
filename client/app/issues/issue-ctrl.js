@@ -2,7 +2,6 @@
  * Created by davidadamojr on 4/30/15.
  */
 define(['components/vote/vote-service'], function (VoteService) {
-    // TODO : implement add solution from issue-detail, implement more expander.
 
     var DRAFT = 0;
     var PUBLISHED = 1;
@@ -36,7 +35,7 @@ define(['components/vote/vote-service'], function (VoteService) {
         }
 
         this.errors = {};
-       // console.log(issue);
+       console.log(issue);
     };
 
     IssueCtrl.prototype.saveSolution = function (saveAsDraft) {
