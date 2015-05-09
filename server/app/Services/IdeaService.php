@@ -39,7 +39,6 @@ class IdeaService
     }
 
 
-
     /**
      * Create or update solution
      * @param $data
@@ -119,34 +118,35 @@ class IdeaService
             ->groupBy('id', 'category')
             ->get();
     }
-    
+
     /**
-    * Gets a particular issue, and all its solutions
-    * @param $issue_id
-    */
-    public function getIssue($issue_id) 
+     * Gets a particular issue, and all its solutions
+     * @param $issue_id
+     * @return \Illuminate\Database\Eloquent\Model|null|static
+     */
+    public function getIssue($issue_id)
     {
-        return $this->issueQuery($issue_id)->first();
+        return $this->issuesQuery($issue_id)->first();
     }
-    
-    private function issueQuery($issue_id)
+
+    private function issuesQuery($issueId = 0, $status = Issue::PUBLISH)
     {
-        return $query = $this->issue->with(
+        $query = $this->issue->with(
             [
-                'user', 
-                'solutions' => function($query) {
-                    $query->with(
-                        [
-                            'votes' => function($q) {
-                                $q->where('item_type', Vote::ITEM_TYPE_SOLUTION);
-                            },
-                            'user'
-                        ]
-                    )->orderBy('up_vote', 'desc');
-                },
-                'categories'
-            ]
-        )->where('id', $issue_id);
+                'user', 'solutions' => function ($query) {
+                $query->with(
+                    [
+                        'votes' => function ($q) {
+                            $q->where('item_type', Vote::ITEM_TYPE_SOLUTION);
+                        }
+                    ])->orderBy('up_vote', 'desc');
+            },
+                'categories'])
+            ->where('status', $status);
+        if ($issueId > 0) {
+            $query->where('id', $issueId);
+        }
+        return $query;
     }
 
     /**
@@ -221,21 +221,7 @@ class IdeaService
     {
         return $this->issue->whereRaw("match(detail) against (?)", [$term])->get();
     }
-    private function issuesQuery()
-    {
-        return $query = $this->issue->with(
-            [
-                'user', 'solutions' => function ($query) {
-                $query->with(
-                    [
-                        'votes' => function ($q) {
-                            $q->where('item_type', Vote::ITEM_TYPE_SOLUTION);
-                        }
-                    ])->orderBy('up_vote', 'desc');
-            },
-                'categories'])
-            ->where('status', Issue::PUBLISH);
-    }
+
 
     public function issues($category = null)
     {
@@ -251,7 +237,7 @@ class IdeaService
             });
         }
         return $query->orderBy('updated_at', 'desc')->paginate(self::PAGE_SIZE);
-        
+
         // maybe order by total number of solution upvotes
     }
 
