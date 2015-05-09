@@ -33,8 +33,8 @@
                                 </div>
 
                                 <div class="idea-body" style="font-size: 16px;">
-                                    <p><strong>
-                                        {{issueCtrl.issue.detail}}
+                                    <p><strong ng-bind-html="issueCtrl.issue.detail">
+
                                     </strong>
                                     </p>
                                 </div>
@@ -81,8 +81,8 @@
                                     <span class="pull-right" style="margin-right:20px;">{{solution.created_at | formatDate:'':'DD MMM YYYY'}}</span>
                                 </div>
 
-                                <div class="idea-body">
-                                    <p>{{solution.detail}} <a ui-sref="idea-detail( {ideaId: 1} )">More</a></p>
+                                <div class="idea-body" ng-bind-html="solution.detail">
+                                    <!--<p>{{solution.detail}} <a ui-sref="idea-detail( {ideaId: 1} )">More</a></p>-->
                                 </div>
                                 <a ng-click="issueCtrl.voteService.upVoteSolution(solution)" ng-class="{ 'btn-default': issueCtrl.voteService.votes.up[solution.id],
                                 'btn-primary': !issueCtrl.voteService.votes.up[solution.id] }" class="btn btn-primary">

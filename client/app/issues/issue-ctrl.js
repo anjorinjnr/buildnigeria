@@ -66,7 +66,7 @@ define(['components/vote/vote-service'], function (VoteService) {
         }
 
         var self = this;
-        console.log(this.solution);
+        //console.log(this.solution);
         // save solution
         self.ideaService.saveSolution(this.solution, function (resp) {
             if (resp.status === 'success') {
@@ -76,7 +76,7 @@ define(['components/vote/vote-service'], function (VoteService) {
                     self.solution = resp.data;
                     self.util.toast('Draft saved.');
                 } else {
-                    console.log("Response: " + JSON.stringify(resp.data));
+                    //console.log("Response: " + JSON.stringify(resp.data));
                     self.issue.solutions.push(resp.data);
                     self.errors = {};
                     self.solution = {user_id: self.user.id, issue_id: self.issue.id, detail: ''}
