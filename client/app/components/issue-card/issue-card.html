@@ -32,16 +32,16 @@
 
                 <div ng-if="issue.solutions[0].fullView" ng-bind-html="util.trustAsHtml(issue.solutions[0].detail)"
                      class="solution-text"></div>
-                <a ng-click="upVoteSolution(issue.solutions[0])"
-                   class="btn" ng-class="{'btn-default': votes.up[issue.solutions[0].id],
-                                        'btn-primary':  !votes.up[issue.solutions[0].id] }">
-                    <span ng-if="votes.up[issue.solutions[0].id]">Upvoted </span>
-                    <span ng-if="!votes.up[issue.solutions[0].id]">Upvote </span>
+                <a ng-click="voteService.upVoteSolution(issue.solutions[0])"
+                   class="btn" ng-class="{'btn-default': voteService.votes.up[issue.solutions[0].id],
+                                        'btn-primary':  !voteService.votes.up[issue.solutions[0].id] }">
+                    <span ng-if="voteService.votes.up[issue.solutions[0].id]">Upvoted </span>
+                    <span ng-if="!voteService.votes.up[issue.solutions[0].id]">Upvote </span>
                     <span ng-if="issue.solutions[0].up_vote > 0">({{issue.solutions[0].up_vote}})</span></a>&nbsp;&nbsp;
-                <a ng-click="downVoteSolution(issue.solutions[0])">
+                <a ng-click="voteService.downVoteSolution(issue.solutions[0])">
                                         <span class="text-muted"
-                                              ng-if="votes.down[issue.solutions[0].id]">Downvoted</span>
-                    <span ng-if="!votes.down[issue.solutions[0].id]">Downvote</span></a>
+                                              ng-if="voteService.votes.down[issue.solutions[0].id]">Downvoted</span>
+                    <span ng-if="!voteService.votes.down[issue.solutions[0].id]">Downvote</span></a>
                 <img ng-show="issue.solutions[0].voteLoading" style="margin-left: 5px;"
                      src="../../assets/images/ajax-loader.gif" alt=""/>
             </div>

@@ -1,7 +1,7 @@
 /**
  * Created by eanjorin on 5/6/15.
  */
-define(function () {
+define(['components/vote/vote-service'], function (VoteService) {
 
     var IssueCardDirective = function (ideaService, util) {
         return {
@@ -15,10 +15,7 @@ define(function () {
             link: function (scope) {
 
                 scope.util = util;
-                scope.votes = {
-                    up: {},
-                    down: {}
-                };
+                scope.voteService = new VoteService(ideaService, scope.user);
 
                 //count votes for the first solution
                 //and update state if the user already upvoted or downvoted the solution
@@ -68,57 +65,13 @@ define(function () {
                         if (vote.vote_type == 'up_vote') {
                             solution.up_vote++;
                             if (vote.user_id === scope.user.id) {
-                                scope.votes.up[solution.id] = true;
+                                scope.voteService.votes.up[solution.id] = true;
                             }
                         } else if (vote.user_id === scope.user.id) {
-                            scope.votes.down[solution.id] = true;
+                            scope.voteService.votes.down[solution.id] = true;
                         }
                     });
                 }
-
-                scope.downVoteSolution = function (solution) {
-                    solution.voteLoading = true;
-                    ideaService.downVoteSolution({'user_id': scope.user.id, 'item_id': solution.id}, function (resp) {
-                        solution.voteLoading = false;
-                        if (resp.status === 'success') {
-                            //if wasn't downvoted before,
-                            //if user already upvoted, negate that
-                            //mark as down voted
-                            if (!(solution.id in scope.votes.down)) {
-                                if (solution.id in scope.votes.up) {
-                                    delete scope.votes.up[solution.id];
-                                    solution.up_vote--;
-                                }
-                                scope.votes.down[solution.id] = true;
-                            } else {
-                                //was downvoted before, undo downvote
-                                delete scope.votes.down[solution.id];
-                            }
-                        }
-                    });
-                };
-
-                scope.upVoteSolution = function (solution) {
-                    solution.voteLoading = true;
-                    ideaService.upVoteSolution({'user_id': scope.user.id, 'item_id': solution.id}, function (resp) {
-                        solution.voteLoading = false;
-                        if (resp.status === 'success') {
-                            //if wasn't upvoted before, increase vote
-                            //remove downvote if available and mark as upvoted
-                            if (!(solution.id in scope.votes.up)) {
-                                scope.votes.up[solution.id] = true;
-                                delete scope.votes.down[solution.id];
-                                solution.up_vote++;
-                            } else {
-                                //was upvoted before, undo upvote
-                                delete scope.votes.up[solution.id];
-                                solution.up_vote--;
-                            }
-
-                        }
-                    });
-
-                };
 
             }
         }

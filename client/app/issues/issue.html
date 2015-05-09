@@ -9,7 +9,9 @@
                     <div class="ibox-content">
                         <p>{{issueCtrl.issue.views | number}} views</p>
 
-                        <p>{{issueCtrl.issue.solutions.length}} <span ng-if="issueCtrl.issue.solutions.length > 1 || issueCtrl.issue.solutions.length == 0">solutions</span><span ng-if="issueCtrl.issue.solutions.length == 1">solution</span></p>
+                        <p>{{issueCtrl.issue.solutions.length}} <span
+                                ng-if="issueCtrl.issue.solutions.length > 1 || issueCtrl.issue.solutions.length == 0">solutions</span><span
+                                ng-if="issueCtrl.issue.solutions.length == 1">solution</span></p>
                     </div>
                 </div>
             </div>
@@ -31,22 +33,24 @@
                                 </div>
 
                                 <div class="idea-body" style="font-size: 16px;">
-                                    <p><strong>
-                                        {{issueCtrl.issue.detail}}
+                                    <p><strong ng-bind-html="issueCtrl.issue.detail">
+
                                     </strong>
                                     </p>
                                 </div>
-                                
+
                                 <div class="solution_proposal" style="overflow:auto;padding:10px;" novalidate>
                                     <form role="form" name="solutionForm">
                                         <div class="form-group">
-                                            <div summernote class="summernote" ng-model="issueCtrl.solution.detail" />
+                                            <div summernote class="summernote" ng-model="issueCtrl.solution.detail"/>
                                         </div>
                                         <div>
                                             <button ng-click="issueCtrl.saveSolution(true)"
-                                                    class="btn btn-w-m btn-white" style="margin-right: 10px">Save as Draft
+                                                    class="btn btn-w-m btn-white" style="margin-right: 10px">Save as
+                                                Draft
                                             </button>
-                                            <button ng-click="issueCtrl.saveSolution(false)" class="btn btn-primary">Post Solution
+                                            <button ng-click="issueCtrl.saveSolution(false)" class="btn btn-primary">
+                                                Post Solution
                                             </button>
 
                                         </div>
@@ -60,7 +64,9 @@
                 <div class="row" ng-hide="issueCtrl.issue.solutions.length == 0">
                     <div class="ibox float-e-margins" style="">
                         <div class="ibox-title">
-                            <strong>{{issueCtrl.issue.solutions.length}} <span ng-if="issueCtrl.issue.solutions.length > 1 || issueCtrl.issue.solutions.length == 0">solutions</span><span ng-if="issueCtrl.issue.solutions.length == 1">solution</span></strong>
+                            <strong>{{issueCtrl.issue.solutions.length}} <span
+                                    ng-if="issueCtrl.issue.solutions.length > 1 || issueCtrl.issue.solutions.length == 0">solutions</span><span
+                                    ng-if="issueCtrl.issue.solutions.length == 1">solution</span></strong>
                         </div>
                         <div class="ibox-content" style="overflow:auto;">
                             <div class="idea-element" ng-repeat="solution in issueCtrl.issue.solutions">
@@ -75,19 +81,26 @@
                                     <span class="pull-right" style="margin-right:20px;">{{solution.created_at | formatDate:'':'DD MMM YYYY'}}</span>
                                 </div>
 
+<<<<<<< HEAD
                                 <div class="idea-body">
                                     <p ng-bind-html="solution.detail"><a ui-sref="idea-detail( {ideaId: 1} )">More</a></p>
+=======
+                                <div class="idea-body" ng-bind-html="solution.detail">
+                                    <!--<p>{{solution.detail}} <a ui-sref="idea-detail( {ideaId: 1} )">More</a></p>-->
+>>>>>>> c603ce5999b65bdad50c09976d5062dc1d5d71a8
                                 </div>
-                                <a ng-click="issueCtrl.upVoteSolution(solution)" ng-class="{ 'btn-default': issueCtrl.votes.up[solution.id], 'btn-primary': !issueCtrl.votes.up[solution.id] }" class="btn btn-primary">
-                                    <span ng-if="issueCtrl.votes.up[solution.id]">Upvoted </span>
-                                    <span ng-if="!issueCtrl.votes.up[solution.id]">Upvote </span>
+                                <a ng-click="issueCtrl.voteService.upVoteSolution(solution)" ng-class="{ 'btn-default': issueCtrl.voteService.votes.up[solution.id],
+                                'btn-primary': !issueCtrl.voteService.votes.up[solution.id] }" class="btn btn-primary">
+                                    <span ng-if="issueCtrl.voteService.votes.up[solution.id]">Upvoted </span>
+                                    <span ng-if="!issueCtrl.voteService.votes.up[solution.id]">Upvote </span>
                                     <span ng-if="solution.up_vote > 0">({{solution.up_vote}})</span>
                                 </a>&nbsp;&nbsp;
-                                <a ng-click="issueCtrl.downVoteSolution(solution)">
-                                    <span class="text-muted" ng-if="issueCtrl.votes.down[solution.id]">Downvoted</span>
-                                    <span ng-if="!issueCtrl.votes.down[solution.id]">Downvote</span>
+                                <a ng-click="issueCtrl.voteService.downVoteSolution(solution)">
+                                    <span class="text-muted" ng-if="issueCtrl.voteService.votes.down[solution.id]">Downvoted</span>
+                                    <span ng-if="!issueCtrl.voteService.votes.down[solution.id]">Downvote</span>
                                 </a>
-                                <img ng-show="solution.voteLoading" style="margin-left: 5px;" src="../../assets/images/ajax-loader.gif" alt="" />
+                                <img ng-show="solution.voteLoading" style="margin-left: 5px;"
+                                     src="../../assets/images/ajax-loader.gif" alt=""/>
                                 <hr/>
                             </div>
                         </div>
