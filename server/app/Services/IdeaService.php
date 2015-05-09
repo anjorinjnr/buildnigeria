@@ -61,7 +61,7 @@ class IdeaService
                 $this->solution->issue_id = $data['issue_id'];
             }
             $this->saveSolution($data);
-            return $this->solution;
+            return $this->solution->load('user');
         } else {
             $this->clearErrors()->addError($validator->messages()->all());
             return false;
