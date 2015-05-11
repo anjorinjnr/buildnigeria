@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddStatusToIssuesTable extends Migration {
+class AddViewsToSolutionsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,9 +12,9 @@ class AddStatusToIssuesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('issues', function(Blueprint $table)
+		Schema::table('solutions', function(Blueprint $table)
 		{
-            $table->tinyInteger('status')->default(1);
+			$table->integer('views')->default(0);
 		});
 	}
 
@@ -25,9 +25,9 @@ class AddStatusToIssuesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('issues', function(Blueprint $table)
+		Schema::table('solutions', function(Blueprint $table)
 		{
-			// 
+			$table->dropColumn('views');
 		});
 	}
 
