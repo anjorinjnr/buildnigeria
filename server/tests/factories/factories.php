@@ -21,3 +21,9 @@ $factory('BuildNigeria\Category', [
     //'id' => $faker->randomDigit,
     'category' => $faker->word
 ]);
+
+$factory('BuildNigeria\Solution', [
+    'user_id' => 'factory:BuildNigeria\User',
+    'detail' => $faker->paragraphs(),
+    'issue_id' => 'factory:BuildNigeria\Issue'
+]);

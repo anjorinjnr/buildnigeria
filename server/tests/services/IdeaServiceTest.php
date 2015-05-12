@@ -217,6 +217,16 @@ class IdeaServiceTest extends DbTestCase
         $ideaService = $this->app->make('BuildNigeria\Services\IdeaService');
         $response = $ideaService->getIssue($issue->id);
         $this->assertInstanceOf('BuildNigeria\Issue', $response);
+        $this->assertEquals($issue->id, $response->id);
+    }
+    
+    public function test_get_solution() 
+    {
+        $solution = Factory::create('BuildNigeria\Solution');
+        $ideaService = $this->app->make('BuildNigeria\Services\IdeaService');
+        $response = $ideaService->getSolution($solution->id);
+        $this->assertInstanceOf('BuildNigeria\Solution', $response);
+        $this->assertEquals($solution->id, $response->id);
     }
 
     public function test_issue_up_vote()

@@ -6,11 +6,12 @@ define(['components/vote/vote-service'], function (VoteService) {
     var DRAFT = 0;
     var PUBLISHED = 1;
 
-    var IssueCtrl = function (issue, user, ideaService, util) {
+    var IssueCtrl = function (issue, user, ideaService, util, $state) {
         this.issue = issue;
         this.user = user;
         this.ideaService = ideaService;
         this.util = util;
+        this.state = $state;
         this.solution = {user_id: this.user.id, issue_id: this.issue.id, detail: ''};
         this.voteService = new VoteService(ideaService, user);
         var self = this;
@@ -74,17 +75,23 @@ define(['components/vote/vote-service'], function (VoteService) {
                     if (!self.solution.id) self.user.drafts++;
                     self.solution = resp.data;
                     self.util.toast('Draft saved.');
+                   
                 } else {
                     //console.log("Response: " + JSON.stringify(resp.data));
-                    self.issue.solutions.push(resp.data);
+                    var solution = resp.data;
+                    var encodedSolutionId = self.util.encodeId(solution.id);
+                    // self.issue.solutions.push(solution);
                     self.errors = {};
                     self.solution = {user_id: self.user.id, issue_id: self.issue.id, detail: ''}
                     self.util.toast('Posted.');
+                    
+                    // redirect to issue-detail page after saving
+                    self.state.go('solution-detail', { solutionId: encodedSolutionId });
                 }
             }
         });
     };
 
-    IssueCtrl.$inject = ['issue', 'user', 'ideaService', 'util'];
+    IssueCtrl.$inject = ['issue', 'user', 'ideaService', 'util', '$state'];
     return IssueCtrl;
 });

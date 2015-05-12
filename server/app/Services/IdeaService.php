@@ -148,6 +148,25 @@ class IdeaService
         }
         return $query;
     }
+    
+    /**
+    * Gets a particular solution, with its related user and issue
+    * @param $solution_id
+    * @return \Illuminate\Database\Eloquent\Model|null|static
+    */
+    public function getSolution($solution_id) {
+        return $this->solutionsQuery($solution_id)->first();
+    }
+    
+    public function solutionsQuery($solution_id=0, $status = Solution::PUBLISH) 
+    {
+        $query = $this->solution->with(['user', 'issue'])->where('status', $status);
+        if ($solution_id > 0) {
+            $query->where('id', $solution_id);
+        }
+        
+        return $query;
+    }
 
     /**
      * @param $data

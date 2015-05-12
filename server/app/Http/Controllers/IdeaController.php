@@ -58,8 +58,7 @@ class IdeaController extends Controller
 
     public function getSolution(Solution $solution)
     {
-        $solution->load('issue');
-        return $solution->toJson();
+        return $this->ideaService->getSolution($solution->id)->toJson();
     }
 
     public function createIssue(Request $request)

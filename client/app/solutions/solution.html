@@ -7,7 +7,7 @@
                         <h5>Solution Stats</h5>
                     </div>
                     <div class="ibox-content">
-                        130,007 views
+                        {{ solutionCtrl.solution.views }} <span ng-if="solutionCtrl.solution.views > 1 || solutionCtrl.solution.views == 0">views</span><span ng-if="solutionCtrl.solution.views == 1">view</span>
                     </div>
                 </div>
             </div>
