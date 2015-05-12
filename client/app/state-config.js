@@ -212,7 +212,6 @@ define(function () {
                 data: {
                     public: false,
                     type: 'solutions'
-
                 },
                 parent: 'drafts'
 
@@ -260,6 +259,39 @@ define(function () {
                         return true;
 
                     }]
+                }
+            })
+            
+            .state('profile', {
+                url: '/profile',
+                templateUrl: 'profile/profile.html',
+                controller: 'ProfileCtrl as profileCtrl',
+                parent: 'main',
+                data: {
+                    public: false
+                },
+                resolve: {
+                    user: resolves.loggedInUser
+                }
+            })
+            
+            .state('profile-issues', {
+                url: '/issues',
+                templateUrl: 'profile/profile-issues.html',
+                parent: 'profile',
+                data: {
+                    public: false,
+                    type: 'issues'
+                }
+            })
+            
+            .state('profile-solutions', {
+                url: '/solutions',
+                templateUrl: 'profile/profile-solutions.html',
+                parent: 'profile',
+                data: {
+                    public: false,
+                    type: 'solutions'
                 }
             })
 

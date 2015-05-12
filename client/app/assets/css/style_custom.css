@@ -133,3 +133,25 @@ body {
 .nav-bottom-border {
     border-bottom: 1px solid #e7eaec;
 }
+
+#profile-header {
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e7eaec;
+}
+
+#profile-title-headline {
+    border-bottom: 1px solid #e7eaec;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+
+.profile-element {
+    border-bottom: 1px solid #e7eaec;
+    margin-bottom: 15px;
+    overflow: auto;
+}
+
+.issue-content {
+    margin-top: 10px;
+    font-size: 14px;
+}

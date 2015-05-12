@@ -10,6 +10,7 @@ define(['angular',
         'search/search-ctrl',
         'drafts/drafts-ctrl',
         'issues/issue-ctrl',
+        'profile/profile-ctrl',
         'components/auth/auth-service',
         'components/user/user-service',
         'components/idea/idea-service',
@@ -33,6 +34,7 @@ define(['angular',
               SearchCtrl,
               DraftsCtrl,
               IssueCtrl,
+              ProfileCtrl,
               AuthService,
               UserService,
               IdeaService,
@@ -74,6 +76,7 @@ define(['angular',
             .controller('SearchCtrl', SearchCtrl)
             .controller('DraftsCtrl', DraftsCtrl)
             .controller('IssueCtrl', IssueCtrl)
+            .controller('ProfileCtrl', ProfileCtrl)
             .directive('issueCard', issueCardDirective)
             .filter('formatDate', dateTimeFilter)
             .filter('sentencecase', sentenceCaseFilter)

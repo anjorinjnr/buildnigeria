@@ -20,9 +20,6 @@
                 <li>
                     <a ui-sref="home" href>Home</a>
                 </li>
-				<!--<li>
-					<a ui-sref="profile" href="#">Profile</a>
-				</li>-->
 				<li>
 					<a ui-sref="share" href="#">Post an Issue</a>
 				</li>
@@ -31,6 +28,9 @@
                     {{authService.currentUser().drafts}}</span>
                     </a>
                 </li>
+                <li>
+					<a href="/#/profile/issues">Profile</a>
+				</li>
             </ul>
             <ul class="nav navbar-top-links navbar-right">
                 <li>{{authService.currentUser().name}}</li>
