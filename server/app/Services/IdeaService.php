@@ -162,9 +162,12 @@ class IdeaService
         return $this->solutionsQuery($solution_id)->first();
     }
 
-    public function solutionsQuery($solution_id = 0, $status = Solution::PUBLISH)
+    public function solutionsQuery($solution_id = 0, $status = null)
     {
-        $query = $this->solution->with(['user', 'issue'])->where('status', $status);
+        $query = $this->solution->with(['user', 'issue']);
+        if ($status != null) {
+            $query->where('status', $status);
+        }
         if ($solution_id > 0) {
             $query->where('id', $solution_id);
         }
