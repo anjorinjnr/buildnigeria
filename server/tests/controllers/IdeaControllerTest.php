@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\DB;
 use Laracasts\TestDummy\DbTestCase;
 use Laracasts\TestDummy\Factory;
 
@@ -9,13 +10,9 @@ use Laracasts\TestDummy\Factory;
 class IdeaControllerTest extends DbTestCase {
 
     public function setUp() {
-        @session_start();
+       // @session_start();
         parent::setUp();
         $this->faker = Faker\Factory::create();
-    }
-
-    public function tearDown() {
-        Mockery::close();
     }
 
     public function test_create_issue() {

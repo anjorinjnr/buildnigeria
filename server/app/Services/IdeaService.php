@@ -129,7 +129,7 @@ class IdeaService
         return $this->issuesQuery($issue_id)->first();
     }
 
-    private function issuesQuery($issueId = 0, $status = Issue::PUBLISH)
+    private function issuesQuery($issueId = 0, $status = null)
     {
         $query = $this->issue->with(
             [
@@ -141,30 +141,34 @@ class IdeaService
                         }, 'user'
                     ])->orderBy('up_vote', 'desc');
             },
-                'categories'])
-            ->where('status', $status);
+                'categories']);
+        if ($status != null) {
+            $query->where('status', $status);
+        }
+
         if ($issueId > 0) {
             $query->where('id', $issueId);
         }
         return $query;
     }
-    
+
     /**
-    * Gets a particular solution, with its related user and issue
-    * @param $solution_id
-    * @return \Illuminate\Database\Eloquent\Model|null|static
-    */
-    public function getSolution($solution_id) {
+     * Gets a particular solution, with its related user and issue
+     * @param $solution_id
+     * @return \Illuminate\Database\Eloquent\Model|null|static
+     */
+    public function getSolution($solution_id)
+    {
         return $this->solutionsQuery($solution_id)->first();
     }
-    
-    public function solutionsQuery($solution_id=0, $status = Solution::PUBLISH) 
+
+    public function solutionsQuery($solution_id = 0, $status = Solution::PUBLISH)
     {
         $query = $this->solution->with(['user', 'issue'])->where('status', $status);
         if ($solution_id > 0) {
             $query->where('id', $solution_id);
         }
-        
+
         return $query;
     }
 
@@ -173,8 +177,6 @@ class IdeaService
      */
     private function updateIssueCategory($data)
     {
-
-        DB::commit(); //commit to release lock on issues_categories
         $this->issue->categories()->detach();
         //associate category
         if (array_key_exists('categories', $data) && is_array($data['categories']) && count($data['categories']) > 0) {
@@ -231,7 +233,7 @@ class IdeaService
 
     public function searchIssues($term)
     {
-        return $this->issuesQuery()->whereRaw("match(detail) against (?)", [$term])
+        return $this->issuesQuery(0, Issue::PUBLISH)->whereRaw("match(detail) against (?)", [$term])
             ->orderBy('views', 'desc')
             ->paginate(15);
     }
@@ -244,7 +246,7 @@ class IdeaService
 
     public function issues($category = null)
     {
-        $query = $this->issuesQuery();
+        $query = $this->issuesQuery(0, Issue::PUBLISH);
         if ($category != null) {
             $query->whereExists(function ($q) use ($category) {
                 $q->select(DB::raw(1))

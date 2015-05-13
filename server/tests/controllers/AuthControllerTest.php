@@ -17,6 +17,7 @@ class AuthControllerTest extends DbTestCase {
 
     public function tearDown() {
         Mockery::close();
+        parent::tearDown();
     }
 
     public function test_facebook_callback_redirects() {

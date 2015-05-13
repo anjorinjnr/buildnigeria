@@ -25,6 +25,7 @@ class UserTest extends DbTestCase {
 
     public function tearDown() {
         Mockery::close();
+        parent::tearDown();
     }
 
 

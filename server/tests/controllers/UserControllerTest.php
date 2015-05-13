@@ -16,6 +16,7 @@ class UserControllerTest extends DbTestCase {
 
     public function tearDown() {
         Mockery::close();
+        parent::tearDown();
     }
 
     public function test_get_user_by_token() {

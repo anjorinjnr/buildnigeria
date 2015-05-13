@@ -21,6 +21,7 @@ class IdeaServiceTest extends DbTestCase
     public function tearDown()
     {
         Mockery::close();
+        parent::tearDown();
     }
 
     public function test_issue_is_not_created()
