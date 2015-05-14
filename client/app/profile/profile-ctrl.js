@@ -15,7 +15,7 @@ define(function () {
         var self = this;
         this.userService.deleteSolution({user_id: this.user.id, solution_id: id}, function (resp) {
             if (resp.status === 'success') {
-                self.solution.total--;
+                self.solutions.total--;
                 self.solutions.data.splice(index, 1);
                 self.loader.loadMore(self.solutions);
             }

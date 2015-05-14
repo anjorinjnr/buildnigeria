@@ -122,7 +122,7 @@ define(function () {
                 self.ideaService.saveSolution(self.issue.solution, callback);
             }
 
-        } else if (self.mode = 'edit-published-solution') {
+        } else if (self.mode == 'edit-published-solution') {
             this.util.toast('Posting...');
             self.ideaService.saveSolution(self.issue.solution, function (resp) {
                 self.util.toast('Posted.');
