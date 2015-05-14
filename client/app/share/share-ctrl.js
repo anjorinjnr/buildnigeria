@@ -37,7 +37,8 @@ define(function () {
         //so we show the solution by default, but the user can still view the problem
         //description. The problem desc will be readonly if the user didn't author the problem
         if (!_.isEmpty(solution)) {
-            this.mode = 'edit-solution';
+            this.mode = (solution.status == PUBLISHED) ? 'edit-published-solution' : 'edit-solution';
+            //console.log(solution);
             this.showSolution = true;
             //this.solution = solution;
             this.issue = solution.issue;
@@ -54,6 +55,7 @@ define(function () {
             //so we just populate the issue and tags(categories), and
             //life goes on as usual
             this.issue = _.isEmpty(issue) ? {user_id: this.user.id, detail: ''} : issue;
+            this.mode = (this.issue.status == PUBLISHED) ? 'edit-published' : '';
             if (this.issue.categories) {
                 this.issue.categories.forEach(function (cat) {
                     self.issueCategories.push({text: cat.category});
@@ -120,6 +122,11 @@ define(function () {
                 self.ideaService.saveSolution(self.issue.solution, callback);
             }
 
+        } else if (self.mode = 'edit-published-solution') {
+            this.util.toast('Posting...');
+            self.ideaService.saveSolution(self.issue.solution, function (resp) {
+                self.util.toast('Posted.');
+            });
         } else {
             //user is not saving as draft, so validate
             if (!saveAsDraft) {

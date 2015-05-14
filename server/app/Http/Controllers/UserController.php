@@ -1,6 +1,7 @@
 <?php namespace BuildNigeria\Http\Controllers;
 
 use BuildNigeria\Http\Requests;
+use BuildNigeria\Services\IdeaService;
 use BuildNigeria\Services\UserService;
 use BuildNigeria\User;
 use Illuminate\Http\Request;
@@ -8,10 +9,12 @@ use Illuminate\Http\Request;
 class UserController extends Controller {
 
     private $userService;
+    private $ideaService;
 
-    public function __construct(UserService $userService) {
+    public function __construct(UserService $userService, IdeaService $ideaService) {
 
         $this->userService = $userService;
+        $this->ideaService = $ideaService;
     }
 
     private function userDataResponse(User $user) {
@@ -57,6 +60,15 @@ class UserController extends Controller {
             return $user->solutionDrafts()->toJson();
         }
     }
+    public function getIssues(User $user) {
+        return $user->getIssues();
+
+    }
+    public function getSolutions(User $user) {
+        return $user->getSolutions();
+
+    }
+
 
     public function deleteDrafts(User $user, $type, Request $request) {
         if ($user->deleteDrafts($type, $request->get('ids'))) {
@@ -76,7 +88,18 @@ class UserController extends Controller {
 
     }
 
-    public function update() {
+    public function deleteSolution(User $user, $solutionId) {
+        if($this->ideaService->deleteSolution($user, $solutionId)) {
+            return $this->successResponse();
+        }
+        return $this->errorResponse();
+
+    }
+    public function deleteIssue(User $user, $issueId) {
+        if($this->ideaService->deleteIssue($user, $issueId)) {
+            return $this->successResponse();
+        }
+        return $this->errorResponse();
 
     }
 }

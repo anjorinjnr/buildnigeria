@@ -12,6 +12,7 @@ use BuildNigeria\Idea;
 use BuildNigeria\Issue;
 use BuildNigeria\Solution;
 use BuildNigeria\Traits\ErrorTrait;
+use BuildNigeria\User;
 use BuildNigeria\Vote;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -312,5 +313,27 @@ class IdeaService
 
     }
 
+    public function deleteSolution(User $user, $solutionId)
+    {
+        $solution = $this->solution->findOrFail($solutionId);
+        if ($solution->user_id == $user->id) {
+            $solution->delete();
+            return true;
+        }
+        return false;
+
+    }
+
+    public function deleteIssue(User $user, $issueId)
+    {
+        $issue = $this->issue->findOrFail($issueId);
+        if ($issue->user_id == $user->id) {
+            $issue->delete();
+            return true;
+        }
+
+        return false;
+
+    }
 
 }

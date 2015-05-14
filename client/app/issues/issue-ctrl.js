@@ -16,7 +16,6 @@ define(['components/vote/vote-service'], function (VoteService) {
         this.voteService = new VoteService(ideaService, user);
         var self = this;
 
-
         // only do this if there are solutions to preprocess
         if (this.issue.solutions.length > 0) {
             var solutions = this.issue.solutions;

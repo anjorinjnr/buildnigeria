@@ -22,7 +22,10 @@ Route::controllers([
 Route::get('user', 'UserController@getUserByToken');
 Route::get('user/{user}/drafts/{item_type}', 'UserController@getDrafts')->where('type', 'issue|solution');
 Route::post('user/{user}/drafts/{item_type}/delete', 'UserController@deleteDrafts')->where('type', 'issue|solution');
-Route::get('user/solutions', 'UserController@getUserIssues');
+Route::get('user/{user}/solutions', 'UserController@getSolutions');
+Route::get('user/{user}/issues', 'UserController@getIssues');
+Route::delete('user/{user}/solution/{solution_id}', 'UserController@deleteSolution');
+Route::delete('user/{user}/issue/{issue_id}', 'UserController@deleteIssue');
 Route::post('user', 'UserController@create');
 Route::post('user/login', 'UserController@login');
 Route::post('issue', 'IdeaController@createIssue');

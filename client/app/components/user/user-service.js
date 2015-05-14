@@ -22,12 +22,32 @@ define(function () {
                     method: 'GET',
                     url: API_PATH + 'user/:user_id/drafts/:type',
                     isArray: false
-
+                },
+                issues: {
+                    method: 'GET',
+                    url: API_PATH + 'user/:user_id/issues',
+                    isArray: false
+                },
+                solutions: {
+                    method: 'GET',
+                    url: API_PATH + 'user/:user_id/solutions',
+                    isArray: false
                 },
                 deleteDrafts: {
                     method: 'POST',
                     url: API_PATH + 'user/:user_id/drafts/:type/delete',
                     isArray: false
+                },
+                deleteIssue: {
+                    method: 'DELETE',
+                    url: API_PATH + 'user/:user_id/issue/:issue_id',
+                    isArray: false
+                },
+                deleteSolution: {
+                    method: 'DELETE',
+                    url: API_PATH + 'user/:user_id/solution/:solution_id',
+                    isArray: false
+
                 }
             }
         );

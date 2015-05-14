@@ -51,7 +51,6 @@ define(function () {
             }],
             categories: ['ideaService', function (ideaService) {
                 return ideaService.categories().$promise;
-
             }],
             search : {
                 issues: ['ideaService', '$stateParams', function (ideaService, $stateParams) {
@@ -64,6 +63,14 @@ define(function () {
                 }],
                 solutions: ['user', 'userService', function (user, userService) {
                     return userService.drafts({user_id: user.id, type: 'solution'}).$promise;
+                }]
+            },
+            user: {
+                issues: ['user', 'userService', function(user, userService) {
+                    return userService.issues({user_id: user.id}).$promise;
+                }],
+                solutions: ['user', 'userService', function(user, userService) {
+                    return userService.solutions({user_id: user.id}).$promise;
                 }]
             },
             emptyObject: function () {
@@ -271,7 +278,9 @@ define(function () {
                     public: false
                 },
                 resolve: {
-                    user: resolves.loggedInUser
+                    user: resolves.loggedInUser,
+                    issues: resolves.user.issues,
+                    solutions: resolves.user.solutions
                 }
             })
             

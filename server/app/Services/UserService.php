@@ -72,4 +72,5 @@ class UserService {
     private function issueToken($user) {
         $this->securityService->issueUserToken($user);
     }
+
 }

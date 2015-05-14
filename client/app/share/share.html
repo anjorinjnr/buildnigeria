@@ -1,7 +1,7 @@
 <div class="wrapper wrapper-content p-x1">
     <div class="container animated fadeInRight">
         <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-3" ng-hide="shareCtrl.mode === 'edit-published-solution'">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5 ng-if="shareCtrl.mode!='edit-solution' || shareCtrl.canEditIssue">Select Categories</h5>
@@ -32,12 +32,19 @@
                 <div class="row">
                     <div class="ibox float-e-margins">
                         <div class="ibox-content">
-                            <h2 style="margin-bottom:20px;">Post an Issue</h2>
+                            <h2 ng-if="shareCtrl.mode != 'edit-published' && shareCtrl.mode != 'edit-published-solution'"
+                                style="margin-bottom:20px;">Post an Issue</h2>
+
+                            <h2 ng-if="shareCtrl.mode === 'edit-published'" style="margin-bottom:20px;">Edit Issue</h2>
+
+                            <h2 ng-if="shareCtrl.mode === 'edit-published-solution'" style="margin-bottom:20px;">Edit
+                                Solution</h2>
 
 
                             <form role="form" name="issueForm" novalidate>
                                 <div class="form-group"
-                                     ng-hide="shareCtrl.mode=='edit-solution' && !shareCtrl.showProblem"
+                                     ng-hide="shareCtrl.mode === 'edit-published-solution' ||
+                                     (shareCtrl.mode=='edit-solution' && !shareCtrl.showProblem)"
                                      ng-class="{'has-error': shareCtrl.errors.issueDetail &&  (!shareCtrl.issue.detail || shareCtrl.issue.detail.length < 150)}">
                                     <label for="problem_desc">Problem Description</label>
                                     <!-- use a rich text editor here -->
@@ -53,8 +60,9 @@
                                           class="help-block" style="float: right"><small>Your problem description must
                                         be at least 150 characters.
                                     </small></span>
-                                    
-                                    <a ng-hide="shareCtrl.mode=='edit-solution'"
+
+                                    <a ng-hide="shareCtrl.mode=='edit-solution' || shareCtrl.mode=='edit-published'
+                                    || shareCtrl.mode === 'edit-published-solution'"
                                        style="margin-top:10px; margin-right: 10px"
                                        ng-click="shareCtrl.showSolution = true;">I have a solution to this problem</a>
                                 </div>
@@ -76,10 +84,17 @@
                                 </div>
                                 <div>
                                     <a style="margin-right: 10px" ui-sref="home">Cancel</a>
-                                    <button ng-click="shareCtrl.save(issueForm, true)"
+                                    <button ng-hide="shareCtrl.mode=='edit-published' ||
+                                     shareCtrl.mode === 'edit-published-solution'"
+                                            ng-click="shareCtrl.save(issueForm, true)"
                                             class="btn btn-w-m btn-white" style="margin-right: 10px">Save as Draft
                                     </button>
-                                    <button ng-click="shareCtrl.save(issueForm)" class="btn btn-primary">Post
+                                    <button ng-hide="shareCtrl.mode=='edit-published' || shareCtrl.mode === 'edit-published-solution'"
+                                            ng-click="shareCtrl.save(issueForm)" class="btn btn-primary">Post
+                                    </button>
+                                    <button ng-show="shareCtrl.mode=='edit-published' ||
+                                    shareCtrl.mode === 'edit-published-solution'"
+                                            ng-click="shareCtrl.save(issueForm)" class="btn btn-primary">Update
                                     </button>
 
                                 </div>

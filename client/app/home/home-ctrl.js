@@ -1,21 +1,20 @@
 /**
  * Created by davidadamojr on 4/15/15.
  */
-define(['issues/issue-loader'], function (loader) {
+define(function () {
 
-    var HomeCtrl = function (user, issues, categories, $http) {
+    var HomeCtrl = function (user, issues, categories, loader) {
         this.user = user;
         this.issues = issues;
         this.categories = categories;
-        this.$http = $http;
-        this.loading = false;
+        this.loader = loader;
 
     };
 
     HomeCtrl.prototype.loadMore = function () {
-        loader(this);
+        this.loader.loadMore(this.issues);
     };
 
-    HomeCtrl.$inject = ['user', 'issues', 'categories', '$http'];
+    HomeCtrl.$inject = ['user', 'issues', 'categories', 'loader'];
     return HomeCtrl;
 });

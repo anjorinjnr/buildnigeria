@@ -1,20 +1,21 @@
 /**
  * Created by davidadamojr on 4/23/15.
  */
-define(['issues/issue-loader'], function (loader) {
+define(function () {
 
-    var SearchCtrl = function (issues,$stateParams, $http) {
+    var SearchCtrl = function (issues,$stateParams, loader) {
 
         this.issues = issues;
         this.term = $stateParams.term;
-        this.$http = $http;
-        this.loading = false;
+        this.loader = loader;
+
     };
 
     SearchCtrl.prototype.loadMore = function () {
-        loader(this);
+        this.loader.loadMore(this.issues);
     };
-    SearchCtrl.$inject = ['issues', '$stateParams', '$http'];
+
+    SearchCtrl.$inject = ['issues', '$stateParams', 'loader'];
 
     return SearchCtrl;
 });

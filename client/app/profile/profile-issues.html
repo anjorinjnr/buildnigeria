@@ -1,35 +1,28 @@
-<div id="solution-detail">
+<div id="solution-detail" infinite-scroll="profileCtrl.loader.loadMore(profileCtrl.issues)"
+     infinite-scroll-immediate-check="false">
     <div id="profile-title-headline">
-        <strong>12 Issues</strong>
+        <h2><strong>{{profileCtrl.issues.total}} Issues</strong></h2>
     </div>
-    <div class="profile-element">
+    <div class="profile-element" ng-repeat="issue in profileCtrl.issues.data">
         <div class="idea-header">
-            <span class="pull-left label label-success">Education</span>
-            <span class="pull-right" style="margin-right:20px;"><!--{{solution.created_at | formatDate:'':'DD MMM YYYY'}}--> 14 May 2015</span>
+            <span ng-repeat="category in issue.categories"
+                  class="pull-left label label-success">{{category.category}}</span>
+            <span class="pull-right" style="margin-right:20px;">{{issue.created_at | formatDate:'':'DD MMM YYYY'}}</span>
         </div>
         <div class="idea-body">
-            <p style="font-size:15px"><strong>This is a new issue. An issue that would change the world if solved. This is a new issue. An issue that would change the world if solved.This is a new issue. An issue that would change the world if solved.This is a new issue. An issue that would change the world if solved. An issue that would change the world if solved. An issue that would change the world if solved. An issue that would change the world if solved.</strong></p>
-            <p><a href="#">View 12 answers</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Delete</a></p>
-        </div>
-    </div>
-    <div class="profile-element">
-        <div class="idea-header">
-            <span class="pull-left label label-success">Education</span>
-            <span class="pull-right" style="margin-right:20px;"><!--{{solution.created_at | formatDate:'':'DD MMM YYYY'}}--> 14 May 2015</span>
-        </div>
-        <div class="idea-body">
-            <p style="font-size:15px"><strong>This is a new issue. An issue that would change the world if solved. This is a new issue. An issue that would change the world if solved.This is a new issue. An issue that would change the world if solved.This is a new issue. An issue that would change the world if solved.</strong></p>
-            <p><a href="#">View 12 answers</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Delete</a></p>
-        </div>
-    </div>
-    <div class="profile-element">
-        <div class="idea-header">
-            <span class="pull-left label label-success">Education</span>
-            <span class="pull-right" style="margin-right:20px;"><!--{{solution.created_at | formatDate:'':'DD MMM YYYY'}}--> 14 May 2015</span>
-        </div>
-        <div class="idea-body">
-            <p style="font-size:15px"><strong>This is a new issue. An issue that would change the world if solved. This is a new issue. An issue that would change the world if solved.This is a new issue. An issue that would change the world if solved.This is a new issue. An issue that would change the world if solved.</strong></p>
-            <p><a href="#">View 12 answers</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Delete</a></p>
+            <p style="font-size:15px"><strong ng-bind-html="issue.detail"></strong></p>
+            <p><a style="margin-right: 5px" ng-if="issue.solutions.length > 0" href="#/issue/{{issue.id | hashId}}">View {{issue.solutions.length}} <ng-pluralize count="issue.solutions.length"
+                                                                                                                                      when="{'1': 'solution',
+                     'other': 'solutions'}">
+            </ng-pluralize></a>
+                <a style="margin-right: 5px" href="#/issues/edit/{{issue.id | hashId}}">Edit</a>
+                <a style="margin-right: 5px" href ng-click="issue.confirmTrue=true;">Delete</a>
+            <span ng-if="issue.confirmTrue">
+                <span class="text-warning">Are you sure?</span>
+            <button ng-click="profileCtrl.deleteIssue($index, issue.id)" class="btn btn-info btn-circle">Yes</button>
+            <button ng-click="issue.confirmTrue=false;" class="btn btn-warning btn-circle">No</button>
+            </span>
+            </p>
         </div>
     </div>
 </div>

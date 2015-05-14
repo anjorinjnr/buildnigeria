@@ -18,6 +18,7 @@ define(['angular',
         'components/sentence-case-filter/sentence-case-filter',
         'components/hashid-filter/hashid-filter',
         'components/issue-card/issue-card-directive',
+        'components/loader/loader',
         'components/util/util',
         'components/tip/tip-module',
         //'angularMaterial',
@@ -42,6 +43,7 @@ define(['angular',
               sentenceCaseFilter,
               hashIdFilter,
               issueCardDirective,
+              Loader,
               Util) {
 
         var app = angular.module(
@@ -84,7 +86,9 @@ define(['angular',
             .service('authService', AuthService)
             .service('userService', UserService)
             .service('ideaService', IdeaService)
-            .service('util', Util);
+            .service('util', Util)
+            .service('loader', Loader);
+
 
 
         app.run(['$state', '$stateParams', '$location', '$rootScope', 'authService', 'util',
