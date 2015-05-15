@@ -30,10 +30,10 @@ define(['components/vote/vote-service'], function (VoteService) {
                         solution.fullView = true;
                         scope.$digest();
                     });
-                    
+
                     //wrap solution in a div to make it an htmlelement
                     var htmlContent = $('<div>' + solution.detail + '</div>');
-                    
+
                     try {
                         //find any image included in the solution
                         //if there is at least one image,
@@ -41,23 +41,31 @@ define(['components/vote/vote-service'], function (VoteService) {
                         //where the image is shown first, with the truncated text,
                         var images = htmlContent.find('img');
                         if (images.length > 0) {
-                            
-                            //remove all images from the  subject detail
+                            //remove all images from the  detail
                             htmlContent.find('img').remove();
                             //build truncated content with image pushed to the top
                             solution.miniContent = ['<div>',
                                 '<div class="thumbnail-img">',
                                 images[0].outerHTML,
                                 '</div>',
-                                htmlContent.html().substring(0, 350)].join('');
+                                htmlContent.html().substring(0, 350),
+                                '...<a class="',
+                                id,
+                                '">(More)</a>',
+                                '</div>'
+                                ].join('');
                             //console.log(solution.miniContent);
-                        } else {
+                        } else if (htmlContent.text().length > 350) {
                             //no image, just show the truncated text
-                            solution.miniContent = '<div>' + htmlContent.html().substring(0, 350);
+                            //console.log(htmlContent.html());
+                            solution.miniContent = ['<div>',
+                                htmlContent.text().substring(0, 350),
+                                '...<a class="', id,
+                                '">(More)</a></div>'].join('');
+                        } else {
+                            solution.miniContent = htmlContent.html();
                         }
-                        solution.miniContent = solution.miniContent + '...<a class="' + id + '">(More)</a></div>';
-                        //display showMore button if text is more than 350 characters
-                        solution.showMore = htmlContent.text().length > 350 ? true : false;
+
                     } catch (e) {
                         console.log(e);
                     }
