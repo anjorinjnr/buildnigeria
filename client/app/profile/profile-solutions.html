@@ -1,7 +1,12 @@
 <div id="solution-detail" infinite-scroll="profileCtrl.loader.loadMore(profileCtrl.solutions)"
      infinite-scroll-immediate-check="false">
     <div id="profile-title-headline">
-        <h2><strong>{{profileCtrl.solutions.total}} Solutions</strong></h2>
+        <h2><strong><ng-pluralize count="profileCtrl.solutions.total"
+                                  when="{
+                          '0': 'You haven\'t posted any solution.',
+                          '1': '{} Solution',
+                          'other': '{} Solutions'}">
+        </ng-pluralize></strong></h2>
     </div>
     <div class="profile-element" ng-repeat="solution in profileCtrl.solutions.data">
         <!--<div class="idea-header">-->

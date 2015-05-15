@@ -128,12 +128,13 @@ define(function () {
                 self.util.toast('Posted.');
             });
         } else {
+            if (_.isEmpty(this.issue.detail)) {
+                this.errors.issueDetail = true;
+                return;
+            }
             //user is not saving as draft, so validate
             if (!saveAsDraft) {
-                if (_.isEmpty(this.issue.detail) || this.issue.detail.trim().length < 150) {
-                    this.errors.issueDetail = true;
-                    return;
-                }
+
                 if (this.issueCategories.length == 0) {
                     this.errors.missingCategory = true;
                     return;

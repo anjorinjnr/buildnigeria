@@ -57,9 +57,7 @@
                                               title="150 characters minimum"
                                               placeholder="Provide a detailed description of the problem you are proposing a solution for."></textarea>
                                     <span ng-show="shareCtrl.errors.issueDetail && (!shareCtrl.issue.detail || shareCtrl.issue.detail.length < 150)"
-                                          class="help-block" style="float: right"><small>Your problem description must
-                                        be at least 150 characters.
-                                    </small></span>
+                                          class="help-block" style="float: right"><small>The problem description cannot be empty</small></span>
 
                                     <a ng-hide="shareCtrl.mode=='edit-solution' || shareCtrl.mode=='edit-published'
                                     || shareCtrl.mode === 'edit-published-solution'"

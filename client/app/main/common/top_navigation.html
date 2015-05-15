@@ -24,7 +24,8 @@
 					<a ui-sref="share" href="#">Post an Issue</a>
 				</li>
                 <li>
-                    <a  href="/#/drafts/issues"><span>Drafts</span>&nbsp;&nbsp;<span class="label label-info pull-right">
+                    <a  href="/#/drafts/issues"><span>Drafts</span>&nbsp;&nbsp;
+                        <span ng-if="authService.currentUser().drafts > 0" class="label label-info pull-right">
                     {{authService.currentUser().drafts}}</span>
                     </a>
                 </li>
