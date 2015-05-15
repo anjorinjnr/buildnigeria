@@ -18,32 +18,45 @@
                             <div class="idea-element">                                                              
                                 <div class="idea-body">
                                     <div id="issue">
-                                        <p style="font-size:18px;"><strong>Boko Haram has been getting in the way of education in the country due to their tendency to kidnap girls. This has caused a painful decline in the willingness of many women to go to school.</strong></p>
+                                        <p style="font-size:18px;"><strong ng-bind-html="util.trustAsHtml(solutionCtrl.solution.issue.detail)"></strong></p>
                                     </div>
                                     
                                     <div id="solution-detail">
                                         <div id="solution-headline">
-                                            <strong>Tope's Proposed Solution</strong>
+                                            <strong>{{ solutionCtrl.solution.user.name }}'s Proposed Solution</strong>
                                         </div>
                                         <div class="idea-header">
                                             <a ui-sref="profile" class="pull-left">
                                                 <img alt="image" class="img-circle" src="assets/images/profile.jpg" />
                                             </a>
                                             &nbsp;&nbsp;
-                                            Tope Fasua
+                                            {{ solutionCtrl.solution.user.name }}
                                             
-                                            <span class="pull-right" style="margin-right:20px;">12 January 2014</span>
+                                            <span class="pull-right" style="margin-right:20px;">{{ solutionCtrl.solution.created_at | formatDate:'':'DD/MM/YYYY' }}</span>
                                         </div>
-                                        <div id="solution-content">
-                                            <!--<p><a href="#" class="idea-problem"><!--<strong>Problem</strong>--><!--<strong ng-bind-html="util.trustAsHtml(solutionCtrl.solution.issue.detail)"></strong></a></p>-->
-                                            <!--<span ng-bind-html="util.trustAsHtml(solutionCtrl.solution.detail)"></span>-->
-                                            <p>Once upon a time, there was a country where people did not have to worry about anything. All they had to worry about was putting food on their tables, getting their salaries and paying their children's school fees. How about we all move to a parallel universe where Boko Haram does not exist?</p>
-
-                                            <p>One other thing that we could do is to explore the many-worlds hypothesis and simply take a different path that would launch us into a different trajectory.</p>
-                                        </div>
+                                        <div id="solution-content" ng-bind-html="util.trustAsHtml(solutionCtrl.solution.detail)">
+                                         </div>
                                     </div>
                                 </div>
-                                <a href="#" class="btn btn-primary">Upvote (10)</a>&nbsp;&nbsp;<a href="#">Downvote</a>
+                                <a ng-click="solutionCtrl.voteService.upVoteSolution(solutionCtrl.solution)" ng-class="{ 'btn-default': solutionCtrl.voteService.votes.up[solutionCtrl.solution.id], 
+                                'btn-primary': !solutionCtrl.voteService.votes.up[solutionCtrl.solution.id] }" class="btn btn-primary">
+                                    <span ng-if="solutionCtrl.voteService.votes.up[solutionCtrl.solution.id]">Upvoted </span>
+                                    <span ng-if="!solutionCtrl.voteService.votes.up[solutionCtrl.solution.id]">Upvote </span>
+                                    <span ng-if="solutionCtrl.solution.up_vote > 0">({{solutionCtrl.solution.up_vote}})</span>
+                                </a>&nbsp;&nbsp;
+                                <a ng-click="solutionCtrl.voteService.downVoteSolution(solutionCtrl.solution)">
+                                    <span class="text-muted" ng-if="solutionCtrl.voteService.votes.down[solutionCtrl.solution.id]">Downvoted</span>
+                                    <span ng-if="!solutionCtrl.voteService.votes.down[solutionCtrl.solution.id]">Downvote</span>
+                                </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="#/solutions/edit/{{solutionCtrl.solution.id | hashId}}">Edit</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a ng-click="solutionCtrl.solution.confirmTrue = true">Delete</a>&nbsp;&nbsp;
+                                <span ng-if="solutionCtrl.solution.confirmTrue">
+                                    <span class="text-warning">Are you sure?</span>
+                                    <button ng-click="solutionCtrl.deleteSolution(solutionCtrl.solution.id)" class="btn btn-info btn-circle">Yes</button>
+                                    <button ng-click="solutionCtrl.solution.confirmTrue=false;" class="btn btn-warning btn-circle">No</button>
+                                </span>
+                                <img ng-show="solutionCtrl.solution.voteLoading" style="margin-left: 5px;"
+                                     src="../../assets/images/ajax-loader.gif" alt=""/>
                             </div>
                         </div>
                     </div>

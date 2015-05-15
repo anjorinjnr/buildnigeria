@@ -165,7 +165,7 @@ class IdeaService
 
     public function solutionsQuery($solution_id = 0, $status = null)
     {
-        $query = $this->solution->with(['user', 'issue']);
+        $query = $this->solution->with(['user', 'issue', 'votes']);
         if ($status != null) {
             $query->where('status', $status);
         }

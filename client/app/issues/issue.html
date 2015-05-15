@@ -93,7 +93,7 @@
                                     <span class="text-muted" ng-if="issueCtrl.voteService.votes.down[solution.id]">Downvoted</span>
                                     <span ng-if="!issueCtrl.voteService.votes.down[solution.id]">Downvote</span>
                                 </a>
-                                <img ng-show="solution.voteLoading" style="margin-left: 5px;"
+                                <img ng-show="solutionCtrl.solution.voteLoading" style="margin-left: 5px;"
                                      src="../../assets/images/ajax-loader.gif" alt=""/>
                                 <hr/>
                             </div>

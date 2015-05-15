@@ -131,7 +131,8 @@ define(function () {
                     public: false
                 },
                 resolve: {
-                    solution: resolves.solution
+                    solution: resolves.solution,
+                    user: resolves.loggedInUser
                 }
             })
 

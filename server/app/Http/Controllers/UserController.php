@@ -66,7 +66,6 @@ class UserController extends Controller {
     }
     public function getSolutions(User $user) {
         return $user->getSolutions();
-
     }
 
 

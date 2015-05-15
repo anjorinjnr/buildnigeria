@@ -92,6 +92,4 @@ class IdeaController extends Controller
         };
 
     }
-
-
 }

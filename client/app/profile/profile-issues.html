@@ -13,7 +13,7 @@
     <div class="profile-element" ng-repeat="issue in profileCtrl.issues.data">
         <div class="idea-header">
             <span ng-repeat="category in issue.categories"
-                  class="pull-left label label-success">{{category.category}}</span>
+                  class="pull-left label label-success" style="margin-right:5px;">{{category.category}}</span>
             <span class="pull-right"
                   style="margin-right:20px;">{{issue.created_at | formatDate:'':'DD MMM YYYY'}}</span>
         </div>
@@ -31,8 +31,8 @@
                 <a style="margin-right: 5px" href ng-click="issue.confirmTrue=true;">Delete</a>
             <span ng-if="issue.confirmTrue">
                 <span class="text-warning">Are you sure?</span>
-            <button ng-click="profileCtrl.deleteIssue($index, issue.id)" class="btn btn-info btn-circle">Yes</button>
-            <button ng-click="issue.confirmTrue=false;" class="btn btn-warning btn-circle">No</button>
+                <button ng-click="profileCtrl.deleteIssue($index, issue.id)" class="btn btn-info btn-circle">Yes</button>
+                <button ng-click="issue.confirmTrue=false;" class="btn btn-warning btn-circle">No</button>
             </span>
             </p>
         </div>

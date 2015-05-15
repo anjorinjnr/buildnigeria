@@ -13,6 +13,8 @@ define(function () {
 
     ProfileCtrl.prototype.deleteSolution = function (index, id) {
         var self = this;
+        
+        // shouldn't "deleteSolution" be more appropriately in ideaService ??
         this.userService.deleteSolution({user_id: this.user.id, solution_id: id}, function (resp) {
             if (resp.status === 'success') {
                 self.solutions.total--;

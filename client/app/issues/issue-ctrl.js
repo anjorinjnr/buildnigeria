@@ -35,7 +35,7 @@ define(['components/vote/vote-service'], function (VoteService) {
         }
 
         this.errors = {};
-       console.log(issue);
+        console.log(issue);
     };
 
     IssueCtrl.prototype.saveSolution = function (saveAsDraft) {
