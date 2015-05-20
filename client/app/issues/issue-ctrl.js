@@ -15,7 +15,6 @@ define(['components/vote/vote-service'], function (VoteService) {
         this.solution = {user_id: this.user.id, issue_id: this.issue.id, detail: ''};
         this.voteService = new VoteService(ideaService, user);
         var self = this;
-
         // only do this if there are solutions to preprocess
         if (this.issue.solutions.length > 0) {
             var solutions = this.issue.solutions;
@@ -35,7 +34,7 @@ define(['components/vote/vote-service'], function (VoteService) {
         }
 
         this.errors = {};
-        console.log(issue);
+        //console.log(issue);
     };
 
     IssueCtrl.prototype.saveSolution = function (saveAsDraft) {
