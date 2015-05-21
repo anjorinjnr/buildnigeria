@@ -57,7 +57,7 @@ define(['components/vote/vote-service'], function (VoteService) {
                             //console.log(solution.miniContent);
                         } else if (htmlContent.text().length > 350) {
                             //no image, just show the truncated text
-                            //console.log(htmlContent.html());
+                            //console.log(htmlContent.html()); 
                             solution.miniContent = ['<div>',
                                 htmlContent.text().substring(0, 350),
                                 '...<a class="', id,

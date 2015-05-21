@@ -114,7 +114,8 @@ class IdeaService
     public function categories()
     {
         return $this->category->leftJoin('issues_categories as ic', 'categories.id', '=', 'ic.category_id')
-            ->select(DB::raw('count(ic.id) as issue_count'), 'categories.id', 'category')
+            ->leftJoin('issues', 'ic.issue_id', '=', 'issues.id')
+            ->select(DB::raw('sum(if(issues.status =' . Issue::PUBLISH . ',1,0)) as issue_count'), 'categories.id', 'category')
             ->orderBy('issue_count', 'desc')
             ->groupBy('id', 'category')
             ->get();

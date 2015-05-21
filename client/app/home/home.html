@@ -7,8 +7,9 @@
                         <div class="file-manager">
                             <h5>Categories</h5>
                             <ul class="folder-list m-b-md" style="padding: 0">
-                                <li ng-repeat="category in homeCtrl.categories">
-                                    <a href="#/tagged/{{category.category}}">{{category.category}} <span class="label label-info pull-right">{{category.issue_count}}</span></a>
+                                <li ng-repeat="category in homeCtrl.categories" ng-if="category.issue_count > 0">
+                                    <a href="#/tagged/{{category.category}}">{{category.category}}
+                                        <span class="label label-info pull-right">{{category.issue_count}}</span></a>
 
                                 </li>
                             </ul>
