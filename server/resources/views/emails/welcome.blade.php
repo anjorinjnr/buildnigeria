@@ -39,14 +39,15 @@
                                     <td class="content-block"
                                         style="margin: 0;padding: 0 0 20px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;box-sizing: border-box;font-size: 14px;vertical-align: top;">
                                         <h3 style="margin: 40px 0 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande&quot;, sans-serif;box-sizing: border-box;font-size: 18px;color: #000;line-height: 1.2;font-weight: 400;">
-                                            Tola, Welcome to BuildNigeria!</h3>
+                                            {{$name}}, Welcome to BuildNigeria!</h3>
                                     </td>
                                 </tr>
                                 <tr style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;box-sizing: border-box;font-size: 14px;">
                                     <td class="content-block"
                                         style="margin: 0;padding: 0 0 20px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;box-sizing: border-box;font-size: 14px;vertical-align: top;">
-                                        BuildNigeria was created to be the platform the best minds and forward thinking Nigerians
-                                        can contribute well-thought-out ideas toward rebuilding our great country, Nigeria.
+                                        BuildNigeria was created to be the platform where the best minds and forward
+                                        thinking Nigerians can contribute well-thought-out ideas toward rebuilding our
+                                        great country, Nigeria.
                                         <br/><br/>
 
 
@@ -58,7 +59,8 @@
                                         <br/><br/>
 
                                         The problem however is that it’s hard to coordinate these ideas (from different
-                                        people on different platforms) for the citizens and most importantly the leaders who need to act
+                                        people on different platforms) for the citizens and most importantly the leaders
+                                        who need to act
                                         on the best ideas/solutions. BuildNigeria aims to solve this problem.
 
                                     </td>
@@ -66,16 +68,17 @@
                                 <tr style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;box-sizing: border-box;font-size: 14px;">
                                     <td class="content-block"
                                         style="margin: 0;padding: 0 0 20px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;box-sizing: border-box;font-size: 14px;vertical-align: top;">
-                                        We hope to make it easy to crowd source ideas, strategies and policies that will shape the Nigeria of our dreams!
+                                        We hope, and with your help, to make it easy to crowd source ideas, strategies and policies that will
+                                        shape the Nigeria of our dreams!
                                     </td>
                                 </tr>
                                 {{--<tr style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;box-sizing: border-box;font-size: 14px;">--}}
-                                    {{--<td class="content-block aligncenter"--}}
-                                        {{--style="margin: 0;padding: 0 0 20px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;box-sizing: border-box;font-size: 14px;vertical-align: top;text-align: center;">--}}
-                                        {{--<a href="#" class="btn-primary"--}}
-                                           {{--style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;box-sizing: border-box;font-size: 14px;color: #FFF;text-decoration: none;background-color: #1ab394;border: solid #1ab394;border-width: 5px 10px;line-height: 2;font-weight: bold;text-align: center;cursor: pointer;display: inline-block;border-radius: 5px;text-transform: capitalize;">Confirm--}}
-                                            {{--email address</a>--}}
-                                    {{--</td>--}}
+                                {{--<td class="content-block aligncenter"--}}
+                                {{--style="margin: 0;padding: 0 0 20px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;box-sizing: border-box;font-size: 14px;vertical-align: top;text-align: center;">--}}
+                                {{--<a href="#" class="btn-primary"--}}
+                                {{--style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;box-sizing: border-box;font-size: 14px;color: #FFF;text-decoration: none;background-color: #1ab394;border: solid #1ab394;border-width: 5px 10px;line-height: 2;font-weight: bold;text-align: center;cursor: pointer;display: inline-block;border-radius: 5px;text-transform: capitalize;">Confirm--}}
+                                {{--email address</a>--}}
+                                {{--</td>--}}
                                 {{--</tr>--}}
                             </table>
                         </td>
@@ -89,7 +92,7 @@
                             <td class="aligncenter content-block"
                                 style="margin: 0;padding: 0 0 20px;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;box-sizing: border-box;font-size: 12px;vertical-align: top;text-align: center;">
                                 Find <a href="https://www.facebook.com/buildnigeria.com.ng"
-                                          style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;box-sizing: border-box;font-size: 12px;color: #999;text-decoration: underline;">
+                                        style="margin: 0;padding: 0;font-family: &quot;Helvetica Neue&quot;, &quot;Helvetica&quot;, Helvetica, Arial, sans-serif;box-sizing: border-box;font-size: 12px;color: #999;text-decoration: underline;">
                                     BuildNigeria</a>
                                 on Facebook.
                             </td>

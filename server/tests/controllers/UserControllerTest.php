@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Mail;
 use Laracasts\TestDummy\DbTestCase;
 use Laracasts\TestDummy\Factory;
 
@@ -36,6 +37,9 @@ class UserControllerTest extends DbTestCase {
             'email' => $this->faker->email,
             'password' => 'password'
         ];
+        Mail::shouldReceive('send')->once()->with('emails.welcome',
+            ['name' => $data['name']],
+            Mockery::type('closure'));
         $response = $this->action('POST', 'UserController@create', $data);
         $user = json_decode($response->getContent());
         $this->assertNotNull($user);

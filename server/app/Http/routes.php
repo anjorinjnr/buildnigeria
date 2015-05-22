@@ -39,3 +39,6 @@ Route::get('search', 'IdeaController@search');
 Route::post('vote/{item_type}/{vote_type}', 'IdeaController@vote')->where(['item_type' => 'issue|solution',
     'vote_type' => 'up|down']);
 
+//Route::get('mail', function(){
+//    return view('emails.welcome', ['name' => 'Ebby']);
+//});
