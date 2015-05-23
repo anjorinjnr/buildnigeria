@@ -53,25 +53,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('BuildNigeria\Comment');
     }
 
-    public function  signUpOrLogin(array $data)
-    {
 
-        if (array_key_exists('email', $data)) {
-            $user = $this->where('email', $data['email'])->first();
-            if ($user) {
-                return $user;
-            } else {
-                $validator = Validator::make($data, [
-                    'name' => 'required|max:255',
-                    'email' => 'required|email|max:255|unique:users',
-                ]);
-                if ($validator->passes()) {
-                    return $this->create($data);
-                }
-            }
-        }
-        return null;
-    }
 
     public function getIssues()
     {
