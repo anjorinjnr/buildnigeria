@@ -1,7 +1,7 @@
 <div class="wrapper wrapper-content p-x1">
     <div class="container animated fadeInRight">
         <div class="row">
-            <div class="col-lg-3" ng-hide="shareCtrl.mode === 'edit-published-solution'">
+            <div class="col-lg-3" ng-hide="shareCtrl.mode === 'edit-published-solution' || shareCtrl.mode === 'edit-solution'">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5 ng-if="shareCtrl.mode!='edit-solution' || shareCtrl.canEditIssue">Select Categories</h5>
@@ -32,12 +32,13 @@
                 <div class="row">
                     <div class="ibox float-e-margins">
                         <div class="ibox-content">
-                            <h2 ng-if="shareCtrl.mode != 'edit-published' && shareCtrl.mode != 'edit-published-solution'"
-                                style="margin-bottom:20px;">Post an Issue</h2>
+                            <h2 ng-if="shareCtrl.mode === 'new-issue'">Post an Issue</h2>
 
-                            <h2 ng-if="shareCtrl.mode === 'edit-published'" style="margin-bottom:20px;">Edit Issue</h2>
+                            <h2 ng-if="shareCtrl.mode === 'edit-published-issue' || shareCtrl.mode === 'edit-issue'"
+                                style="margin-bottom:20px;">Edit Issue</h2>
 
-                            <h2 ng-if="shareCtrl.mode === 'edit-published-solution'" style="margin-bottom:20px;">Edit
+                            <h2 ng-if="shareCtrl.mode === 'edit-published-solution'|| shareCtrl.mode === 'edit-solution'"
+                                style="margin-bottom:20px;">Edit
                                 Solution</h2>
 
 
@@ -57,9 +58,11 @@
                                               title="150 characters minimum"
                                               placeholder="Provide a detailed description of the problem you are proposing a solution for."></textarea>
                                     <span ng-show="shareCtrl.errors.issueDetail && (!shareCtrl.issue.detail || shareCtrl.issue.detail.length < 150)"
-                                          class="help-block" style="float: right"><small>The problem description cannot be empty</small></span>
+                                          class="help-block" style="float: right"><small>The problem description cannot
+                                        be empty
+                                    </small></span>
 
-                                    <a ng-hide="shareCtrl.mode=='edit-solution' || shareCtrl.mode=='edit-published'
+                                    <a ng-hide="shareCtrl.mode=='edit-solution' || shareCtrl.mode=='edit-published-issue'
                                     || shareCtrl.mode === 'edit-published-solution'"
                                        style="margin-top:10px; margin-right: 10px"
                                        ng-click="shareCtrl.showSolution = true;">I have a solution to this problem</a>
@@ -82,15 +85,15 @@
                                 </div>
                                 <div>
                                     <a style="margin-right: 10px" ui-sref="home">Cancel</a>
-                                    <button ng-hide="shareCtrl.mode=='edit-published' ||
+                                    <button ng-hide="shareCtrl.mode=='edit-published-issue' ||
                                      shareCtrl.mode === 'edit-published-solution'"
                                             ng-click="shareCtrl.save(issueForm, true)"
                                             class="btn btn-w-m btn-white" style="margin-right: 10px">Save as Draft
                                     </button>
-                                    <button ng-hide="shareCtrl.mode=='edit-published' || shareCtrl.mode === 'edit-published-solution'"
+                                    <button ng-hide="shareCtrl.mode=='edit-published-issue' || shareCtrl.mode === 'edit-published-solution'"
                                             ng-click="shareCtrl.save(issueForm)" class="btn btn-primary">Post
                                     </button>
-                                    <button ng-show="shareCtrl.mode=='edit-published' ||
+                                    <button ng-show="shareCtrl.mode=='edit-published-issue' ||
                                     shareCtrl.mode === 'edit-published-solution'"
                                             ng-click="shareCtrl.save(issueForm)" class="btn btn-primary">Update
                                     </button>

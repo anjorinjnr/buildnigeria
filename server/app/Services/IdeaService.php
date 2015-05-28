@@ -131,17 +131,27 @@ class IdeaService
         return $this->issuesQuery($issue_id)->first();
     }
 
+    /**
+     * Query issue(s) with user, solutions and categories
+     * @param int $issueId
+     * @param null $status publish|draft
+     * @return \Illuminate\Database\Eloquent\Builder|static
+     */
     private function issuesQuery($issueId = 0, $status = null)
     {
         $query = $this->issue->with(
             [
-                'user', 'solutions' => function ($query) {
+                'user', 'solutions' => function ($query) use ($status) {
                 $query->with(
                     [
                         'votes' => function ($q) {
                             $q->where('item_type', Vote::ITEM_TYPE_SOLUTION);
                         }, 'user'
                     ])->orderBy('up_vote', 'desc');
+                //@todo this probably needs a refactor
+                if ($status == Issue::PUBLISH) {
+                    $query->where('status', Solution::PUBLISH);
+                }
             },
                 'categories']);
         if ($status != null) {
