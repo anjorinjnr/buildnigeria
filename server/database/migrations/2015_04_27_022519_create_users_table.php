@@ -25,8 +25,8 @@ class CreateUsersTable extends Migration {
 			$table->bigInteger('fb_id')->nullable();
 			$table->string('gender')->nullable();
 			$table->date('dob')->nullable();
-			$table->string('user_token', 45);
-			$table->dateTime('user_token_expires_at');
+			$table->string('user_token', 45)->nullable();
+			$table->dateTime('user_token_expires_at')->nullable();
 		});
 	}
 
