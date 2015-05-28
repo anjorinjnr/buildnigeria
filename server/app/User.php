@@ -5,7 +5,6 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Validator;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
@@ -54,15 +53,23 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     }
 
 
-
+    /**
+     * Return published issues by user
+     * @return mixed
+     */
     public function getIssues()
     {
         return $this->issues()->with(['solutions', 'categories' => function ($q) {
             $q->select('category');
 
-        }])->paginate(self::PAGE_SIZE);
+        }])->where('status', Issue::PUBLISH)
+            ->paginate(self::PAGE_SIZE);
     }
 
+    /**
+     * Return published solutions by users
+     * @return mixed
+     */
     public function getSolutions()
     {
         return $this->solutions()->with(
@@ -71,7 +78,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                 'votes' => function ($q) {
                     $q->where('item_type', Vote::ITEM_TYPE_SOLUTION);
                 }
-            ])->orderBy('updated_at', 'desc')->paginate(self::PAGE_SIZE);
+            ])
+            ->where('status', Solution::PUBLISH)
+            ->orderBy('updated_at', 'desc')->paginate(self::PAGE_SIZE);
 
     }
 
