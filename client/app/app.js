@@ -91,8 +91,8 @@ define(['angular',
 
 
 
-        app.run(['$state', '$stateParams', '$location', '$rootScope', 'authService', 'util',
-            function ($state, $stateParams, $location, $rootScope, authService, util) {
+        app.run(['$state', '$stateParams', '$location', '$rootScope', 'authService', 'util', '$anchorScroll',
+            function ($state, $stateParams, $location, $rootScope, authService, util, $anchorScroll) {
 
                 $rootScope.authService = authService;
                 $rootScope.util = util;
@@ -100,7 +100,11 @@ define(['angular',
 
                 $rootScope.$on('$stateChangeSuccess', function (event, toState) {
                     $rootScope.stateData = toState.data;
-                    //tipService.hide();
+                    //tipService.hide();  
+
+                    // scroll to top
+                    $location.hash("top");
+                    $anchorScroll();
                 });
 
                 $rootScope.$on('$stateChangeStart', function (event, toState) {
@@ -125,6 +129,7 @@ define(['angular',
 
 
                 });
+
             }]);
 
         if (window.location.hostname.indexOf('buildnigeria.com.ng') >= 0) {
