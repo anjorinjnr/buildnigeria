@@ -117,6 +117,7 @@ class IdeaService
             ->leftJoin('issues', 'ic.issue_id', '=', 'issues.id')
             ->select(DB::raw('sum(if(issues.status =' . Issue::PUBLISH . ',1,0)) as issue_count'), 'categories.id', 'category')
             ->orderBy('issue_count', 'desc')
+            ->orderBy('category', 'asc')
             ->groupBy('id', 'category')
             ->get();
     }
