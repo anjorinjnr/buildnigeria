@@ -101,10 +101,8 @@ define(['angular',
                 $rootScope.$on('$stateChangeSuccess', function (event, toState) {
                     $rootScope.stateData = toState.data;
                     //tipService.hide();  
-
-                    // scroll to top
-                    $location.hash("top");
-                    $anchorScroll();
+                    
+                    document.body.scrollTop = document.documentElement.scrollTop = 0;
                 });
 
                 $rootScope.$on('$stateChangeStart', function (event, toState) {
