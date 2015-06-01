@@ -44,7 +44,7 @@ define(function () {
             this.issue = solution.issue;
             this.issue.solution = solution;
             delete solution.issue;
-            console.log(this.issue);
+            //console.log(this.issue);
             this.canEditIssue = false;
             if (solution.user_id === this.issue.user_id) {
                 //allow user to edit issue, if user created the issue
@@ -55,7 +55,10 @@ define(function () {
             //so we just populate the issue and tags(categories), and
             //life goes on as usual
             this.issue = _.isEmpty(issue) ? {user_id: this.user.id, detail: ''} : issue;
-            this.mode = (this.issue.status == PUBLISHED) ? 'edit-published' : '';
+            this.mode = (this.issue.status == PUBLISHED) ? 'edit-published-issue' : 'edit-issue';
+            if (!this.issue.id) {
+                this.mode = 'new-issue';
+            }
             if (this.issue.categories) {
                 this.issue.categories.forEach(function (cat) {
                     self.issueCategories.push({text: cat.category});
@@ -93,6 +96,51 @@ define(function () {
      */
     ShareCtrl.prototype.save = function (form, saveAsDraft) {
         var self = this;
+        function issueCallback(resp) {
+            if (resp.status === 'success') {
+                if (saveAsDraft) {
+                    //update draft count if new draft is saved
+                    if (!self.issue.id) self.user.drafts++;
+                    self.issue = resp.data;
+                    self.util.toast('Draft saved.');
+                } else {
+                    //update draft count if user published a draft
+                    if (self.issue.id && self.user.drafts > 0) self.user.drafts--;
+                    //reset objects
+                    self.issue = {user_id: self.user.id, detail: ''};
+                    self.errors = {};
+                    self.issueCategories = [];
+                    self.$state.go('issue-detail', {issueId: self.util.encodeId(resp.data.id)});
+                    //self.util.toast('Posted.');
+
+
+                }
+            } else {
+                self.util.ngToast.danger({
+                    content: 'Unable to complete your action. ' + (resp.errors) ? resp.errors.join('<br>') : ''
+                });
+            }
+        };
+        function solutionCallback(resp) {
+            if (resp.status === 'success') {
+                if (saveAsDraft) {
+                    self.util.toast('Draft saved.');
+                } else {
+                    //update draft count if user published a draft
+                    if ( self.user.drafts > 0) self.user.drafts--;
+                    //reset
+                    self.errors = {};
+                    self.issueCategories = [];
+                    //self.util.toast('Posted.');
+                    self.$state.go('solution-detail', {solutionId: self.util.encodeId(resp.data.id)});
+                }
+            } else {
+                self.util.ngToast.danger({
+                    content: 'Unable to complete your action. ' + (resp.errors) ? resp.errors.join('<br>') : ''
+                });
+
+            }
+        };
         if (self.mode == 'edit-solution') {  //user is editing solution
             this.issue.solution.status = (saveAsDraft) ? DRAFT : PUBLISHED;
             if (saveAsDraft) {
@@ -100,33 +148,16 @@ define(function () {
             } else {
                 this.util.toast('Posting...');
             }
-            function callback(resp) {
-                if (resp.status === 'success') {
-                    if (saveAsDraft) {
-                        self.util.toast('Draft saved.');
-                    } else {
-                        //update draft count if user published a draft
-                        self.user.drafts--;
-                        self.issue = {};
-                        self.errors = {};
-                        self.issueCategories = [];
-                        self.util.toast('Posted.');
-                    }
-
-                }
-            };
             if (self.canEditIssue) {
                 this.issue.categories = _.pluck(this.issueCategories, 'text');
-                self.ideaService.saveIssue(self.issue, callback);
+                self.ideaService.saveIssue(self.issue, issueCallback);
             } else {
-                self.ideaService.saveSolution(self.issue.solution, callback);
+                self.ideaService.saveSolution(self.issue.solution, solutionCallback);
             }
 
         } else if (self.mode == 'edit-published-solution') {
             this.util.toast('Posting...');
-            self.ideaService.saveSolution(self.issue.solution, function (resp) {
-                self.util.toast('Posted.');
-            });
+            self.ideaService.saveSolution(self.issue.solution, solutionCallback);
         } else {
             if (_.isEmpty(this.issue.detail)) {
                 this.errors.issueDetail = true;
@@ -158,24 +189,7 @@ define(function () {
 
             }
             //save issue
-            self.ideaService.saveIssue(self.issue, function (resp) {
-                if (resp.status === 'success') {
-                    if (saveAsDraft) {
-                        //update draft count if new draft is saved
-                        if (!self.issue.id) self.user.drafts++;
-                        self.issue = resp.data;
-                        self.util.toast('Draft saved.');
-                    } else {
-                        //update draft count if user published a draft
-                        if (self.issue.id) self.user.drafts--;
-                        self.issue = {};
-                        self.errors = {};
-                        self.issueCategories = [];
-                        self.util.toast('Posted.');
-                    }
-
-                }
-            });
+            self.ideaService.saveIssue(self.issue, issueCallback);
         }
     };
     ShareCtrl.$inject = ['user', 'issue', 'solution', '$state', 'ideaService', '$scope', 'util'];
