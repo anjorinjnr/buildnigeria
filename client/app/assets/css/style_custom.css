@@ -120,10 +120,19 @@ body {
     padding-top: 10px;
 }
 
-#solution-content {
+.solution-content {
     padding:10px 0px 5px 0px;
 }
-
+.solution-content p {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+.solution-content p span {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
 #solution-headline {
     border-bottom: 1px solid #e7eaec;
     padding-bottom: 5px;
@@ -154,4 +163,9 @@ body {
 .issue-content {
     margin-top: 10px;
     font-size: 14px;
+}
+
+.top-navigation .wrapper.wrapper-content  {
+    padding: 0px;
+    padding-top: 70px;
 }

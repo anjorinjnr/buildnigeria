@@ -110,7 +110,10 @@ define(function () {
                     self.issue = {user_id: self.user.id, detail: ''};
                     self.errors = {};
                     self.issueCategories = [];
-                    self.util.toast('Posted.');
+                    self.$state.go('issue-detail', {issueId: self.util.encodeId(resp.data.id)});
+                    //self.util.toast('Posted.');
+
+
                 }
             } else {
                 self.util.ngToast.danger({
@@ -128,7 +131,8 @@ define(function () {
                     //reset
                     self.errors = {};
                     self.issueCategories = [];
-                    self.util.toast('Posted.');
+                    //self.util.toast('Posted.');
+                    self.$state.go('solution-detail', {solutionId: self.util.encodeId(resp.data.id)});
                 }
             } else {
                 self.util.ngToast.danger({

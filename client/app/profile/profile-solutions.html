@@ -17,10 +17,13 @@
             <!--Tope Fasua-->
         <!--</div>-->
         <div class="issue-content">
-            <span class="pull-right" style="margin-right:20px;">{{solution.created_at | formatDate:'':'DD MMM YYYY'}}</span>
-            <strong ng-bind-html="util.trustAsHtml(solution.issue.detail)"></strong>
+            <a href="#/issue/{{solution.issue.id | hashId}}" style="color: #000000; font-size: 15px" >
+                <span class="pull-right" style="margin-right:20px;">{{solution.created_at | formatDate:'':'DD MMM YYYY'}}</span>
+                <strong ng-bind-html="util.trustAsHtml(solution.issue.detail)"></strong>
+            </a>
+
         </div>
-        <div id="solution-content">
+        <div class="solution-content">
          <p ng-bind-html="util.trustAsHtml(solution.detail)"></p>
 
         </div>

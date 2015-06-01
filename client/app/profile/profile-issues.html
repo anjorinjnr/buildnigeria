@@ -18,7 +18,9 @@
                   style="margin-right:20px;">{{issue.created_at | formatDate:'':'DD MMM YYYY'}}</span>
         </div>
         <div class="idea-body">
-            <p style="font-size:15px"><strong ng-bind-html="issue.detail"></strong></p>
+            <a href="#/issue/{{issue.id | hashId}}" style="color: #000000">
+                <p style="font-size:15px"><strong ng-bind-html="issue.detail"></strong></p>
+            </a>
 
             <p><a style="margin-right: 5px" ng-if="issue.solutions.length > 0" href="#/issue/{{issue.id | hashId}}">View
                 {{issue.solutions.length}}
