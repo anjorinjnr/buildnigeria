@@ -20,7 +20,8 @@
     "phpunit/phpunit": "~4.0",
     "phpspec/phpspec": "~2.1",
     "xethron/migrations-generator": "dev-l5",
-    "way/generators": "dev-feature/laravel-five-stable"
+    "way/generators": "dev-feature/laravel-five-stable",
+    "pda/pheanstalk": "2.0.*"
   },
   "autoload": {
     "classmap": [
