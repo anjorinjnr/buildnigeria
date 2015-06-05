@@ -12,7 +12,8 @@
     "laravel/socialite": "~2.0",
     "nesbot/Carbon": "*",
     "torann/hashids": "2.0.*@dev",
-    "guzzlehttp/guzzle": "~5.0"
+    "guzzlehttp/guzzle": "~5.0",
+    "pda/pheanstalk": "2.1.1"
   },
   "require-dev": {
     "laracasts/testdummy": "2.0.12",
@@ -20,8 +21,8 @@
     "phpunit/phpunit": "~4.0",
     "phpspec/phpspec": "~2.1",
     "xethron/migrations-generator": "dev-l5",
-    "way/generators": "dev-feature/laravel-five-stable",
-    "pda/pheanstalk": "2.1.1"
+    "way/generators": "dev-feature/laravel-five-stable"
+
   },
   "autoload": {
     "classmap": [
