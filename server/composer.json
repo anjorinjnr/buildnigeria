@@ -21,7 +21,7 @@
     "phpspec/phpspec": "~2.1",
     "xethron/migrations-generator": "dev-l5",
     "way/generators": "dev-feature/laravel-five-stable",
-    "pda/pheanstalk": "2.0.*"
+    "pda/pheanstalk": "2.1.1"
   },
   "autoload": {
     "classmap": [
